@@ -141,6 +141,9 @@ public class Game implements Runnable {
     private void tick() {
         keyManager.tick();
         
+        if (keyManager.p)
+            pause = !pause;
+        
         if (keyManager.g) {
             try {
                 grabarArchivo();
@@ -151,7 +154,6 @@ public class Game implements Runnable {
         }
         
         if (keyManager.c) {
-            this.init();
             try {
                 leeArchivo();
             } catch (IOException ex) {
