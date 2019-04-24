@@ -79,14 +79,14 @@ public class Player extends Item{
     @Override
     public void tick() {
         // moving player depending on flags
-        if (game.getKeyManager().left && getX()>=0) {
+        if (game.getKeyManager().left && getX()>=50) {
            setX(getX() - speed);
-        } else if (game.getKeyManager().right && getX()+getWidth()<=game.getWidth()) {
+        } else if (game.getKeyManager().right && getX()+getWidth()<=game.getWidth()-50) {
            setX(getX() + speed);
         }
-        if (game.getKeyManager().up && getY()>=0) {
+        if (game.getKeyManager().up && getY()>=50) {
            setY(getY() - speed);
-        } else if (game.getKeyManager().down && getY()+getHeight()<=game.getHeight()) {
+        } else if (game.getKeyManager().down && getY()+getHeight()<=game.getHeight()-50) {
            setY(getY() + speed);
         }
         
