@@ -330,12 +330,15 @@ public class Game implements Runnable {
             }
             barra.render(g);
             
+            if (pause)
+                g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
+            
             g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
             g.setColor(Color.white);
             
             // Fixes stutter on Linux.
 	        Toolkit.getDefaultToolkit().sync();
-            
+                
             bs.show();
             g.dispose();
         }
