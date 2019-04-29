@@ -81,7 +81,7 @@ public class Game implements Runnable {
         Assets.init();
         Constants.init();
         
-        player = new Player(this, 10, height/2);
+        player = new Player(this, width/2 -(Constants.PLAYER_WIDTH/2), height/2-(Constants.PLAYER_HEIGHT/2));
         elicRandom = Constants.RANDOM_INDEX;
         elicitadores = new LinkedList<>();
         antibioticos = new LinkedList<>();
