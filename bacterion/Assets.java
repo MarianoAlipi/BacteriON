@@ -21,7 +21,9 @@ public class Assets {
     public static BufferedImage background;
     public static BufferedImage elicitador;
     public static BufferedImage antibiotico;
-    public static BufferedImage receptor;
+    //public static BufferedImage receptor;
+    public static BufferedImage spritesReceptor;
+    public static BufferedImage receptor[];
     public static BufferedImage receptorMuerto;
     public static BufferedImage barraRelajado;
     public static BufferedImage barraEstresado;
@@ -36,8 +38,17 @@ public class Assets {
         
         elicitador = ImageLoader.loadImage("/images/elicitador_placeholder.png");
         antibiotico = ImageLoader.loadImage("/images/antibiotico_placeholder.png");
-        receptor = ImageLoader.loadImage("/images/receptor_placeholder.png");
         receptorMuerto = ImageLoader.loadImage("/images/receptor_muerto_placeholder.png");
+        spritesReceptor = ImageLoader.loadImage("/images/biosensores.png");
+        SpriteSheet spritesheetReceptores = new SpriteSheet(spritesReceptor);
+        receptor = new BufferedImage[12];
+   
+        for (int i = 0; i < 6; i++) {
+            receptor[i] = spritesheetReceptores.crop(i*32, 0, 32, 31); 
+        }
+        for (int i = 0; i < 6; i++) {
+            receptor[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
+        }
         
         barraRelajado = ImageLoader.loadImage("/images/barra_no_estresado_placeholder.png");
         barraEstresado = ImageLoader.loadImage("/images/barra_estresado_placeholder.png");

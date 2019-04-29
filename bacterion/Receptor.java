@@ -15,10 +15,12 @@ public class Receptor extends Item{
     
     private boolean exploded;
     private AntiType tipo;
+    private Animation animationReceptor;
     
     public Receptor(Game game, int x, int y, int width, int height, int speed, AntiType tipo){
         super(game, x, y, width, height, speed);
         this.tipo = tipo;
+        this.animationReceptor = new Animation(Assets.receptor, height);
     }
     
     public AntiType getTipo(){
@@ -40,6 +42,7 @@ public class Receptor extends Item{
      */
     @Override
     public void tick() {
+        this.animationReceptor.tick();
     }
 
     /**
@@ -49,7 +52,7 @@ public class Receptor extends Item{
     @Override
     public void render(Graphics g) {
         if(!exploded){
-            g.drawImage(Assets.receptor, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(animationReceptor.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
         } else {
             g.drawImage(Assets.receptorMuerto, getX(), getY(), getWidth(), getHeight(), null);
         }
