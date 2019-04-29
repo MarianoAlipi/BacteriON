@@ -23,7 +23,10 @@ public class Assets {
     public static BufferedImage antibiotico;
     //public static BufferedImage receptor;
     public static BufferedImage spritesReceptor;
-    public static BufferedImage receptor[];
+    public static BufferedImage receptorAzul[];
+    public static BufferedImage receptorRojo[];
+    public static BufferedImage receptorAmarillo[];
+    public static BufferedImage receptorNaranja[];
     public static BufferedImage receptorMuerto;
     public static BufferedImage barraRelajado;
     public static BufferedImage barraEstresado;
@@ -39,16 +42,41 @@ public class Assets {
         elicitador = ImageLoader.loadImage("/images/elicitador_placeholder.png");
         antibiotico = ImageLoader.loadImage("/images/antibiotico_placeholder.png");
         receptorMuerto = ImageLoader.loadImage("/images/receptor_muerto_placeholder.png");
-        spritesReceptor = ImageLoader.loadImage("/images/biosensores.png");
+        
+        spritesReceptor = ImageLoader.loadImage("/images/biosensores_azules.png");
         SpriteSheet spritesheetReceptores = new SpriteSheet(spritesReceptor);
-        receptor = new BufferedImage[12];
-   
+        receptorAzul = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
-            receptor[i] = spritesheetReceptores.crop(i*32, 0, 32, 31); 
+            receptorAzul[i] = spritesheetReceptores.crop(i*32, 0, 32, 31);
+            receptorAzul[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
+        
+        spritesReceptor = ImageLoader.loadImage("/images/biosensores_rojos.png");
+        spritesheetReceptores = new SpriteSheet(spritesReceptor);
+        receptorRojo = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
-            receptor[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
+            receptorRojo[i] = spritesheetReceptores.crop(i*32, 0, 32, 31); 
+            receptorRojo[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
+        
+        spritesReceptor = ImageLoader.loadImage("/images/biosensores_naranjas.png");
+        spritesheetReceptores = new SpriteSheet(spritesReceptor);
+        receptorNaranja = new BufferedImage[12];
+        for (int i = 0; i < 6; i++) {
+            receptorNaranja[i] = spritesheetReceptores.crop(i*32, 0, 32, 31); 
+            receptorNaranja[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
+        }
+        
+        spritesReceptor = ImageLoader.loadImage("/images/biosensores_amarillos.png");
+        spritesheetReceptores = new SpriteSheet(spritesReceptor);
+        receptorAmarillo = new BufferedImage[12];
+        for (int i = 0; i < 6; i++) {
+            receptorAmarillo[i] = spritesheetReceptores.crop(i*32, 0, 32, 31); 
+            receptorAmarillo[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
+        }
+        
+        
+        
         
         barraRelajado = ImageLoader.loadImage("/images/barra_no_estresado_placeholder.png");
         barraEstresado = ImageLoader.loadImage("/images/barra_estresado_placeholder.png");

@@ -5,6 +5,7 @@
  */
 package bacterion;
 
+import static bacterion.Assets.receptorAzul;
 import java.awt.Graphics;
 
 /**
@@ -17,10 +18,19 @@ public class Receptor extends Item{
     private AntiType tipo;
     private Animation animationReceptor;
     
-    public Receptor(Game game, int x, int y, int width, int height, int speed, AntiType tipo){
+    public Receptor(Game game, int x, int y, int width, int height, int speed, AntiType tipo, int color){
         super(game, x, y, width, height, speed);
         this.tipo = tipo;
-        this.animationReceptor = new Animation(Assets.receptor, height);
+        if (color == 1) {
+            this.animationReceptor = new Animation(Assets.receptorAzul, height);
+        } else if (color == 2) {
+             this.animationReceptor = new Animation(Assets.receptorRojo, height);
+        } else if (color == 3) {
+            this.animationReceptor = new Animation(Assets.receptorAmarillo, height);
+        } else {
+            this.animationReceptor = new Animation(Assets.receptorNaranja, height);
+        }
+        
     }
     
     public AntiType getTipo(){
