@@ -23,6 +23,7 @@ public class EstresBarra extends Item{
 
     @Override
     public void render(Graphics g) {
+        g.drawImage(Assets.barraBackground, getX(), getY(), Constants.BARRA_WIDTH, Constants.BARRA_HEIGHT, null);
         if(width>=game.getWidth()*0.009*Constants.ESTRES_BAJO && width<=game.getWidth()*0.01*Constants.ESTRES_ALTO){
             g.drawImage(Assets.barraEstresado, getX(), getY(), getWidth(), getHeight(), null);
         }else {

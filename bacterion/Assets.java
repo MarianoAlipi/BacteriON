@@ -33,6 +33,7 @@ public class Assets {
     public static BufferedImage receptorNaranja[];
     public static BufferedImage receptorRosa[];
     public static BufferedImage receptorMuerto;
+    public static BufferedImage barraBackground;
     public static BufferedImage barraRelajado;
     public static BufferedImage barraEstresado;
     public static BufferedImage pauseScreen;
@@ -94,8 +95,7 @@ public class Assets {
             receptorRosa[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
         
-        
-        
+        barraBackground = ImageLoader.loadImage("/images/estres_barra_background.png");
         barraRelajado = ImageLoader.loadImage("/images/barra_no_estresado_placeholder.png");
         barraEstresado = ImageLoader.loadImage("/images/barra_estresado_placeholder.png");
         
