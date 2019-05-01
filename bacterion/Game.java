@@ -5,11 +5,13 @@
  */
 package bacterion;
 
+import com.sun.glass.events.MouseEvent;
 import pure_engine.KeyManager;
 import pure_engine.MouseManager;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
@@ -27,7 +29,7 @@ import java.util.logging.Logger;
  *
  * @author Diego
  */
-public class Game implements Runnable {
+public class Game implements Runnable  {
 
     private BufferStrategy bs;          // to have several buffers when displaying
     private Graphics g;                 // to paint objects
@@ -50,6 +52,7 @@ public class Game implements Runnable {
     
     private boolean pause;
     private boolean finished;
+    private boolean startScreen;
     
     // to set a delay for the pause button.
     // PAUSE_INTERVAL is the limit (number of frames), pauseIntervalCounter is the counter.
@@ -77,6 +80,7 @@ public class Game implements Runnable {
      * initializing the display window of the game
      */
     private void init() {
+        startScreen = true;
         display = new Display(title, getWidth(), getHeight());
         display.getJframe().addKeyListener(keyManager);
         display.getJframe().addMouseListener(mouseManager);
@@ -311,10 +315,48 @@ public class Game implements Runnable {
         fileIn.close();
     }
 
+    private void render() {
+        if (startScreen) {
+            renderStartscreen();
+        } else {
+            renderStarted();
+        }
+            
+    }
+    
+    private void renderStartscreen() {
+        bs = display.getCanvas().getBufferStrategy();
+        if (bs == null) {
+            display.getCanvas().createBufferStrategy(3);
+        } else {
+            g = bs.getDrawGraphics();
+            
+            g.drawImage(Assets.backgroundStartScreen, 0, 0, width, height, null);
+            g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
+            g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/5, 196, 49, null);
+            Rectangle rectJugar = new Rectangle (width/2-100, height*3/5, 196, 49);
+            g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
+            Rectangle eligeBact = new Rectangle (width/2-250, height*4/5, 505, 47);
+            
+            if (mouseManager.isIzquierdo() &&  rectJugar.intersects(mouseManager.getPerimeter())) {
+                System.out.println("entra ");
+                startScreen = false;
+            } 
+            
+            // Fixes stutter on Linux.
+	        Toolkit.getDefaultToolkit().sync();
+                
+            bs.show();
+            g.dispose();
+        }
+
+            
+    }
+    
     /**
      * render de game, display images
      */
-    private void render() {
+    private void renderStarted() {
         // get the buffer strategy from the display
         bs = display.getCanvas().getBufferStrategy();
         /* if it is null, we define one with 3 buffers to display images of
