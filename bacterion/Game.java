@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package bacterion;
-import com.sun.jndi.toolkit.url.Uri;
-import com.sun.glass.events.MouseEvent;
 import pure_engine.KeyManager;
 import pure_engine.MouseManager;
 import java.awt.Color;
@@ -195,7 +193,6 @@ public class Game implements Runnable  {
         
         if(mouseManager.isIzquierdo()){
             if(player.hasAntibiotico()){
-                System.out.println("2 "+player.getX());
                 Antibiotico anti = player.getAntibiotico();
                 anti.disparar(player.getMidX(), player.getMidY(), 
                         mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
@@ -219,7 +216,7 @@ public class Game implements Runnable  {
         
         elicRandom += Constants.RANDOM_INCREASE;
         double rand = Math.random();
-        int randDir; //1arriba, 2 abajo, 3izq, 4 der
+        int randDir; //1 arriba, 2 abajo, 3izq, 4 der
         if(rand<elicRandom){
             randDir = (int)(Math.random() * 4 + 1);
             //(game, x, y, width, height, speed);

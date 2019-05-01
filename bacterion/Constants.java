@@ -18,7 +18,10 @@ public class Constants {
     public static int PLAYER_HEIGHT;
     public static int PLAYER_WIDTH;
     public static int PLAYER_SPEED;
+    public static int MOV_OFFSET;
     public static boolean[] BACT0_CARGAS;
+    public static int ESTES_INICIAL;
+    public static int ESTRES_INCREASE;
     public static int ESTRES_STUN;
     public static int ESTRES_BAJO;
     public static int ESTRES_ALTO;
@@ -46,10 +49,13 @@ public class Constants {
         PLAYER_WIDTH = 100;
         PLAYER_HEIGHT = 100;
         PLAYER_SPEED = 7;
+        MOV_OFFSET = 50;
         boolean[] cargas0 = {true,false,false,false};
         BACT0_CARGAS = cargas0;
+        ESTES_INICIAL = 20;
+        ESTRES_INCREASE = 5;
         ESTRES_STUN = 30;
-        ESTRES_BAJO = 40;
+        ESTRES_BAJO = 35;
         ESTRES_ALTO = 65;
         ESTRES_MORTAL = 100;
         ELICIT_WIDTH = 10;
@@ -73,7 +79,7 @@ public class Constants {
     public static LinkedList<Receptor> initReceptores(Game g){
         LinkedList<Receptor> receptores = new LinkedList<>();
       
-      //arriba izq
+        //arriba izq
         receptores.add(new Receptor(g,015,015,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
         receptores.add(new Receptor(g,015,030,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
         receptores.add(new Receptor(g,015,045,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));

@@ -36,8 +36,8 @@ public class Player extends Item{
         super(game, x, y, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, Constants.PLAYER_SPEED);
         cargas = new int[4];
         alive = true;
-        estres = 10;
-        estresStun = 20;
+        estres = Constants.ESTES_INICIAL;
+        estresStun = Constants.ESTRES_STUN;
         antibioticos = new LinkedList<>();
         cargas = new int[4];
         cargLimits = new int[4];
@@ -59,7 +59,7 @@ public class Player extends Item{
         this.estres = estres;
     }
     public void estresar(){
-        estres+= 5;
+        estres+= Constants.ESTRES_INCREASE;
     }
     
     public Antibiotico getAntibiotico(){
@@ -79,14 +79,14 @@ public class Player extends Item{
     @Override
     public void tick() {
         // moving player depending on flags
-        if (game.getKeyManager().left && getX()>=50) {
+        if (game.getKeyManager().left && getX()>=Constants.MOV_OFFSET) {
            setX(getX() - speed);
-        } else if (game.getKeyManager().right && getX()+getWidth()<=game.getWidth()-50) {
+        } else if (game.getKeyManager().right && getX()+getWidth()<=game.getWidth()-Constants.MOV_OFFSET) {
            setX(getX() + speed);
         }
-        if (game.getKeyManager().up && getY()>=50) {
+        if (game.getKeyManager().up && getY()>=Constants.MOV_OFFSET) {
            setY(getY() - speed);
-        } else if (game.getKeyManager().down && getY()+getHeight()<=game.getHeight()-50) {
+        } else if (game.getKeyManager().down && getY()+getHeight()<=game.getHeight()-Constants.MOV_OFFSET) {
            setY(getY() + speed);
         }
         
