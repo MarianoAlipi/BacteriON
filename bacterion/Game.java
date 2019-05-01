@@ -339,13 +339,7 @@ public class Game implements Runnable  {
             Rectangle eligeBact = new Rectangle (width/2-250, height*4/5, 505, 47);
             
             if (rectJugar.intersects(mouseManager.getPerimeter())) {
-                System.out.println("entra intersecta");
-                if (mouseManager.isIzquierdo()) {
-                    System.out.println("entra isIzq");
-                    startScreen = false;
-                } else {
-                    
-                }
+                startScreen = false;
                 
             } 
             
