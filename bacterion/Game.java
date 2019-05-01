@@ -98,7 +98,7 @@ public class Game implements Runnable  {
         finished = false;
         pauseIntervalCounter = 0;
         
-        barra = new EstresBarra(this,20,height-50,5*player.getEstres(),Constants.BARRA_HEIGHT,0);
+        barra = new EstresBarra(this,20,height-32,5*player.getEstres(),Constants.BARRA_HEIGHT,0);
     }
 
     /**
@@ -141,6 +141,7 @@ public class Game implements Runnable  {
     }
     
     // Finaliza el juego
+    // (Tun tun tu tuuuuuuuuuuun TUUUn TUUUUn TUN)
     public void endGame(){
         this.finished = true;
     }
@@ -239,7 +240,7 @@ public class Game implements Runnable  {
         }
         for(Receptor recep : receptores){
             for(Antibiotico anti : antibioticos){
-                if(anti.getCircShape().intersects(recep.getRectShape())){
+                if(anti.getCircShape().intersects(recep.getRectShape()) && !recep.isExploded()){
                     anti.explode();
                     recep.explode();
                 }
