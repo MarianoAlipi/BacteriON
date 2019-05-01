@@ -13,11 +13,15 @@ import java.util.LinkedList;
  */
 public class Constants {
     
+    public static int GAME_WIDTH;
+    public static int GAME_HEIGHT;
     public static int PLAYER_HEIGHT;
     public static int PLAYER_WIDTH;
     public static int PLAYER_SPEED;
     public static int MOV_OFFSET;
     public static boolean[] BACT0_CARGAS;
+    public static int BARRA_WIDTH;
+    public static int BARRA_HEIGHT;
     public static int ESTES_INICIAL;
     public static int ESTRES_INCREASE;
     public static int ESTRES_STUN;
@@ -44,9 +48,13 @@ public class Constants {
      * initializing the images of the game
      */
     public static void init() {
+        GAME_WIDTH = 640;
+        GAME_WIDTH = 640;
         PLAYER_WIDTH = 100;
         PLAYER_HEIGHT = 100;
         PLAYER_SPEED = 7;
+        BARRA_WIDTH = 576;
+        BARRA_HEIGHT = 16;
         MOV_OFFSET = 50;
         boolean[] cargas0 = {true,false,false,false};
         BACT0_CARGAS = cargas0;
