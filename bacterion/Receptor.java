@@ -31,7 +31,7 @@ public class Receptor extends Item{
             case B_SUBTILIS: this.animationReceptor = new Animation(Assets.receptorRojo, height); break;
             case P_AERUGINOSA: this.animationReceptor = new Animation(Assets.receptorAmarillo, height); break;
             case S_PNEUMONIAE: this.animationReceptor = new Animation(Assets.receptorNaranja, height); break;
-            case S_DYSENTERIAE: this.animationReceptor = new Animation(Assets.receptorNaranja, height); break;
+            case S_DYSENTERIAE: this.animationReceptor = new Animation(Assets.receptorRosa, height); break;
             default: this.animationReceptor = new Animation(Assets.receptorNaranja, height); break;
         }
         try {
