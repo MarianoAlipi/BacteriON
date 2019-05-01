@@ -27,21 +27,21 @@ public class Receptor extends Item{
         super(game, x, y, width, height, speed);
         this.tipo = tipo;
         switch(tipo){
-            case E_COLI: this.animationReceptor = new Animation(Assets.receptorAzul, height);
-            case B_SUBTILIS: this.animationReceptor = new Animation(Assets.receptorRojo, height);
-            case P_AERUGINOSA: this.animationReceptor = new Animation(Assets.receptorAmarillo, height);
-            case S_PNEUMONIAE: this.animationReceptor = new Animation(Assets.receptorNaranja, height);
-            case S_DYSENTERIAE: this.animationReceptor = new Animation(Assets.receptorNaranja, height);
-            default: this.animationReceptor = new Animation(Assets.receptorNaranja, height);
+            case E_COLI: this.animationReceptor = new Animation(Assets.receptorAzul, height); break;
+            case B_SUBTILIS: this.animationReceptor = new Animation(Assets.receptorRojo, height); break;
+            case P_AERUGINOSA: this.animationReceptor = new Animation(Assets.receptorAmarillo, height); break;
+            case S_PNEUMONIAE: this.animationReceptor = new Animation(Assets.receptorNaranja, height); break;
+            case S_DYSENTERIAE: this.animationReceptor = new Animation(Assets.receptorNaranja, height); break;
+            default: this.animationReceptor = new Animation(Assets.receptorNaranja, height); break;
         }
         try {
             switch(tipo){
-                case E_COLI: this.URI = new java.net.URI(Constants.E_COLI_URL);
-                case B_SUBTILIS: this.URI = new java.net.URI(Constants.B_SUBTILIS_URL);
-                case P_AERUGINOSA: this.URI = new java.net.URI(Constants.P_AERUGINOSA_URL);
-                case S_PNEUMONIAE: this.URI = new java.net.URI(Constants.S_PNEUMONIAE_URL);
-                case S_DYSENTERIAE: this.URI = new java.net.URI(Constants.S_DYSENTERIAE_URL);
-                default: this.URI = new java.net.URI("http://urlshida.com");
+                case E_COLI: this.URI = new java.net.URI(Constants.E_COLI_URL); break;
+                case B_SUBTILIS: this.URI = new java.net.URI(Constants.B_SUBTILIS_URL); break;
+                case P_AERUGINOSA: this.URI = new java.net.URI(Constants.P_AERUGINOSA_URL); break;
+                case S_PNEUMONIAE: this.URI = new java.net.URI(Constants.S_PNEUMONIAE_URL); break;
+                case S_DYSENTERIAE: this.URI = new java.net.URI(Constants.S_DYSENTERIAE_URL); break;
+                default: this.URI = new java.net.URI("http://urlshida.com"); break;
             }
         } catch (URISyntaxException ex) {
             Logger.getLogger(Receptor.class.getName()).log(Level.SEVERE, null, ex);
