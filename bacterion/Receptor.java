@@ -61,8 +61,6 @@ public class Receptor extends Item{
     }
     
     public void explode(){
-        x = -width;
-        y = -height;
         exploded = true;
     }
     
