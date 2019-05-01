@@ -20,12 +20,12 @@ public class Assets {
     public static BufferedImage bacteriaCargada;
     public static BufferedImage background;
     public static BufferedImage backgroundStartScreen;
+    public static BufferedImage gameOver;
     public static BufferedImage titleStartScreen;
     public static BufferedImage jugarStartScreen;
     public static BufferedImage eligeBactStartScreen;
     public static BufferedImage elicitador;
     public static BufferedImage antibiotico;
-    //public static BufferedImage receptor;
     public static BufferedImage spritesReceptor;
     public static BufferedImage receptorAzul[];
     public static BufferedImage receptorRojo[];
@@ -45,6 +45,7 @@ public class Assets {
         bacteria = ImageLoader.loadImage("/images/bacteria.png");
         bacteriaCargada = ImageLoader.loadImage("/images/bacteria_cargada.png");
         background = ImageLoader.loadImage("/images/background.png");
+        gameOver = ImageLoader.loadImage("/images/game_over.png");
         backgroundStartScreen = ImageLoader.loadImage("/startscreen/background.png");
         titleStartScreen = ImageLoader.loadImage("/startscreen/bacterionTitle.png");
         jugarStartScreen = ImageLoader.loadImage("/startscreen/jugar.png");
