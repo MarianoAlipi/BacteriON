@@ -31,6 +31,7 @@ public class Assets {
     public static BufferedImage receptorRojo[];
     public static BufferedImage receptorAmarillo[];
     public static BufferedImage receptorNaranja[];
+    public static BufferedImage receptorRosa[];
     public static BufferedImage receptorMuerto;
     public static BufferedImage barraRelajado;
     public static BufferedImage barraEstresado;
@@ -85,6 +86,13 @@ public class Assets {
             receptorAmarillo[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
         
+        spritesReceptor = ImageLoader.loadImage("/images/biosensores_rosa.png");
+        spritesheetReceptores = new SpriteSheet(spritesReceptor);
+        receptorRosa = new BufferedImage[12];
+        for (int i = 0; i < 6; i++) {
+            receptorRosa[i] = spritesheetReceptores.crop(i*32, 0, 32, 31); 
+            receptorRosa[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
+        }
         
         
         
