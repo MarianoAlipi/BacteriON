@@ -73,7 +73,7 @@ public class Constants {
         B_SUBTILIS_URL = "https://es.wikipedia.org/wiki/Bacillus_subtilis";
         P_AERUGINOSA_URL = "https://es.wikipedia.org/wiki/Pseudomonas_aeruginosa";
         S_PNEUMONIAE_URL = "https://es.wikipedia.org/wiki/Streptococcus_pneumoniae";
-        S_DYSENTERIAE_URL = "https://es.wikipedia.org/wiki/Shigella_dysenteriaehttps://es.wikipedia.org/wiki/Escherichia_coli";
+        S_DYSENTERIAE_URL = "https://es.wikipedia.org/wiki/Shigella_dysenteriae";
     }
     
     public static LinkedList<Receptor> initReceptores(Game g){
