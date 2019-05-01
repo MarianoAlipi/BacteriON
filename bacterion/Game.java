@@ -206,9 +206,7 @@ public class Game implements Runnable  {
                 if(recep.getCircShape().contains(mouseManager.getPoint())){
                     try {
                         java.awt.Desktop.getDesktop().browse(recep.getURI());
-                    } catch (URISyntaxException ex) {
-                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
+                    } catch (URISyntaxException | IOException ex) {
                         Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -401,6 +399,10 @@ public class Game implements Runnable  {
             
             g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
             g.setColor(Color.white);
+            
+            if(finished && !player.isAlive()){
+                g.drawImage(Assets.gameOver, 0, 0, 640, 640, null);
+            }
             
             // Fixes stutter on Linux.
 	        Toolkit.getDefaultToolkit().sync();
