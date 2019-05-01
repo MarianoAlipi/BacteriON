@@ -6,6 +6,8 @@
 package bacterion;
 
 import java.awt.Graphics;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  *
@@ -23,6 +25,17 @@ public class Receptor extends Item{
     
     public AntiType getTipo(){
         return tipo;
+    }
+    
+    public URI getURI() throws URISyntaxException{
+        switch(tipo){
+            case TYPE0: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
+            case TYPE1: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
+            case TYPE2: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
+            case TYPE3: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
+            case TYPE4: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
+            default: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
+        }
     }
     
     public boolean isExploded(){

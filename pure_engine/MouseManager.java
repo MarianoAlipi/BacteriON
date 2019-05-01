@@ -5,6 +5,7 @@
  */
 package pure_engine;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -31,6 +32,10 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
     public int getY() {
         return y;
     }
+    
+    public Point getPoint() {
+        return new Point(x,y);
+    }
 
     public boolean isIzquierdo() {
         if(izquierdo){
@@ -41,17 +46,21 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
     }
 
     public boolean isDerecho() {
+        if(derecho){
+            derecho = false;
+            return true;
+        }
         return derecho;
-    }
-
-    public void setIzquierdo(boolean izquierdo) {
-        this.izquierdo = izquierdo;
     }
     
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             izquierdo = true;
+            x = e.getX();
+            y = e.getY();            
+        } else if (e.getButton() == MouseEvent.BUTTON3) {
+            derecho = true;
             x = e.getX();
             y = e.getY();            
         }

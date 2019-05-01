@@ -5,6 +5,7 @@
  */
 package bacterion;
 
+import com.sun.jndi.toolkit.url.Uri;
 import pure_engine.KeyManager;
 import pure_engine.MouseManager;
 import java.awt.Color;
@@ -19,6 +20,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -172,13 +175,26 @@ public class Game implements Runnable {
             return;
         
         if(mouseManager.isIzquierdo()){
-            System.out.println("1 "+player.getX());
             if(player.hasAntibiotico()){
                 System.out.println("2 "+player.getX());
                 Antibiotico anti = player.getAntibiotico();
                 anti.disparar(player.getMidX(), player.getMidY(), 
                         mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
                 antibioticos.add(anti);
+            }
+        }
+        
+        if(mouseManager.isDerecho()){
+            for(Receptor recep : receptores){
+                if(recep.getCircShape().contains(mouseManager.getPoint())){
+                    try {
+                        java.awt.Desktop.getDesktop().browse(recep.getURI());
+                    } catch (URISyntaxException ex) {
+                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
         }
         
