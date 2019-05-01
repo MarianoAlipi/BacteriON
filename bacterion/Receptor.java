@@ -5,6 +5,7 @@
  */
 package bacterion;
 
+import static bacterion.Assets.receptorAzul;
 import java.awt.Graphics;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,10 +18,21 @@ public class Receptor extends Item{
     
     private boolean exploded;
     private AntiType tipo;
+    private Animation animationReceptor;
     
-    public Receptor(Game game, int x, int y, int width, int height, int speed, AntiType tipo){
+    public Receptor(Game game, int x, int y, int width, int height, int speed, AntiType tipo, int color){
         super(game, x, y, width, height, speed);
         this.tipo = tipo;
+        if (color == 1) {
+            this.animationReceptor = new Animation(Assets.receptorAzul, height);
+        } else if (color == 2) {
+             this.animationReceptor = new Animation(Assets.receptorRojo, height);
+        } else if (color == 3) {
+            this.animationReceptor = new Animation(Assets.receptorAmarillo, height);
+        } else {
+            this.animationReceptor = new Animation(Assets.receptorNaranja, height);
+        }
+        
     }
     
     public AntiType getTipo(){
@@ -53,6 +65,7 @@ public class Receptor extends Item{
      */
     @Override
     public void tick() {
+        this.animationReceptor.tick();
     }
 
     /**
@@ -62,7 +75,7 @@ public class Receptor extends Item{
     @Override
     public void render(Graphics g) {
         if(!exploded){
-            g.drawImage(Assets.receptor, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(animationReceptor.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
         } else {
             g.drawImage(Assets.receptorMuerto, getX(), getY(), getWidth(), getHeight(), null);
         }

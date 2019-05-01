@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package pure_engine;
-
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -32,17 +32,23 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
     public int getY() {
         return y;
     }
-    
+  
+    public Rectangle getPerimeter() {
+        return new Rectangle(x, y, 10, 10);
+    }
+  
     public Point getPoint() {
         return new Point(x,y);
     }
 
     public boolean isIzquierdo() {
+        
         if(izquierdo){
             izquierdo = false;
             return true;
         }
         return izquierdo;
+        
     }
 
     public boolean isDerecho() {
@@ -67,11 +73,19 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent e) { 
+        /*if (e.getButton() == MouseEvent.BUTTON1) {
+           izquierdo = true;
+        }*/
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        /*if (e.getButton() == MouseEvent.BUTTON1) {
+            izquierdo = false;
+            x = e.getX();
+            y = e.getY();
+        }*/
     }
     
     @Override
@@ -88,6 +102,10 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+    }
+
+    public boolean mouseClicked(int CLICK) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

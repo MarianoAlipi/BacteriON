@@ -72,8 +72,8 @@ public class Constants {
     
     public static LinkedList<Receptor> initReceptores(Game g){
         LinkedList<Receptor> receptores = new LinkedList<>();
-        
-        //arriba izq
+      
+      //arriba izq
         receptores.add(new Receptor(g,015,015,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
         receptores.add(new Receptor(g,015,030,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
         receptores.add(new Receptor(g,015,045,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));

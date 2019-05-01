@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package bacterion;
-
 import com.sun.jndi.toolkit.url.Uri;
+import com.sun.glass.events.MouseEvent;
 import pure_engine.KeyManager;
 import pure_engine.MouseManager;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
@@ -30,7 +31,7 @@ import java.util.logging.Logger;
  *
  * @author Diego
  */
-public class Game implements Runnable {
+public class Game implements Runnable  {
 
     private BufferStrategy bs;          // to have several buffers when displaying
     private Graphics g;                 // to paint objects
@@ -53,6 +54,12 @@ public class Game implements Runnable {
     
     private boolean pause;
     private boolean finished;
+    private boolean startScreen;
+    
+    // to set a delay for the pause button.
+    // PAUSE_INTERVAL is the limit (number of frames), pauseIntervalCounter is the counter.
+    private final byte PAUSE_INTERVAL = 10;
+    private byte pauseIntervalCounter;
     
     /**
      * to create title, width and height and set the game is still not running
@@ -75,6 +82,7 @@ public class Game implements Runnable {
      * initializing the display window of the game
      */
     private void init() {
+        startScreen = true;
         display = new Display(title, getWidth(), getHeight());
         display.getJframe().addKeyListener(keyManager);
         display.getJframe().addMouseListener(mouseManager);
@@ -84,12 +92,13 @@ public class Game implements Runnable {
         Assets.init();
         Constants.init();
         
-        player = new Player(this, 10, height/2);
+        player = new Player(this, width/2 -(Constants.PLAYER_WIDTH/2), height/2-(Constants.PLAYER_HEIGHT/2));
         elicRandom = Constants.RANDOM_INDEX;
         elicitadores = new LinkedList<>();
         antibioticos = new LinkedList<>();
         receptores = Constants.initReceptores(this);
         finished = false;
+        pauseIntervalCounter = 0;
         
         barra = new EstresBarra(this,20,height-50,5*player.getEstres(),10,0);
     }
@@ -144,6 +153,16 @@ public class Game implements Runnable {
     private void tick() {
         keyManager.tick();
         
+        // To pause and unpause.
+        pauseIntervalCounter++;
+        if (keyManager.p) {
+            if (pauseIntervalCounter > PAUSE_INTERVAL) {
+                pause = !pause;
+                pauseIntervalCounter = 0;
+            }
+        }
+        
+        // To save.
         if (keyManager.g) {
             try {
                 grabarArchivo();
@@ -153,8 +172,8 @@ public class Game implements Runnable {
             
         }
         
+        // To load.
         if (keyManager.c) {
-            this.init();
             try {
                 leeArchivo();
             } catch (IOException ex) {
@@ -200,8 +219,19 @@ public class Game implements Runnable {
         
         elicRandom += Constants.RANDOM_INCREASE;
         double rand = Math.random();
+        int randDir; //1arriba, 2 abajo, 3izq, 4 der
         if(rand<elicRandom){
-            elicitadores.add(new Elicitador(this,(int)(Math.random()*width),-15,10,10,3));
+            randDir = (int)(Math.random() * 4 + 1);
+            //(game, x, y, width, height, speed);
+            if (randDir == 1) { //arriba
+                elicitadores.add(new Elicitador(this,(int)(Math.random()*width),-15,10,10,3,1));
+            } else if (randDir == 2){ //abajo
+                elicitadores.add(new Elicitador(this,(int)(Math.random()*width),getHeight()+5,10,10,3,2));
+            } else if (randDir == 3) { //izquierda
+                elicitadores.add(new Elicitador(this,0,(int)(Math.random()*height),10,10,3,3));
+            } else { //derecha
+                elicitadores.add(new Elicitador(this,getWidth()+5,(int)(Math.random()*height),10,10,3,4));
+            }
         }
         
         for(Elicitador elic : elicitadores){
@@ -300,10 +330,48 @@ public class Game implements Runnable {
         fileIn.close();
     }
 
+    private void render() {
+        if (startScreen) {
+            renderStartscreen();
+        } else {
+            renderStarted();
+        }
+            
+    }
+    
+    private void renderStartscreen() {
+        bs = display.getCanvas().getBufferStrategy();
+        if (bs == null) {
+            display.getCanvas().createBufferStrategy(3);
+        } else {
+            g = bs.getDrawGraphics();
+            
+            g.drawImage(Assets.backgroundStartScreen, 0, 0, width, height, null);
+            g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
+            g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/5, 196, 49, null);
+            Rectangle rectJugar = new Rectangle (width/2-100, height*3/5, 196, 49);
+            //g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
+            Rectangle eligeBact = new Rectangle (width/2-250, height*4/5, 505, 47);
+            
+            if (rectJugar.intersects(mouseManager.getPerimeter())) {
+                startScreen = false;
+                
+            } 
+            
+            // Fixes stutter on Linux.
+	        Toolkit.getDefaultToolkit().sync();
+                
+            bs.show();
+            g.dispose();
+        }
+
+            
+    }
+    
     /**
      * render de game, display images
      */
-    private void render() {
+    private void renderStarted() {
         // get the buffer strategy from the display
         bs = display.getCanvas().getBufferStrategy();
         /* if it is null, we define one with 3 buffers to display images of
@@ -330,12 +398,15 @@ public class Game implements Runnable {
             }
             barra.render(g);
             
+            if (pause)
+                g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
+            
             g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
             g.setColor(Color.white);
             
             // Fixes stutter on Linux.
 	        Toolkit.getDefaultToolkit().sync();
-            
+                
             bs.show();
             g.dispose();
         }
