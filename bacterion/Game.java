@@ -51,6 +51,11 @@ public class Game implements Runnable {
     private boolean pause;
     private boolean finished;
     
+    // to set a delay for the pause button.
+    // PAUSE_INTERVAL is the limit (number of frames), pauseIntervalCounter is the counter.
+    private final byte PAUSE_INTERVAL = 10;
+    private byte pauseIntervalCounter;
+    
     /**
      * to create title, width and height and set the game is still not running
      *
@@ -87,6 +92,7 @@ public class Game implements Runnable {
         antibioticos = new LinkedList<>();
         receptores = Constants.initReceptores(this);
         finished = false;
+        pauseIntervalCounter = 0;
         
         barra = new EstresBarra(this,20,height-50,5*player.getEstres(),10,0);
     }
@@ -141,6 +147,16 @@ public class Game implements Runnable {
     private void tick() {
         keyManager.tick();
         
+        // To pause and unpause.
+        pauseIntervalCounter++;
+        if (keyManager.p) {
+            if (pauseIntervalCounter > PAUSE_INTERVAL) {
+                pause = !pause;
+                pauseIntervalCounter = 0;
+            }
+        }
+        
+        // To save.
         if (keyManager.g) {
             try {
                 grabarArchivo();
@@ -150,8 +166,8 @@ public class Game implements Runnable {
             
         }
         
+        // To load.
         if (keyManager.c) {
-            this.init();
             try {
                 leeArchivo();
             } catch (IOException ex) {
@@ -325,12 +341,15 @@ public class Game implements Runnable {
             }
             barra.render(g);
             
+            if (pause)
+                g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
+            
             g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
             g.setColor(Color.white);
             
             // Fixes stutter on Linux.
 	        Toolkit.getDefaultToolkit().sync();
-            
+                
             bs.show();
             g.dispose();
         }

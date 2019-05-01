@@ -30,6 +30,7 @@ public class Assets {
     public static BufferedImage receptorMuerto;
     public static BufferedImage barraRelajado;
     public static BufferedImage barraEstresado;
+    public static BufferedImage pauseScreen;
 
     /**
      * initializing the images of the game
@@ -80,5 +81,7 @@ public class Assets {
         
         barraRelajado = ImageLoader.loadImage("/images/barra_no_estresado_placeholder.png");
         barraEstresado = ImageLoader.loadImage("/images/barra_estresado_placeholder.png");
+        
+        pauseScreen = ImageLoader.loadImage("/images/pauseScreen.png");
     }
 }
