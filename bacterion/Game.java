@@ -338,9 +338,15 @@ public class Game implements Runnable  {
             //g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
             Rectangle eligeBact = new Rectangle (width/2-250, height*4/5, 505, 47);
             
-            if (mouseManager.isIzquierdo() &&  rectJugar.intersects(mouseManager.getPerimeter())) {
-                System.out.println("entra ");
-                startScreen = false;
+            if (rectJugar.intersects(mouseManager.getPerimeter())) {
+                System.out.println("entra intersecta");
+                if (mouseManager.isIzquierdo()) {
+                    System.out.println("entra isIzq");
+                    startScreen = false;
+                } else {
+                    
+                }
+                
             } 
             
             // Fixes stutter on Linux.
