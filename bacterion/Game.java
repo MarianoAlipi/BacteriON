@@ -335,7 +335,7 @@ public class Game implements Runnable  {
             g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
             g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/5, 196, 49, null);
             Rectangle rectJugar = new Rectangle (width/2-100, height*3/5, 196, 49);
-            g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
+            //g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
             Rectangle eligeBact = new Rectangle (width/2-250, height*4/5, 505, 47);
             
             if (mouseManager.isIzquierdo() &&  rectJugar.intersects(mouseManager.getPerimeter())) {
