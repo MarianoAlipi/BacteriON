@@ -32,11 +32,11 @@ public class Constants {
     public static int RECEP_HEIGHT;
     public static int RECEP_WIDTH;
     public static int RECEP_SPEED;
-    public static String TYPE0_URL;
-    public static String TYPE1_URL;
-    public static String TYPE2_URL;
-    public static String TYPE3_URL;
-    public static String TYPE4_URL;
+    public static String E_COLI_URL;
+    public static String B_SUBTILIS_URL;
+    public static String P_AERUGINOSA_URL;
+    public static String S_PNEUMONIAE_URL;
+    public static String S_DYSENTERIAE_URL;
     public static double RANDOM_INDEX;
     public static double RANDOM_INCREASE;
     /**
@@ -63,24 +63,24 @@ public class Constants {
         RECEP_SPEED = 0;
         RANDOM_INDEX = 0.03;
         RANDOM_INCREASE = 0.000005;
-        TYPE0_URL = Constants.TYPE0_URL;
-        TYPE1_URL = Constants.TYPE1_URL;
-        TYPE2_URL = Constants.TYPE2_URL;
-        TYPE3_URL = Constants.TYPE3_URL;
-        TYPE4_URL = Constants.TYPE4_URL;
+        E_COLI_URL = "https://es.wikipedia.org/wiki/Escherichia_coli";
+        B_SUBTILIS_URL = "https://es.wikipedia.org/wiki/Bacillus_subtilis";
+        P_AERUGINOSA_URL = "https://es.wikipedia.org/wiki/Pseudomonas_aeruginosa";
+        S_PNEUMONIAE_URL = "https://es.wikipedia.org/wiki/Streptococcus_pneumoniae";
+        S_DYSENTERIAE_URL = "https://es.wikipedia.org/wiki/Shigella_dysenteriaehttps://es.wikipedia.org/wiki/Escherichia_coli";
     }
     
     public static LinkedList<Receptor> initReceptores(Game g){
         LinkedList<Receptor> receptores = new LinkedList<>();
-        receptores.add(new Receptor(g,015,015,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.TYPE0));
-        receptores.add(new Receptor(g,015,030,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.TYPE0));
-        receptores.add(new Receptor(g,015,045,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.TYPE0));
-        receptores.add(new Receptor(g,030,015,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.TYPE0));
-        receptores.add(new Receptor(g,030,030,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.TYPE0));
-        receptores.add(new Receptor(g,030,045,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.TYPE0));
-        receptores.add(new Receptor(g,045,015,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.TYPE0));
-        receptores.add(new Receptor(g,045,030,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.TYPE0));
-        receptores.add(new Receptor(g,045,045,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.TYPE0));
+        receptores.add(new Receptor(g,015,015,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
+        receptores.add(new Receptor(g,015,030,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
+        receptores.add(new Receptor(g,015,045,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
+        receptores.add(new Receptor(g,030,015,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
+        receptores.add(new Receptor(g,030,030,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
+        receptores.add(new Receptor(g,030,045,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
+        receptores.add(new Receptor(g,045,015,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
+        receptores.add(new Receptor(g,045,030,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
+        receptores.add(new Receptor(g,045,045,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
         return receptores;
     }
 }

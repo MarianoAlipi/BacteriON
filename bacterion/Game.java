@@ -235,16 +235,16 @@ public class Game implements Runnable {
             recep.tick();
             if(!recep.isExploded()){
                 switch(recep.getTipo()){
-                    case TYPE0:
+                    case E_COLI:
                         cargas[0]++;
                         break;
-                    case TYPE1:
+                    case B_SUBTILIS:
                         cargas[1]++;
                         break;
-                    case TYPE2:
+                    case P_AERUGINOSA:
                         cargas[2]++;
                         break;
-                    case TYPE3:
+                    case S_PNEUMONIAE:
                         cargas[3]++;
                         break;
                 }

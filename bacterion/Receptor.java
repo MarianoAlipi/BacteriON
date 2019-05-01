@@ -29,12 +29,12 @@ public class Receptor extends Item{
     
     public URI getURI() throws URISyntaxException{
         switch(tipo){
-            case TYPE0: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
-            case TYPE1: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
-            case TYPE2: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
-            case TYPE3: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
-            case TYPE4: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
-            default: return new java.net.URI("https://es.wikipedia.org/wiki/Escherichia_coli");
+            case E_COLI: return new java.net.URI(Constants.E_COLI_URL);
+            case B_SUBTILIS: return new java.net.URI(Constants.B_SUBTILIS_URL);
+            case P_AERUGINOSA: return new java.net.URI(Constants.P_AERUGINOSA_URL);
+            case S_PNEUMONIAE: return new java.net.URI(Constants.S_PNEUMONIAE_URL);
+            case S_DYSENTERIAE: return new java.net.URI(Constants.S_DYSENTERIAE_URL);
+            default: return new java.net.URI("http://urlshida.com");
         }
     }
     
