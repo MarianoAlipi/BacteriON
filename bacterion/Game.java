@@ -98,7 +98,7 @@ public class Game implements Runnable  {
         finished = false;
         pauseIntervalCounter = 0;
         
-        barra = new EstresBarra(this,20,height-50,5*player.getEstres(),10,0);
+        barra = new EstresBarra(this,20,height-50,5*player.getEstres(),Constants.BARRA_HEIGHT,0);
     }
 
     /**
