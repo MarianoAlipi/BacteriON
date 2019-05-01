@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package bacterion;
-
+import com.sun.jndi.toolkit.url.Uri;
 import com.sun.glass.events.MouseEvent;
 import pure_engine.KeyManager;
 import pure_engine.MouseManager;
@@ -21,6 +21,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -192,13 +194,26 @@ public class Game implements Runnable  {
             return;
         
         if(mouseManager.isIzquierdo()){
-            System.out.println("1 "+player.getX());
             if(player.hasAntibiotico()){
                 System.out.println("2 "+player.getX());
                 Antibiotico anti = player.getAntibiotico();
                 anti.disparar(player.getMidX(), player.getMidY(), 
                         mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
                 antibioticos.add(anti);
+            }
+        }
+        
+        if(mouseManager.isDerecho()){
+            for(Receptor recep : receptores){
+                if(recep.getCircShape().contains(mouseManager.getPoint())){
+                    try {
+                        java.awt.Desktop.getDesktop().browse(recep.getURI());
+                    } catch (URISyntaxException ex) {
+                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
         }
         
@@ -250,16 +265,16 @@ public class Game implements Runnable  {
             recep.tick();
             if(!recep.isExploded()){
                 switch(recep.getTipo()){
-                    case TYPE0:
+                    case E_COLI:
                         cargas[0]++;
                         break;
-                    case TYPE1:
+                    case B_SUBTILIS:
                         cargas[1]++;
                         break;
-                    case TYPE2:
+                    case P_AERUGINOSA:
                         cargas[2]++;
                         break;
-                    case TYPE3:
+                    case S_PNEUMONIAE:
                         cargas[3]++;
                         break;
                 }

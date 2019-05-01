@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package pure_engine;
-
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -32,11 +32,14 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
     public int getY() {
         return y;
     }
-    
+  
     public Rectangle getPerimeter() {
         return new Rectangle(x, y, 10, 10);
     }
-    
+  
+    public Point getPoint() {
+        return new Point(x,y);
+    }
 
     public boolean isIzquierdo() {
         
@@ -49,17 +52,21 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
     }
 
     public boolean isDerecho() {
+        if(derecho){
+            derecho = false;
+            return true;
+        }
         return derecho;
-    }
-
-    public void setIzquierdo(boolean izquierdo) {
-        this.izquierdo = izquierdo;
     }
     
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             izquierdo = true;
+            x = e.getX();
+            y = e.getY();            
+        } else if (e.getButton() == MouseEvent.BUTTON3) {
+            derecho = true;
             x = e.getX();
             y = e.getY();            
         }

@@ -10,5 +10,5 @@ package bacterion;
  * @author Diego
  */
 public enum AntiType {
-    TYPE0,TYPE1,TYPE2,TYPE3,TYPE4
+    E_COLI,B_SUBTILIS,P_AERUGINOSA,S_PNEUMONIAE,S_DYSENTERIAE
 }
