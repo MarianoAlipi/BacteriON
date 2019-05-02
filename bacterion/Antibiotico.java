@@ -58,6 +58,17 @@ public class Antibiotico extends Item{
         return tipo;
     }
     
+    public int getTipoInt(){
+        switch(tipo){
+            case E_COLI: return 0;
+            case B_SUBTILIS: return 1;
+            case P_AERUGINOSA: return 2;
+            case S_PNEUMONIAE: return 3;
+            case S_DYSENTERIAE: return 4;
+            default: return -1;
+        }
+    }
+    
     public void disparar(int x, int y, double xOri, double yOri){
         if(Math.abs(xOri)>Math.abs(yOri)){
             xPend = xOri/Math.abs(xOri);
