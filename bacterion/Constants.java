@@ -60,7 +60,7 @@ public class Constants {
         BACT0_CARGAS = cargas0;
         ESTES_INICIAL = 20;
         ESTRES_INCREASE = 5;
-        ESTRES_STUN = 30;
+        ESTRES_STUN = 20;
         ESTRES_BAJO = 35;
         ESTRES_ALTO = 65;
         ESTRES_MORTAL = 100;
