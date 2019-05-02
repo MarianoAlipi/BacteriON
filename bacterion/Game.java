@@ -220,13 +220,13 @@ public class Game implements Runnable  {
             randDir = (int)(Math.random() * 4 + 1);
             //(game, x, y, width, height, speed);
             if (randDir == 1) { //arriba
-                elicitadores.add(new Elicitador(this,(int)(Math.random()*width),-15,10,10,3,1));
+                elicitadores.add(new Elicitador(this,Constants.MOV_OFFSET+(int)(Math.random()*width*0.9),-15,10,10,3,1));
             } else if (randDir == 2){ //abajo
-                elicitadores.add(new Elicitador(this,(int)(Math.random()*width),getHeight()+5,10,10,3,2));
+                elicitadores.add(new Elicitador(this,Constants.MOV_OFFSET+(int)(Math.random()*width*0.9),getHeight()+5,10,10,3,2));
             } else if (randDir == 3) { //izquierda
-                elicitadores.add(new Elicitador(this,0,(int)(Math.random()*height),10,10,3,3));
+                elicitadores.add(new Elicitador(this,-5,Constants.MOV_OFFSET+(int)(Math.random()*height*0.9),10,10,3,3));
             } else { //derecha
-                elicitadores.add(new Elicitador(this,getWidth()+5,(int)(Math.random()*height),10,10,3,4));
+                elicitadores.add(new Elicitador(this,getWidth()+5,Constants.MOV_OFFSET+(int)(Math.random()*height*0.9),10,10,3,4));
             }
         }
         
