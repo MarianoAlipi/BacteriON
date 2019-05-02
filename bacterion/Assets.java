@@ -17,7 +17,7 @@ import java.awt.image.BufferedImage;
 public class Assets {
     
     public static BufferedImage bacteria;
-    public static BufferedImage bacteriaCargada;
+    public static BufferedImage bacteriaCargada[];
     public static BufferedImage background;
     public static BufferedImage backgroundStartScreen;
     public static BufferedImage gameOver;
@@ -45,7 +45,12 @@ public class Assets {
      */
     public static void init() {
         bacteria = ImageLoader.loadImage("/images/bacteria.png");
-        bacteriaCargada = ImageLoader.loadImage("/images/bacteria_cargada.png");
+        bacteriaCargada = new BufferedImage[5];
+        bacteriaCargada[0] = ImageLoader.loadImage("/images/bacteria_cargada_0.png");
+        bacteriaCargada[1] = ImageLoader.loadImage("/images/bacteria_cargada_1.png");
+        bacteriaCargada[2] = ImageLoader.loadImage("/images/bacteria_cargada_2.png");
+        bacteriaCargada[3] = ImageLoader.loadImage("/images/bacteria_cargada_3.png");
+        bacteriaCargada[4] = ImageLoader.loadImage("/images/bacteria_cargada_4.png");
         background = ImageLoader.loadImage("/images/background.png");
         gameOver = ImageLoader.loadImage("/images/game_over.png");
         gameWin = ImageLoader.loadImage("/images/game_win.png");
@@ -59,7 +64,7 @@ public class Assets {
         antibiotico = ImageLoader.loadImage("/images/antibiotico_placeholder.png");
         receptorMuerto = ImageLoader.loadImage("/images/receptor_muerto_placeholder.png");
         
-        spritesReceptor = ImageLoader.loadImage("/images/biosensores_azules.png");
+        spritesReceptor = ImageLoader.loadImage("/images/biosensor_azul.png");
         SpriteSheet spritesheetReceptores = new SpriteSheet(spritesReceptor);
         receptorAzul = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
@@ -67,7 +72,7 @@ public class Assets {
             receptorAzul[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
         
-        spritesReceptor = ImageLoader.loadImage("/images/biosensores_rojos.png");
+        spritesReceptor = ImageLoader.loadImage("/images/biosensor_rojo.png");
         spritesheetReceptores = new SpriteSheet(spritesReceptor);
         receptorRojo = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
@@ -75,7 +80,7 @@ public class Assets {
             receptorRojo[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
         
-        spritesReceptor = ImageLoader.loadImage("/images/biosensores_naranjas.png");
+        spritesReceptor = ImageLoader.loadImage("/images/biosensor_naranja.png");
         spritesheetReceptores = new SpriteSheet(spritesReceptor);
         receptorNaranja = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
@@ -83,7 +88,7 @@ public class Assets {
             receptorNaranja[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
         
-        spritesReceptor = ImageLoader.loadImage("/images/biosensores_amarillos.png");
+        spritesReceptor = ImageLoader.loadImage("/images/biosensor_amarillo.png");
         spritesheetReceptores = new SpriteSheet(spritesReceptor);
         receptorAmarillo = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
@@ -91,7 +96,7 @@ public class Assets {
             receptorAmarillo[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
         
-        spritesReceptor = ImageLoader.loadImage("/images/biosensores_rosa.png");
+        spritesReceptor = ImageLoader.loadImage("/images/biosensor_rosa.png");
         spritesheetReceptores = new SpriteSheet(spritesReceptor);
         receptorRosa = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {

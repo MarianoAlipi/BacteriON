@@ -156,7 +156,7 @@ public class Player extends Item{
     @Override
     public void render(Graphics g) {
         if(antibioticos.size()>0){
-            g.drawImage(Assets.bacteriaCargada, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(Assets.bacteriaCargada[antibioticos.peek().getTipoInt()], getX(), getY(), getWidth(), getHeight(), null);
         } else {
             g.drawImage(Assets.bacteria, getX(), getY(), getWidth(), getHeight(), null);
         }
