@@ -21,6 +21,7 @@ public class Assets {
     public static BufferedImage background;
     public static BufferedImage backgroundStartScreen;
     public static BufferedImage gameOver;
+    public static BufferedImage gameWin;
     public static BufferedImage titleStartScreen;
     public static BufferedImage jugarStartScreen;
     public static BufferedImage eligeBactStartScreen;
@@ -46,6 +47,7 @@ public class Assets {
         bacteriaCargada = ImageLoader.loadImage("/images/bacteria_cargada.png");
         background = ImageLoader.loadImage("/images/background.png");
         gameOver = ImageLoader.loadImage("/images/game_over.png");
+        gameWin = ImageLoader.loadImage("/images/game_win.png");
         backgroundStartScreen = ImageLoader.loadImage("/startscreen/background.png");
         titleStartScreen = ImageLoader.loadImage("/startscreen/bacterionTitle.png");
         jugarStartScreen = ImageLoader.loadImage("/startscreen/jugar.png");

@@ -244,9 +244,12 @@ public class Game implements Runnable  {
                 elic.explode();
             }
         }
+        
+        boolean[] aunHay = new boolean[5];
         for(Receptor recep : receptores){
+            if(!recep.isExploded()) aunHay[recep.getTipoInt()] = true;
             for(Antibiotico anti : antibioticos){
-                if(anti.getCircShape().intersects(recep.getRectShape()) && !recep.isExploded()){
+                if(!recep.isExploded() && anti.getCircShape().intersects(recep.getRectShape())){
                     anti.explode();
                     recep.explode();
                 }
@@ -264,30 +267,10 @@ public class Game implements Runnable  {
                 anti.tick();
             }
         }
-        int[] cargas = new int[4];
-        for(Receptor recep : receptores){
-            recep.tick();
-            if(!recep.isExploded()){
-                switch(recep.getTipo()){
-                    case E_COLI:
-                        cargas[0]++;
-                        break;
-                    case B_SUBTILIS:
-                        cargas[1]++;
-                        break;
-                    case P_AERUGINOSA:
-                        cargas[2]++;
-                        break;
-                    case S_PNEUMONIAE:
-                        cargas[3]++;
-                        break;
-                }
-            }
-        }
         
         boolean theEnd = true;
-        for(int i=0; i<cargas.length; i++){
-            if(player.cargaEsto(i)&&cargas[i]>0){
+        for(int i=0; i<aunHay.length; i++){
+            if(player.cargaEsto(i) && aunHay[i]){
                 theEnd = false;
             }
         }
@@ -422,8 +405,12 @@ public class Game implements Runnable  {
             g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
             g.setColor(Color.white);
             
-            if(finished && !player.isAlive()){
-                g.drawImage(Assets.gameOver, 0, 0, 640, 640, null);
+            if(finished){
+                if(player.isAlive()){
+                    g.drawImage(Assets.gameWin, 0, 0, 640, 640, null);
+                } else {
+                    g.drawImage(Assets.gameOver, 0, 0, 640, 640, null);
+                }
             }
             
             // Fixes stutter on Linux.
