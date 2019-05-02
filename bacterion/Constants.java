@@ -19,7 +19,7 @@ public class Constants {
     public static int PLAYER_WIDTH;
     public static int PLAYER_SPEED;
     public static int MOV_OFFSET;
-    public static boolean[] BACT0_CARGAS;
+    public static boolean[] BACT0_TARGET;
     public static int BARRA_WIDTH;
     public static int BARRA_HEIGHT;
     public static int ESTES_INICIAL;
@@ -56,8 +56,8 @@ public class Constants {
         BARRA_WIDTH = 576;
         BARRA_HEIGHT = 16;
         MOV_OFFSET = 50;
-        boolean[] cargas0 = {true,false,false,false};
-        BACT0_CARGAS = cargas0;
+        boolean[] cargas0 = {true,false,false,false,true};
+        BACT0_TARGET = cargas0;
         ESTES_INICIAL = 20;
         ESTRES_INCREASE = 5;
         ESTRES_STUN = 20;
@@ -87,11 +87,12 @@ public class Constants {
         
         int xOffset, yOffset;
         int separacion = 15;
+        int dimens = 2;
         //arriba izq
         xOffset = 15;
         yOffset = 15;
-        for(int i=0; i<4; i++){
-            for(int j=0; j<4; j++){
+        for(int i=0; i<dimens; i++){
+            for(int j=0; j<dimens; j++){
                 receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
             }
         }
@@ -99,8 +100,8 @@ public class Constants {
         //arriba centro
         xOffset = 290;
         yOffset = 15;
-        for(int i=0; i<4; i++){
-            for(int j=0; j<4; j++){
+        for(int i=0; i<dimens; i++){
+            for(int j=0; j<dimens; j++){
                 receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_DYSENTERIAE));
             }
         }
@@ -108,8 +109,8 @@ public class Constants {
         //arriba derecha
         xOffset = 560;
         yOffset = 15;
-        for(int i=0; i<4; i++){
-            for(int j=0; j<4; j++){
+        for(int i=0; i<dimens; i++){
+            for(int j=0; j<dimens; j++){
                 receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_DYSENTERIAE));
             }
         }
@@ -117,8 +118,8 @@ public class Constants {
         //centro izq
         xOffset = 15;
         yOffset = 290;
-        for(int i=0; i<4; i++){
-            for(int j=0; j<4; j++){
+        for(int i=0; i<dimens; i++){
+            for(int j=0; j<dimens; j++){
                 receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.B_SUBTILIS));
             }
         }
@@ -126,8 +127,8 @@ public class Constants {
         //centro derecha
         xOffset = 560;
         yOffset = 290;
-        for(int i=0; i<4; i++){
-            for(int j=0; j<4; j++){
+        for(int i=0; i<dimens; i++){
+            for(int j=0; j<dimens; j++){
                 receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_PNEUMONIAE));
             }
         }
@@ -135,8 +136,8 @@ public class Constants {
         //abajo izq
         xOffset = 15;
         yOffset = 540;
-        for(int i=0; i<4; i++){
-            for(int j=0; j<4; j++){
+        for(int i=0; i<dimens; i++){
+            for(int j=0; j<dimens; j++){
                 receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
             }
         }
@@ -144,8 +145,8 @@ public class Constants {
         //abajo centro
         xOffset = 290;
         yOffset = 540;
-        for(int i=0; i<4; i++){
-            for(int j=0; j<4; j++){
+        for(int i=0; i<dimens; i++){
+            for(int j=0; j<dimens; j++){
                 receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.P_AERUGINOSA));
             }
         }
@@ -153,8 +154,8 @@ public class Constants {
         //abajo derecha
         xOffset = 560;
         yOffset = 540;
-        for(int i=0; i<4; i++){
-            for(int j=0; j<4; j++){
+        for(int i=0; i<dimens; i++){
+            for(int j=0; j<dimens; j++){
                 receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_DYSENTERIAE));
             }
         }
