@@ -21,7 +21,7 @@ public class Player extends Item{
     private LinkedList<Antibiotico> antibioticos;
     private int[] cargas;
     private int[] cargLimits;
-    private boolean[] bactCargas;
+    private boolean[] bactTarget;
     
     /**
      * Player constructor
@@ -47,7 +47,7 @@ public class Player extends Item{
         cargLimits[4] = 250;
         
         // Este array nos indica los sensores target de nuestra bacteria
-        this.bactCargas = Constants.BACT0_TARGET;
+        this.bactTarget = Constants.BACT0_TARGET;
     }
     
     public boolean isAlive(){
@@ -64,6 +64,10 @@ public class Player extends Item{
         estres+= Constants.ESTRES_INCREASE;
     }
     
+    public int getAntibioticosSize(){
+        return antibioticos.size();
+    }
+    
     public Antibiotico getAntibiotico(){
         return antibioticos.poll();
     }
@@ -72,7 +76,7 @@ public class Player extends Item{
     }
     
     public boolean cargaEsto(int index){
-        return bactCargas[index];
+        return bactTarget[index];
     }
     
     /**
@@ -100,8 +104,8 @@ public class Player extends Item{
         }
         
         if(estres>=Constants.ESTRES_BAJO && estres<=Constants.ESTRES_ALTO){
-            for(int i=0; i<bactCargas.length; i++){
-                if(bactCargas[i]){
+            for(int i=0; i<bactTarget.length; i++){
+                if(bactTarget[i]){
                     cargas[i]++;
                 }
             }
@@ -130,6 +134,9 @@ public class Player extends Item{
                     case 3:
                         antibioticos.push(
                                 new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.S_PNEUMONIAE));
+                    case 4:
+                        antibioticos.push(
+                                new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.S_DYSENTERIAE));
                         break;
                         
                 }

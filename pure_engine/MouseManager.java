@@ -42,10 +42,6 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
     }
 
     public boolean isIzquierdo() {
-        if(izquierdo){
-            //izquierdo = false;
-            return true;
-        }
         return izquierdo;
         
     }
@@ -72,12 +68,18 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
         if (e.getButton() == MouseEvent.BUTTON1) {
            izquierdo = true;
         }
+        if (e.getButton() == MouseEvent.BUTTON3) {
+           derecho = true;
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             izquierdo = false;
+        }
+        if (e.getButton() == MouseEvent.BUTTON3) {
+            derecho = false;
         }
     }
     

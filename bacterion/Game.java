@@ -49,6 +49,7 @@ public class Game implements Runnable  {
     private LinkedList<Antibiotico> antibioticos;   // antibioticos que caerán y nuestros receptores perciben
     private LinkedList<Receptor> receptores;        // receptores que detectarán los antibióticos
     private EstresBarra barra;          // barra donde guardaremos la información respecto al estrés
+    private int shootStun;
     
     private boolean pause;
     private boolean finished;
@@ -105,6 +106,8 @@ public class Game implements Runnable  {
         bg2X = Constants.GAME_WIDTH;
         bgMoveDelay = 1;
         bgMoveDelayCounter = 0;
+        
+        shootStun = Constants.SHOOT_STUN;
         
         barra = new EstresBarra(this,20,height-32,5*player.getEstres(),Constants.BARRA_HEIGHT,0);
     }
@@ -200,8 +203,10 @@ public class Game implements Runnable  {
         if(pause)
             return;
         
+        shootStun--;
         if(mouseManager.isIzquierdo()){
-            if(player.hasAntibiotico()){
+            if(player.hasAntibiotico() && shootStun<=0){
+                shootStun = Constants.SHOOT_STUN;
                 Antibiotico anti = player.getAntibiotico();
                 anti.disparar(player.getMidX(), player.getMidY(), 
                         mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
@@ -228,13 +233,13 @@ public class Game implements Runnable  {
             randDir = (int)(Math.random() * 4 + 1);
             //(game, x, y, width, height, speed);
             if (randDir == 1) { //arriba
-                elicitadores.add(new Elicitador(this,Constants.MOV_OFFSET+(int)(Math.random()*width*0.9),-15,10,10,3,1));
+                elicitadores.add(new Elicitador(this,Constants.MOV_OFFSET+(int)(Math.random()*width*0.8),-15,10,10,3,1));
             } else if (randDir == 2){ //abajo
-                elicitadores.add(new Elicitador(this,Constants.MOV_OFFSET+(int)(Math.random()*width*0.9),getHeight()+5,10,10,3,2));
+                elicitadores.add(new Elicitador(this,Constants.MOV_OFFSET+(int)(Math.random()*width*0.8),getHeight()+5,10,10,3,2));
             } else if (randDir == 3) { //izquierda
-                elicitadores.add(new Elicitador(this,-5,Constants.MOV_OFFSET+(int)(Math.random()*height*0.9),10,10,3,3));
+                elicitadores.add(new Elicitador(this,-5,Constants.MOV_OFFSET+(int)(Math.random()*height*0.8),10,10,3,3));
             } else { //derecha
-                elicitadores.add(new Elicitador(this,getWidth()+5,Constants.MOV_OFFSET+(int)(Math.random()*height*0.9),10,10,3,4));
+                elicitadores.add(new Elicitador(this,getWidth()+5,Constants.MOV_OFFSET+(int)(Math.random()*height*0.8),10,10,3,4));
             }
         }
         
@@ -333,8 +338,8 @@ public class Game implements Runnable  {
         } else {
             g = bs.getDrawGraphics();
             
-            g.drawImage(Assets.backgroundStartScreen, bg1X, 0, width, height, null);
-            g.drawImage(Assets.backgroundStartScreen, bg2X, 0, width, height, null);
+            g.drawImage(Assets.backgroundStartScreenTuto, bg1X, 0, width, height, null);
+            g.drawImage(Assets.backgroundStartScreenTuto, bg2X, 0, width, height, null);
             
             if (bgMoveDelayCounter++ >= bgMoveDelay) {
                 bg1X--;
@@ -348,20 +353,19 @@ public class Game implements Runnable  {
             if (bg2X <= -1 * width)
                 bg2X = width;
             
-            g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
-            g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/5, 196, 49, null);
-            Rectangle rectJugar = new Rectangle (width/2-100, height*3/5, 196, 49);
+            g.drawImage(Assets.titleStartScreen, width/2-200, height/8, 401, 57, null);
+            g.drawImage(Assets.jugarStartScreen, width/2-100, height/3, 196, 49, null);
+            Rectangle rectJugar = new Rectangle (width/2-100, height/3, 196, 49);
             //g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
-            Rectangle eligeBact = new Rectangle (width/2-250, height*4/5, 505, 47);
             
             if (rectJugar.intersects(mouseManager.getPerimeter())) {
-                g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 5, 640, 49, null);
+                g.drawImage(Assets.cursorStartScreen, 0, height/3, 640, 49, null);
                 if (mouseManager.isIzquierdo())
                     startScreen = false;
             } 
             
             // Fixes stutter on Linux.
-	        Toolkit.getDefaultToolkit().sync();
+	    Toolkit.getDefaultToolkit().sync();
                 
             bs.show();
             g.dispose();
@@ -403,7 +407,10 @@ public class Game implements Runnable  {
             if (pause)
                 g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
             
+            g.setColor(Color.white);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
+            g.drawString("Antibióticos: ", 30, 90);
+            g.drawString(""+player.getAntibioticosSize(), 300, 90);
             g.setColor(Color.white);
             
             if(finished){
