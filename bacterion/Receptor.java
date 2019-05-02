@@ -52,6 +52,17 @@ public class Receptor extends Item{
         return tipo;
     }
     
+    public int getTipoInt(){
+        switch(tipo){
+            case E_COLI: return 0;
+            case B_SUBTILIS: return 1;
+            case P_AERUGINOSA: return 2;
+            case S_PNEUMONIAE: return 3;
+            case S_DYSENTERIAE: return 4;
+            default: return -1;
+        }
+    }
+    
     public URI getURI() throws URISyntaxException{
         return this.URI;
     }
@@ -80,7 +91,7 @@ public class Receptor extends Item{
     public void render(Graphics g) {
         if(!exploded){
             g.drawImage(animationReceptor.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
-        } else {
+        } else if(Constants.BACT0_TARGET[this.getTipoInt()]){
             g.drawImage(Assets.receptorMuerto, getX(), getY(), getWidth(), getHeight(), null);
         }
     }

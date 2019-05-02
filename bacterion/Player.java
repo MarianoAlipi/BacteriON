@@ -34,18 +34,20 @@ public class Player extends Item{
      */
     public Player(Game game, int x, int y) {
         super(game, x, y, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, Constants.PLAYER_SPEED);
-        cargas = new int[4];
         alive = true;
         estres = Constants.ESTES_INICIAL;
         estresStun = Constants.ESTRES_STUN;
         antibioticos = new LinkedList<>();
-        cargas = new int[4];
-        cargLimits = new int[4];
+        cargas = new int[5];
+        cargLimits = new int[5];
         cargLimits[0] = 200;
         cargLimits[1] = 100;
         cargLimits[2] = 150;
         cargLimits[3] = 300;
-        this.bactCargas = Constants.BACT0_CARGAS;
+        cargLimits[4] = 250;
+        
+        // Este array nos indica los sensores target de nuestra bacteria
+        this.bactCargas = Constants.BACT0_TARGET;
     }
     
     public boolean isAlive(){
