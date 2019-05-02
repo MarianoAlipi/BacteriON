@@ -18,6 +18,7 @@ public class Constants {
     public static int PLAYER_HEIGHT;
     public static int PLAYER_WIDTH;
     public static int PLAYER_SPEED;
+    public static int SHOOT_STUN;
     public static int MOV_OFFSET;
     public static boolean[] BACT0_TARGET;
     public static int BARRA_WIDTH;
@@ -53,6 +54,7 @@ public class Constants {
         PLAYER_WIDTH = 100;
         PLAYER_HEIGHT = 100;
         PLAYER_SPEED = 7;
+        SHOOT_STUN = 10;
         BARRA_WIDTH = 576;
         BARRA_HEIGHT = 16;
         MOV_OFFSET = 50;
@@ -70,8 +72,8 @@ public class Constants {
         ANTIB_WIDTH = 10;
         ANTIB_HEIGHT = 10;
         ANTIB_SPEED = 10;
-        RECEP_WIDTH = 10;
-        RECEP_HEIGHT = 10;
+        RECEP_WIDTH = 20;
+        RECEP_HEIGHT = 20;
         RECEP_SPEED = 0;
         RANDOM_INDEX = 0.03;
         RANDOM_INCREASE = 0.000005;

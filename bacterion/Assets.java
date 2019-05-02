@@ -20,6 +20,7 @@ public class Assets {
     public static BufferedImage bacteriaCargada[];
     public static BufferedImage background;
     public static BufferedImage backgroundStartScreen;
+    public static BufferedImage backgroundStartScreenTuto;
     public static BufferedImage gameOver;
     public static BufferedImage gameWin;
     public static BufferedImage titleStartScreen;
@@ -38,6 +39,7 @@ public class Assets {
     public static BufferedImage barraBackground;
     public static BufferedImage barraRelajado;
     public static BufferedImage barraEstresado;
+    public static BufferedImage barraMortal;
     public static BufferedImage pauseScreen;
 
     /**
@@ -55,6 +57,7 @@ public class Assets {
         gameOver = ImageLoader.loadImage("/images/game_over.png");
         gameWin = ImageLoader.loadImage("/images/game_win.png");
         backgroundStartScreen = ImageLoader.loadImage("/startscreen/background.png");
+        backgroundStartScreenTuto = ImageLoader.loadImage("/startscreen/background_tuto.png");
         titleStartScreen = ImageLoader.loadImage("/startscreen/bacterionTitle.png");
         jugarStartScreen = ImageLoader.loadImage("/startscreen/jugar.png");
         eligeBactStartScreen = ImageLoader.loadImage("/startscreen/elegirBacteria.png");
@@ -107,6 +110,7 @@ public class Assets {
         barraBackground = ImageLoader.loadImage("/images/estres_barra_background.png");
         barraRelajado = ImageLoader.loadImage("/images/barra_no_estresado_placeholder.png");
         barraEstresado = ImageLoader.loadImage("/images/barra_estresado_placeholder.png");
+        barraMortal = ImageLoader.loadImage("/images/barra_mortal_placeholder.png");
         
         pauseScreen = ImageLoader.loadImage("/images/pauseScreen.png");
     }
