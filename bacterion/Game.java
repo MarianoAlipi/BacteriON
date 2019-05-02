@@ -59,6 +59,9 @@ public class Game implements Runnable  {
     private final byte PAUSE_INTERVAL = 10;
     private byte pauseIntervalCounter;
     
+    // to animate the background in the main menu
+    int bg1X, bg2X, bgMoveDelay, bgMoveDelayCounter;
+    
     /**
      * to create title, width and height and set the game is still not running
      *
@@ -97,6 +100,11 @@ public class Game implements Runnable  {
         receptores = Constants.initReceptores(this);
         finished = false;
         pauseIntervalCounter = 0;
+        
+        bg1X = 0;
+        bg2X = Constants.GAME_WIDTH;
+        bgMoveDelay = 1;
+        bgMoveDelayCounter = 0;
         
         barra = new EstresBarra(this,20,height-32,5*player.getEstres(),Constants.BARRA_HEIGHT,0);
     }
@@ -325,7 +333,21 @@ public class Game implements Runnable  {
         } else {
             g = bs.getDrawGraphics();
             
-            g.drawImage(Assets.backgroundStartScreen, 0, 0, width, height, null);
+            g.drawImage(Assets.backgroundStartScreen, bg1X, 0, width, height, null);
+            g.drawImage(Assets.backgroundStartScreen, bg2X, 0, width, height, null);
+            
+            if (bgMoveDelayCounter++ >= bgMoveDelay) {
+                bg1X--;
+                bg2X--;
+                bgMoveDelayCounter = 0;
+            }
+            
+            // Make the background images wrap around.
+            if (bg1X <= -1 * width)
+                bg1X = width;
+            if (bg2X <= -1 * width)
+                bg2X = width;
+            
             g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
             g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/5, 196, 49, null);
             Rectangle rectJugar = new Rectangle (width/2-100, height*3/5, 196, 49);
@@ -333,8 +355,9 @@ public class Game implements Runnable  {
             Rectangle eligeBact = new Rectangle (width/2-250, height*4/5, 505, 47);
             
             if (rectJugar.intersects(mouseManager.getPerimeter())) {
-                startScreen = false;
-                
+                g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 5, 640, 49, null);
+                if (mouseManager.isIzquierdo())
+                    startScreen = false;
             } 
             
             // Fixes stutter on Linux.
