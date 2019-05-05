@@ -416,9 +416,9 @@ public class Game implements Runnable  {
                 g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
             
             g.setColor(Color.white);
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
-            g.drawString("Antibióticos: ", 30, 90);
-            g.drawString(""+player.getAntibioticosSize(), 300, 90);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            g.drawString("Antibioticos: ", 80, 30);
+            g.drawString(""+player.getAntibioticosSize(), 200, 30);
             g.setColor(Color.white);
             
             if(finished){
