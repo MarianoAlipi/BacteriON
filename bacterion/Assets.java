@@ -41,6 +41,7 @@ public class Assets {
     public static BufferedImage barraEstresado;
     public static BufferedImage barraMortal;
     public static BufferedImage pauseScreen;
+    public static BufferedImage volver;
     public static SoundClip shoot;
     public static SoundClip die;
     public static SoundClip grab;
@@ -118,6 +119,7 @@ public class Assets {
         barraMortal = ImageLoader.loadImage("/images/barra_mortal_placeholder.png");
         
         pauseScreen = ImageLoader.loadImage("/images/pauseScreen.png");
+        volver = ImageLoader.loadImage("/images/volver.png");
         
         shoot = new SoundClip("/sounds/disparoBacteria.wav");
         die = new SoundClip("/sounds/muerteReceptor.wav");
