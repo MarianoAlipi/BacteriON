@@ -94,6 +94,13 @@ public class Game implements Runnable  {
         Assets.init();
         Constants.init();
         
+        restartVariables();
+    }
+    
+    /**
+     * To restart all important variables before a new game.
+     */
+    void restartVariables() {
         player = new Player(this, width/2 -(Constants.PLAYER_WIDTH/2), height/2-(Constants.PLAYER_HEIGHT/2));
         elicRandom = Constants.RANDOM_INDEX;
         elicitadores = new LinkedList<>();
@@ -370,6 +377,7 @@ public class Game implements Runnable  {
             if (rectJugar.intersects(mouseManager.getPerimeter())) {
                 g.drawImage(Assets.cursorStartScreen, 0, height/3, 640, 49, null);
                 if (mouseManager.isIzquierdo()) {
+                    restartVariables();
                     Assets.start.play();
                     startScreen = false;
                 }
