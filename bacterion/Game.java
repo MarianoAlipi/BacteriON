@@ -275,6 +275,7 @@ public class Game implements Runnable  {
         
         for(Receptor recep : receptores){
             recep.tick();
+            
         }
         
         boolean theEnd = true;
