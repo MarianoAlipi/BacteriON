@@ -141,6 +141,7 @@ public class Player extends Item{
                         
                 }
                 cargas[i] = 0;
+                Assets.added.play();
             }
         }
     }

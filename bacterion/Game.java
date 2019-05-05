@@ -245,6 +245,7 @@ public class Game implements Runnable  {
         
         for(Elicitador elic : elicitadores){
             if(!elic.isExploded() && elic.getCircShape().intersects(player.getRectShape())){
+                Assets.grab.play();
                 player.estresar();
                 elic.explode();
             }
@@ -365,8 +366,10 @@ public class Game implements Runnable  {
             
             if (rectJugar.intersects(mouseManager.getPerimeter())) {
                 g.drawImage(Assets.cursorStartScreen, 0, height/3, 640, 49, null);
-                if (mouseManager.isIzquierdo())
+                if (mouseManager.isIzquierdo()) {
+                    Assets.start.play(); 
                     startScreen = false;
+                }
             } 
             
             // Fixes stutter on Linux.

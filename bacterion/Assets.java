@@ -41,6 +41,11 @@ public class Assets {
     public static BufferedImage barraEstresado;
     public static BufferedImage barraMortal;
     public static BufferedImage pauseScreen;
+    public static SoundClip shoot;
+    public static SoundClip die;
+    public static SoundClip grab;
+    public static SoundClip start;
+    public static SoundClip added;
 
     /**
      * initializing the images of the game
@@ -113,5 +118,11 @@ public class Assets {
         barraMortal = ImageLoader.loadImage("/images/barra_mortal_placeholder.png");
         
         pauseScreen = ImageLoader.loadImage("/images/pauseScreen.png");
+        
+        shoot = new SoundClip("/sounds/disparoBacteria.wav");
+        die = new SoundClip("/sounds/muerteReceptor.wav");
+        grab = new SoundClip("/sounds/agarraReceptor.wav");
+        start = new SoundClip("/sounds/start.wav");
+        added = new SoundClip("/sounds/antibioticoNuevo.wav");
     }
 }
