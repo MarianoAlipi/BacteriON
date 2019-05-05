@@ -37,13 +37,21 @@ public class KeyManager implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         // set true to every key pressed
-        keys[e.getKeyCode()] = true;
+        try {
+            keys[e.getKeyCode()] = true;
+        } catch(ArrayIndexOutOfBoundsException ex) {
+            System.out.println("Key not found: " + e.getKeyCode());
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         // set false to every key released
-        keys[e.getKeyCode()] = false;
+        try {
+            keys[e.getKeyCode()] = false;
+        } catch(ArrayIndexOutOfBoundsException ex) {
+            System.out.println("Key not found: " + e.getKeyCode());
+        }
     }
     
     /**
