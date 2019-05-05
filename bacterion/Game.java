@@ -203,6 +203,9 @@ public class Game implements Runnable  {
         if(pause)
             return;
         
+        if (startScreen)
+            return;
+        
         shootStun--;
         if(mouseManager.isIzquierdo()){
             if(player.hasAntibiotico() && shootStun<=0){
