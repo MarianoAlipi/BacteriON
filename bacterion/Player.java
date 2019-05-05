@@ -87,12 +87,12 @@ public class Player extends Item{
         // moving player depending on flags
         if (game.getKeyManager().left && getX()>=Constants.MOV_OFFSET) {
            setX(getX() - speed);
-        } else if (game.getKeyManager().right && getX()+getWidth()<=game.getWidth()-Constants.MOV_OFFSET) {
+        } else if (game.getKeyManager().right && getX()+getWidth()<=game.getWidth()-Constants.MOV_OFFSET-Constants.MOV_OFFSET/2) {
            setX(getX() + speed);
         }
         if (game.getKeyManager().up && getY()>=Constants.MOV_OFFSET) {
            setY(getY() - speed);
-        } else if (game.getKeyManager().down && getY()+getHeight()<=game.getHeight()-Constants.MOV_OFFSET) {
+        } else if (game.getKeyManager().down && getY()+getHeight()<=game.getHeight()-Constants.MOV_OFFSET-Constants.MOV_OFFSET) {
            setY(getY() + speed);
         }
         
