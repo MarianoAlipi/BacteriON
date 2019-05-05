@@ -273,6 +273,10 @@ public class Game implements Runnable  {
             }
         }
         
+        for(Receptor recep : receptores){
+            recep.tick();
+        }
+        
         boolean theEnd = true;
         for(int i=0; i<aunHay.length; i++){
             if(player.cargaEsto(i) && aunHay[i]){
