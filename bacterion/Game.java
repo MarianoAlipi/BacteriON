@@ -208,7 +208,7 @@ public class Game implements Runnable  {
             if(player.hasAntibiotico() && shootStun<=0){
                 shootStun = Constants.SHOOT_STUN;
                 Antibiotico anti = player.getAntibiotico();
-                anti.disparar(player.getMidX(), player.getMidY(), 
+                anti.disparar(player.getMidX()+5, player.getMidY()+5, 
                         mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
                 antibioticos.add(anti);
             }
@@ -245,6 +245,7 @@ public class Game implements Runnable  {
         
         for(Elicitador elic : elicitadores){
             if(!elic.isExploded() && elic.getCircShape().intersects(player.getRectShape())){
+                Assets.grab.play();
                 player.estresar();
                 elic.explode();
             }
@@ -271,6 +272,11 @@ public class Game implements Runnable  {
             if(!anti.isExploded()){
                 anti.tick();
             }
+        }
+        
+        for(Receptor recep : receptores){
+            recep.tick();
+            
         }
         
         boolean theEnd = true;
@@ -360,8 +366,10 @@ public class Game implements Runnable  {
             
             if (rectJugar.intersects(mouseManager.getPerimeter())) {
                 g.drawImage(Assets.cursorStartScreen, 0, height/3, 640, 49, null);
-                if (mouseManager.isIzquierdo())
+                if (mouseManager.isIzquierdo()) {
+                    Assets.start.play(); 
                     startScreen = false;
+                }
             } 
             
             // Fixes stutter on Linux.
@@ -408,9 +416,9 @@ public class Game implements Runnable  {
                 g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
             
             g.setColor(Color.white);
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
-            g.drawString("Antibióticos: ", 30, 90);
-            g.drawString(""+player.getAntibioticosSize(), 300, 90);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            g.drawString("Antibioticos: ", 80, 30);
+            g.drawString(""+player.getAntibioticosSize(), 200, 30);
             g.setColor(Color.white);
             
             if(finished){

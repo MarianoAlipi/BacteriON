@@ -70,6 +70,7 @@ public class Antibiotico extends Item{
     }
     
     public void disparar(int x, int y, double xOri, double yOri){
+        Assets.shoot.play();
         if(Math.abs(xOri)>Math.abs(yOri)){
             xPend = xOri/Math.abs(xOri);
             yPend = yOri/Math.abs(xOri);
