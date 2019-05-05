@@ -208,7 +208,7 @@ public class Game implements Runnable  {
             if(player.hasAntibiotico() && shootStun<=0){
                 shootStun = Constants.SHOOT_STUN;
                 Antibiotico anti = player.getAntibiotico();
-                anti.disparar(player.getMidX(), player.getMidY(), 
+                anti.disparar(player.getMidX()+5, player.getMidY()+5, 
                         mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
                 antibioticos.add(anti);
             }
