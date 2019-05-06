@@ -156,6 +156,15 @@ public class Game implements Runnable  {
         return player;
     }
     
+    /**
+     * To get the level the player selected
+     *
+     * @return an <code>int</code> value with the level selected
+     */
+    public int getLevel(){
+        return levelSelected;
+    }
+    
     // Finaliza el juego
     // (Tun tun tu tuuuuuuuuuuun TUUUn TUUUUn TUN)
     public void endGame(){
