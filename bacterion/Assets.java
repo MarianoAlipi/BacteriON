@@ -76,6 +76,7 @@ public class Assets {
     public static SoundClip grab;
     public static SoundClip start;
     public static SoundClip added;
+    public static SoundClip choose;
 
     /**
      * initializing the images of the game
@@ -116,6 +117,7 @@ public class Assets {
         grab = new SoundClip("/sounds/agarraReceptor.wav");
         start = new SoundClip("/sounds/start.wav");
         added = new SoundClip("/sounds/antibioticoNuevo.wav");
+        choose = new SoundClip("/sounds/chooseBacteria.wav");
     }
     
     private static void initBacteria0() {
