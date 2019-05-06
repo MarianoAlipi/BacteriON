@@ -427,6 +427,12 @@ public class Game implements Runnable  {
             }
             barra.render(g);
             
+            g.setColor(Color.white);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            g.drawString("Antibioticos: ", 80, 30);
+            g.drawString(""+player.getAntibioticosSize(), 200, 30);
+            g.setColor(Color.white);
+
             if (pause) {
                 g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
                 g.drawImage(Assets.volver, 5, 320, 660, 50, null);
@@ -440,15 +446,6 @@ public class Game implements Runnable  {
                     }
                 }
             }
-            
-            g.setColor(Color.white);
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-            g.drawString("Antibioticos: ", 80, 30);
-            g.drawString(""+player.getAntibioticosSize(), 200, 30);
-            g.setColor(Color.white);
-            
-            if (pause)
-                g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
             
             if(finished){
                 if(player.isAlive()){
