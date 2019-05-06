@@ -58,7 +58,7 @@ public class Game implements Runnable  {
     // to set a delay for the pause button.
     // PAUSE_INTERVAL is the limit (number of frames), pauseIntervalCounter is the counter.
     private final byte PAUSE_INTERVAL = 10;
-    private byte pauseIntervalCounter;
+    private byte pauseStun;
     
     // to animate the background in the main menu
     int bg1X, bg2X, bgMoveDelay, bgMoveDelayCounter;
@@ -85,6 +85,7 @@ public class Game implements Runnable  {
      */
     private void init() {
         startScreen = true;
+        pause = false;
         display = new Display(title, getWidth(), getHeight());
         display.getJframe().addKeyListener(keyManager);
         display.getJframe().addMouseListener(mouseManager);
@@ -100,7 +101,7 @@ public class Game implements Runnable  {
         antibioticos = new LinkedList<>();
         receptores = Constants.initReceptores(this);
         finished = false;
-        pauseIntervalCounter = 0;
+        pauseStun = 0;
         
         bg1X = 0;
         bg2X = Constants.GAME_WIDTH;
@@ -164,11 +165,11 @@ public class Game implements Runnable  {
         keyManager.tick();
         
         // To pause and unpause.
-        pauseIntervalCounter++;
+        pauseStun++;
         if (keyManager.p) {
-            if (pauseIntervalCounter > PAUSE_INTERVAL) {
+            if (pauseStun > PAUSE_INTERVAL) {
                 pause = !pause;
-                pauseIntervalCounter = 0;
+                pauseStun = 0;
             }
         }
         
@@ -219,6 +220,7 @@ public class Game implements Runnable  {
                 if(recep.getCircShape().contains(mouseManager.getPoint())){
                     try {
                         java.awt.Desktop.getDesktop().browse(recep.getURI());
+                        pause = true;
                     } catch (URISyntaxException | IOException ex) {
                         Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -404,14 +406,14 @@ public class Game implements Runnable  {
             }
             barra.render(g);
             
-            if (pause)
-                g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
-            
             g.setColor(Color.white);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
             g.drawString("Antibióticos: ", 30, 90);
             g.drawString(""+player.getAntibioticosSize(), 300, 90);
             g.setColor(Color.white);
+            
+            if (pause)
+                g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
             
             if(finished){
                 if(player.isAlive()){
