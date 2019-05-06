@@ -254,7 +254,7 @@ public class Game implements Runnable  {
         }
         for(Receptor recep : receptores){
             for(Antibiotico anti : antibioticos){
-                if(anti.getCircShape().intersects(recep.getRectShape()) && !recep.isExploded()){
+                if(anti.getCircShape().intersects(recep.getRectShape()) && !recep.isExploded() && recep.getTipoInt() == anti.getTipoInt()){
                     anti.explode();
                     recep.explode();
                 }
