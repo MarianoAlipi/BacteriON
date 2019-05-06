@@ -49,7 +49,6 @@ public class Game implements Runnable  {
     private LinkedList<Antibiotico> antibioticos;   // antibioticos que caerán y nuestros receptores perciben
     private LinkedList<Receptor> receptores;        // receptores que detectarán los antibióticos
     private EstresBarra barra;          // barra donde guardaremos la información respecto al estrés
-    private int shootStun;
     
     private boolean pause;
     private boolean finished;
@@ -58,7 +57,7 @@ public class Game implements Runnable  {
     // to set a delay for the pause button.
     // PAUSE_INTERVAL is the limit (number of frames), pauseIntervalCounter is the counter.
     private final byte PAUSE_INTERVAL = 10;
-    private byte pauseStun;
+    private byte pauseIntervalCounter;
     
     // to animate the background in the main menu
     int bg1X, bg2X, bgMoveDelay, bgMoveDelayCounter;
@@ -85,7 +84,6 @@ public class Game implements Runnable  {
      */
     private void init() {
         startScreen = true;
-        pause = false;
         display = new Display(title, getWidth(), getHeight());
         display.getJframe().addKeyListener(keyManager);
         display.getJframe().addMouseListener(mouseManager);
@@ -95,31 +93,22 @@ public class Game implements Runnable  {
         Assets.init();
         Constants.init();
         
-        restartVariables();
-    }
-    
-    /**
-     * To restart all important variables before a new game.
-     */
-    void restartVariables() {
         player = new Player(this, width/2 -(Constants.PLAYER_WIDTH/2), height/2-(Constants.PLAYER_HEIGHT/2));
         elicRandom = Constants.RANDOM_INDEX;
         elicitadores = new LinkedList<>();
         antibioticos = new LinkedList<>();
         receptores = Constants.initReceptores(this);
         finished = false;
-        pauseStun = 0;
+        pauseIntervalCounter = 0;
         
         bg1X = 0;
         bg2X = Constants.GAME_WIDTH;
         bgMoveDelay = 1;
         bgMoveDelayCounter = 0;
         
-        shootStun = Constants.SHOOT_STUN;
-        
         barra = new EstresBarra(this,20,height-32,5*player.getEstres(),Constants.BARRA_HEIGHT,0);
     }
-    
+
     /**
      * To get the width of the game window
      *
@@ -172,11 +161,11 @@ public class Game implements Runnable  {
         keyManager.tick();
         
         // To pause and unpause.
-        pauseStun++;
+        pauseIntervalCounter++;
         if (keyManager.p) {
-            if (pauseStun > PAUSE_INTERVAL) {
+            if (pauseIntervalCounter > PAUSE_INTERVAL) {
                 pause = !pause;
-                pauseStun = 0;
+                pauseIntervalCounter = 0;
             }
         }
         
@@ -211,15 +200,10 @@ public class Game implements Runnable  {
         if(pause)
             return;
         
-        if (startScreen)
-            return;
-        
-        shootStun--;
         if(mouseManager.isIzquierdo()){
-            if(player.hasAntibiotico() && shootStun<=0){
-                shootStun = Constants.SHOOT_STUN;
+            if(player.hasAntibiotico()){
                 Antibiotico anti = player.getAntibiotico();
-                anti.disparar(player.getMidX()+5, player.getMidY()+5, 
+                anti.disparar(player.getMidX(), player.getMidY(), 
                         mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
                 antibioticos.add(anti);
             }
@@ -230,7 +214,6 @@ public class Game implements Runnable  {
                 if(recep.getCircShape().contains(mouseManager.getPoint())){
                     try {
                         java.awt.Desktop.getDesktop().browse(recep.getURI());
-                        pause = true;
                     } catch (URISyntaxException | IOException ex) {
                         Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -245,33 +228,27 @@ public class Game implements Runnable  {
             randDir = (int)(Math.random() * 4 + 1);
             //(game, x, y, width, height, speed);
             if (randDir == 1) { //arriba
-                elicitadores.add(new Elicitador(this,Constants.MOV_OFFSET+(int)(Math.random()*width*0.8),-15,10,10,3,1));
+                elicitadores.add(new Elicitador(this,(int)(Math.random()*width),-15,10,10,3,1));
             } else if (randDir == 2){ //abajo
-                elicitadores.add(new Elicitador(this,Constants.MOV_OFFSET+(int)(Math.random()*width*0.8),getHeight()+5,10,10,3,2));
+                elicitadores.add(new Elicitador(this,(int)(Math.random()*width),getHeight()+5,10,10,3,2));
             } else if (randDir == 3) { //izquierda
-                elicitadores.add(new Elicitador(this,-5,Constants.MOV_OFFSET+(int)(Math.random()*height*0.8),10,10,3,3));
+                elicitadores.add(new Elicitador(this,0,(int)(Math.random()*height),10,10,3,3));
             } else { //derecha
-                elicitadores.add(new Elicitador(this,getWidth()+5,Constants.MOV_OFFSET+(int)(Math.random()*height*0.8),10,10,3,4));
+                elicitadores.add(new Elicitador(this,getWidth()+5,(int)(Math.random()*height),10,10,3,4));
             }
         }
         
         for(Elicitador elic : elicitadores){
             if(!elic.isExploded() && elic.getCircShape().intersects(player.getRectShape())){
-                Assets.grab.play();
                 player.estresar();
                 elic.explode();
             }
         }
-        
-        boolean[] aunHay = new boolean[5];
         for(Receptor recep : receptores){
-            if(!recep.isExploded()) aunHay[recep.getTipoInt()] = true;
             for(Antibiotico anti : antibioticos){
-                if(!recep.isExploded() && anti.getCircShape().intersects(recep.getRectShape())){
+                if(anti.getCircShape().intersects(recep.getRectShape()) && !recep.isExploded()){
                     anti.explode();
-                    if (anti.getTipoInt() == recep.getTipoInt()) {
-                        recep.explode();
-                    }
+                    recep.explode();
                 }
             }
         }
@@ -287,15 +264,30 @@ public class Game implements Runnable  {
                 anti.tick();
             }
         }
-        
+        int[] cargas = new int[4];
         for(Receptor recep : receptores){
             recep.tick();
-            
+            if(!recep.isExploded()){
+                switch(recep.getTipo()){
+                    case E_COLI:
+                        cargas[0]++;
+                        break;
+                    case B_SUBTILIS:
+                        cargas[1]++;
+                        break;
+                    case P_AERUGINOSA:
+                        cargas[2]++;
+                        break;
+                    case S_PNEUMONIAE:
+                        cargas[3]++;
+                        break;
+                }
+            }
         }
         
         boolean theEnd = true;
-        for(int i=0; i<aunHay.length; i++){
-            if(player.cargaEsto(i) && aunHay[i]){
+        for(int i=0; i<cargas.length; i++){
+            if(player.cargaEsto(i)&&cargas[i]>0){
                 theEnd = false;
             }
         }
@@ -358,8 +350,8 @@ public class Game implements Runnable  {
         } else {
             g = bs.getDrawGraphics();
             
-            g.drawImage(Assets.backgroundStartScreenTuto, bg1X, 0, width, height, null);
-            g.drawImage(Assets.backgroundStartScreenTuto, bg2X, 0, width, height, null);
+            g.drawImage(Assets.backgroundStartScreen, bg1X, 0, width, height, null);
+            g.drawImage(Assets.backgroundStartScreen, bg2X, 0, width, height, null);
             
             if (bgMoveDelayCounter++ >= bgMoveDelay) {
                 bg1X--;
@@ -373,22 +365,22 @@ public class Game implements Runnable  {
             if (bg2X <= -1 * width)
                 bg2X = width;
             
-            g.drawImage(Assets.titleStartScreen, width/2-200, height/8, 401, 57, null);
-            g.drawImage(Assets.jugarStartScreen, width/2-100, height/3, 196, 49, null);
-            Rectangle rectJugar = new Rectangle (width/2-100, height/3, 196, 49);
-            //g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
+            g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
+            g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/5, 196, 49, null);
+            Rectangle rectJugar = new Rectangle (0, height*3/5, 640, 49);
+            g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
+            Rectangle eligeBact = new Rectangle (0, height*4/5, 640, 47);
             
             if (rectJugar.intersects(mouseManager.getPerimeter())) {
-                g.drawImage(Assets.cursorStartScreen, 0, height/3, 640, 49, null);
-                if (mouseManager.isIzquierdo()) {
-                    restartVariables();
-                    Assets.start.play();
+                g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 5, 640, 49, null);
+                if (mouseManager.isIzquierdo())
                     startScreen = false;
-                }
-            } 
+            } else if (eligeBact.intersects(mouseManager.getPerimeter())) {
+                g.drawImage(Assets.cursorStartScreen, 0, height*4/5, 640, 49, null);
+            }
             
             // Fixes stutter on Linux.
-	    Toolkit.getDefaultToolkit().sync();
+	        Toolkit.getDefaultToolkit().sync();
                 
             bs.show();
             g.dispose();
@@ -427,35 +419,14 @@ public class Game implements Runnable  {
             }
             barra.render(g);
             
-            if (pause) {
-                g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
-                g.drawImage(Assets.volver, 5, 320, 660, 50, null);
-                Rectangle rectVolver = new Rectangle(0, 320, 640, 50);
-                if (rectVolver.intersects(mouseManager.getPerimeter())) {
-                    g.drawImage(Assets.cursorStartScreen, 0, 320, 640, 50, null);
-                    if (mouseManager.isIzquierdo()) {
-                        pause = false;
-                        pauseStun = 0;
-                        startScreen = true;
-                    }
-                }
-            }
-            
-            g.setColor(Color.white);
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-            g.drawString("Antibioticos: ", 80, 30);
-            g.drawString(""+player.getAntibioticosSize(), 200, 30);
-            g.setColor(Color.white);
-            
             if (pause)
                 g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
             
-            if(finished){
-                if(player.isAlive()){
-                    g.drawImage(Assets.gameWin, 0, 0, 640, 640, null);
-                } else {
-                    g.drawImage(Assets.gameOver, 0, 0, 640, 640, null);
-                }
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
+            g.setColor(Color.white);
+            
+            if(finished && !player.isAlive()){
+                g.drawImage(Assets.gameOver, 0, 0, 640, 640, null);
             }
             
             // Fixes stutter on Linux.
