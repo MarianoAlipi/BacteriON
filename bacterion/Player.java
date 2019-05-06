@@ -181,18 +181,24 @@ public class Player extends Item{
     @Override
     public void render(Graphics g) {
         if(antibioticos.size()>0){
-            if (antibioticos.size() % 5 == 0) {
-               g.drawImage(animationBacteriaCargada4.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-            } else if (antibioticos.size() % 4 == 0)  {
-               g.drawImage(animationBacteriaCargada3.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-            } else if (antibioticos.size() % 3 == 0)  {
-               g.drawImage(animationBacteriaCargada2.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);  
-            } else if (antibioticos.size() % 2 == 0)  {
-               g.drawImage(animationBacteriaCargada1.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);  
-            } else {
-               g.drawImage(animationBacteriaCargada0.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-            }
-            
+            switch(antibioticos.peek().getTipoInt()){
+                    case 0:
+                        g.drawImage(animationBacteriaCargada0.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
+                        break;
+                    case 1:
+                        g.drawImage(animationBacteriaCargada1.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
+                        break;
+                    case 2:
+                        g.drawImage(animationBacteriaCargada2.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
+                        break;
+                    case 3:
+                        g.drawImage(animationBacteriaCargada3.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
+                        break;  
+                    case 4:
+                        g.drawImage(animationBacteriaCargada4.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
+                        break;
+                        
+                }
         } else {
             g.drawImage(animationBacteria.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
         }
