@@ -22,6 +22,7 @@ public class Player extends Item{
     private int[] cargas;
     private int[] cargLimits;
     private boolean[] bactTarget;
+    private Animation animationBacteria;
     
     /**
      * Player constructor
@@ -45,7 +46,7 @@ public class Player extends Item{
         cargLimits[2] = 150;
         cargLimits[3] = 300;
         cargLimits[4] = 250;
-        
+        this.animationBacteria = new Animation(Assets.bacteria, height);
         // Este array nos indica los sensores target de nuestra bacteria
         this.bactTarget = Constants.BACT0_TARGET;
     }
@@ -84,6 +85,7 @@ public class Player extends Item{
      */
     @Override
     public void tick() {
+        this.animationBacteria.tick();
         // moving player depending on flags
         if (game.getKeyManager().left && getX()>=Constants.MOV_OFFSET) {
            setX(getX() - speed);
@@ -164,9 +166,9 @@ public class Player extends Item{
     @Override
     public void render(Graphics g) {
         if(antibioticos.size()>0){
-            g.drawImage(Assets.bacteriaCargada[antibioticos.peek().getTipoInt()], getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(Assets.bacteriaCargada[antibioticos.peek().getTipoInt()*3], getX(), getY(), getWidth(), getHeight(), null);
         } else {
-            g.drawImage(Assets.bacteria, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(animationBacteria.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
         }
     }
 }

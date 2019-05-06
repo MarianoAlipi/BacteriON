@@ -16,7 +16,8 @@ import java.awt.image.BufferedImage;
  */
 public class Assets {
     
-    public static BufferedImage bacteria;
+    public static BufferedImage bacteria[];
+    public static BufferedImage spritesBacteria;
     public static BufferedImage bacteriaCargada[];
     public static BufferedImage background;
     public static BufferedImage backgroundStartScreen;
@@ -51,13 +52,48 @@ public class Assets {
      * initializing the images of the game
      */
     public static void init() {
-        bacteria = ImageLoader.loadImage("/images/bacteria.png");
-        bacteriaCargada = new BufferedImage[5];
-        bacteriaCargada[0] = ImageLoader.loadImage("/images/bacteria_cargada_0.png");
+        bacteriaCargada = new BufferedImage[15];
+        
+        spritesBacteria = ImageLoader.loadImage("/images/bacteria_cargada_0.png");
+        SpriteSheet spritesheetBacteria = new SpriteSheet(spritesBacteria);
+        for (int i = 0; i < 3; i++) {
+            bacteriaCargada[i] = spritesheetBacteria.crop(0, i*46,57, 46);
+        }
+        spritesBacteria = ImageLoader.loadImage("/images/bacteria_cargada_1.png");
+        spritesheetBacteria = new SpriteSheet(spritesBacteria);
+        bacteria = new BufferedImage[3];
+        for (int i = 3; i < 6; i++) {
+            System.out.println("i es " + i);
+            bacteriaCargada[i] = spritesheetBacteria.crop(0, (i-3)*46,57, 46);
+        }
+        
+        spritesBacteria = ImageLoader.loadImage("/images/bacteria_cargada_2.png");
+        spritesheetBacteria = new SpriteSheet(spritesBacteria);
+        bacteria = new BufferedImage[3];
+        for (int i = 6; i < 9; i++) {
+            bacteriaCargada[i] = spritesheetBacteria.crop(0, (i-6)*46,57, 46);
+        }
+        
+        spritesBacteria = ImageLoader.loadImage("/images/bacteria_cargada_3.png");
+        spritesheetBacteria = new SpriteSheet(spritesBacteria);
+        bacteria = new BufferedImage[3];
+        for (int i = 9; i < 12; i++) {
+            bacteriaCargada[i] = spritesheetBacteria.crop(0, (i-9)*46,57, 46);
+        }
+        
+        spritesBacteria = ImageLoader.loadImage("/images/bacteria_cargada_4.png");
+        spritesheetBacteria = new SpriteSheet(spritesBacteria);
+        bacteria = new BufferedImage[3];
+        for (int i = 12; i < 15; i++) {
+            bacteriaCargada[i] = spritesheetBacteria.crop(0, (i-12)*46,57, 46);
+        }
+        
+        
+        /*bacteriaCargada[0] = ImageLoader.loadImage("/images/bacteria_cargada_0.png");
         bacteriaCargada[1] = ImageLoader.loadImage("/images/bacteria_cargada_1.png");
         bacteriaCargada[2] = ImageLoader.loadImage("/images/bacteria_cargada_2.png");
         bacteriaCargada[3] = ImageLoader.loadImage("/images/bacteria_cargada_3.png");
-        bacteriaCargada[4] = ImageLoader.loadImage("/images/bacteria_cargada_4.png");
+        bacteriaCargada[4] = ImageLoader.loadImage("/images/bacteria_cargada_4.png")*/
         background = ImageLoader.loadImage("/images/background.png");
         gameOver = ImageLoader.loadImage("/images/game_over.png");
         gameWin = ImageLoader.loadImage("/images/game_win.png");
@@ -71,6 +107,19 @@ public class Assets {
         elicitador = ImageLoader.loadImage("/images/elicitador_placeholder.png");
         antibiotico = ImageLoader.loadImage("/images/antibiotico_placeholder.png");
         receptorMuerto = ImageLoader.loadImage("/images/receptor_muerto_placeholder.png");
+        
+        spritesBacteria = ImageLoader.loadImage("/images/bacteria.png");
+        //SpriteSheet spritesheetBacteria = new SpriteSheet(spritesBacteria);
+        spritesheetBacteria = new SpriteSheet(spritesBacteria);
+        bacteria = new BufferedImage[3];
+        for (int i = 0; i < 3; i++) {
+            bacteria[i] = spritesheetBacteria.crop(0, i*46,57, 46);
+        }
+        
+        
+        
+        
+        
         
         spritesReceptor = ImageLoader.loadImage("/images/biosensor_azul.png");
         SpriteSheet spritesheetReceptores = new SpriteSheet(spritesReceptor);
