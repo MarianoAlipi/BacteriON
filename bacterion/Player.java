@@ -23,6 +23,11 @@ public class Player extends Item{
     private int[] cargLimits;
     private boolean[] bactTarget;
     private Animation animationBacteria;
+    private Animation animationBacteriaCargada0;
+    private Animation animationBacteriaCargada1;
+    private Animation animationBacteriaCargada2;
+    private Animation animationBacteriaCargada3;
+    private Animation animationBacteriaCargada4;
     
     /**
      * Player constructor
@@ -47,6 +52,11 @@ public class Player extends Item{
         cargLimits[3] = 300;
         cargLimits[4] = 250;
         this.animationBacteria = new Animation(Assets.bacteria, height);
+        this.animationBacteriaCargada0 = new Animation(Assets.bacteriaCargada0, height);
+        this.animationBacteriaCargada1 = new Animation(Assets.bacteriaCargada1, height);
+        this.animationBacteriaCargada2 = new Animation(Assets.bacteriaCargada2, height);
+        this.animationBacteriaCargada3 = new Animation(Assets.bacteriaCargada3, height);
+        this.animationBacteriaCargada4 = new Animation(Assets.bacteriaCargada4, height);
         // Este array nos indica los sensores target de nuestra bacteria
         this.bactTarget = Constants.BACT0_TARGET;
     }
@@ -86,6 +96,11 @@ public class Player extends Item{
     @Override
     public void tick() {
         this.animationBacteria.tick();
+        this.animationBacteriaCargada0.tick();
+        this.animationBacteriaCargada1.tick();
+        this.animationBacteriaCargada2.tick();
+        this.animationBacteriaCargada3.tick();
+        this.animationBacteriaCargada4.tick();
         // moving player depending on flags
         if (game.getKeyManager().left && getX()>=Constants.MOV_OFFSET) {
            setX(getX() - speed);
@@ -166,7 +181,18 @@ public class Player extends Item{
     @Override
     public void render(Graphics g) {
         if(antibioticos.size()>0){
-            g.drawImage(Assets.bacteriaCargada[antibioticos.peek().getTipoInt()*3], getX(), getY(), getWidth(), getHeight(), null);
+            if (antibioticos.size() % 5 == 0) {
+               g.drawImage(animationBacteriaCargada4.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
+            } else if (antibioticos.size() % 4 == 0)  {
+               g.drawImage(animationBacteriaCargada3.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
+            } else if (antibioticos.size() % 3 == 0)  {
+               g.drawImage(animationBacteriaCargada2.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);  
+            } else if (antibioticos.size() % 2 == 0)  {
+               g.drawImage(animationBacteriaCargada1.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);  
+            } else {
+               g.drawImage(animationBacteriaCargada0.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
+            }
+            
         } else {
             g.drawImage(animationBacteria.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
         }
