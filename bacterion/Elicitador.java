@@ -45,16 +45,16 @@ public class Elicitador extends Item{
         if (game.getLevel() == 3) {
             if (dir == 1) {
                 setY(y+speed);
-                setX(x+(int)(Math.random() * 20 - 5));
+                setX(x+(int)(Math.random() * 15 - 7));
             } else if (dir == 2) {
                 setY(y-speed);
-                setX(x+(int)(Math.random() * 20 - 5));
+                setX(x+(int)(Math.random() * 15 - 7));
             } else if (dir == 3) {
                 setX(x+speed);
-                setY(y+(int)(Math.random() * 20 - 15));
+                setY(y+(int)(Math.random() * 15 - 7));
             } else if (dir == 4) {
                 setX(x-speed);
-                setY(y+(int)(Math.random() * 20 - 15));
+                setY(y+(int)(Math.random() * 15 - 7));
             }
         } 
         if (dir == 1) {
