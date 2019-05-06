@@ -51,12 +51,12 @@ public class Player extends Item{
         cargLimits[2] = 150;
         cargLimits[3] = 300;
         cargLimits[4] = 250;
-        this.animationBacteria = new Animation(Assets.bacteria, height);
-        this.animationBacteriaCargada0 = new Animation(Assets.bacteriaCargada0, height);
-        this.animationBacteriaCargada1 = new Animation(Assets.bacteriaCargada1, height);
-        this.animationBacteriaCargada2 = new Animation(Assets.bacteriaCargada2, height);
-        this.animationBacteriaCargada3 = new Animation(Assets.bacteriaCargada3, height);
-        this.animationBacteriaCargada4 = new Animation(Assets.bacteriaCargada4, height);
+        this.animationBacteria = new Animation(Assets.bacteria0, height);
+        this.animationBacteriaCargada0 = new Animation(Assets.bacteria0Cargada0, height);
+        this.animationBacteriaCargada1 = new Animation(Assets.bacteria0Cargada1, height);
+        this.animationBacteriaCargada2 = new Animation(Assets.bacteria0Cargada2, height);
+        this.animationBacteriaCargada3 = new Animation(Assets.bacteria0Cargada3, height);
+        this.animationBacteriaCargada4 = new Animation(Assets.bacteria0Cargada4, height);
         // Este array nos indica los sensores target de nuestra bacteria
         this.bactTarget = Constants.BACT0_TARGET;
     }
