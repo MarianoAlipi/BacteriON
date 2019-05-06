@@ -72,6 +72,7 @@ public class Receptor extends Item{
     }
     
     public void explode(){
+        Assets.die.play();
         exploded = true;
     }
     
