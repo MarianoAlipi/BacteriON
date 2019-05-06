@@ -156,6 +156,15 @@ public class Game implements Runnable  {
         return player;
     }
     
+    /**
+     * To get the level the player selected
+     *
+     * @return an <code>int</code> value with the level selected
+     */
+    public int getLevel(){
+        return levelSelected;
+    }
+    
     // Finaliza el juego
     // (Tun tun tu tuuuuuuuuuuun TUUUn TUUUUn TUN)
     public void endGame(){
@@ -254,7 +263,7 @@ public class Game implements Runnable  {
         }
         for(Receptor recep : receptores){
             for(Antibiotico anti : antibioticos){
-                if(anti.getCircShape().intersects(recep.getRectShape()) && !recep.isExploded()){
+                if(anti.getCircShape().intersects(recep.getRectShape()) && !recep.isExploded() && recep.getTipoInt() == anti.getTipoInt()){
                     anti.explode();
                     recep.explode();
                 }

@@ -22,6 +22,8 @@ public class Receptor extends Item{
     private AntiType tipo;
     private Animation animationReceptor;
     private URI URI;
+    private int count = 0;
+    private int dir;
     
     public Receptor(Game game, int x, int y, int width, int height, int speed, AntiType tipo){
         super(game, x, y, width, height, speed);
@@ -45,6 +47,12 @@ public class Receptor extends Item{
             }
         } catch (URISyntaxException ex) {
             Logger.getLogger(Receptor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dir = (int) (Math.random() * 4 -1);
+        if (dir > 0) {
+            dir = 1;
+        } else {
+            dir = -1;
         }
     }
     
@@ -82,6 +90,38 @@ public class Receptor extends Item{
     @Override
     public void tick() {
         this.animationReceptor.tick();
+        switch (game.getLevel()) {
+            case 1:
+                //no se mueve
+                break;
+            case 2:
+                tick2();
+                break;
+            case 3:
+                tick3();
+                break;
+        }  
+    }
+    
+    
+    /**
+     * Control receptor movement when the level Selected is 2 (medium)
+     */
+    public void tick2() {
+        if (count > 25){
+            count = 0;
+            dir *= -1;
+        }
+        setX(getX()+(1*dir));
+        setY(getY()+(1*dir));
+        count ++;
+    }
+    
+    /**
+     * Control receptor movement when the level Selected is 1 (hard)
+     */
+    public void tick3() {
+        
     }
 
     /**
