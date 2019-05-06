@@ -57,9 +57,9 @@ public class Game implements Runnable  {
     private boolean chooseMenu;
     
     // to set a delay for the pause button.
-    // PAUSE_INTERVAL is the limit (number of frames), pauseIntervalCounter is the counter.
+    // PAUSE_INTERVAL is the limit (number of frames), pauseStun is the counter.
     private final byte PAUSE_INTERVAL = 10;
-    private byte pauseIntervalCounter;
+    private byte pauseStun;
     
     // to animate the background in the main menu
     int bg1X, bg2X, bgMoveDelay, bgMoveDelayCounter;
@@ -103,7 +103,7 @@ public class Game implements Runnable  {
         antibioticos = new LinkedList<>();
         receptores = Constants.initReceptores(this);
         finished = false;
-        pauseIntervalCounter = 0;
+        pauseStun = 0;
         
         bg1X = 0;
         bg2X = Constants.GAME_WIDTH;
@@ -165,11 +165,11 @@ public class Game implements Runnable  {
         keyManager.tick();
         
         // To pause and unpause.
-        pauseIntervalCounter++;
+        pauseStun++;
         if (keyManager.p) {
-            if (pauseIntervalCounter > PAUSE_INTERVAL) {
+            if (pauseStun > PAUSE_INTERVAL) {
                 pause = !pause;
-                pauseIntervalCounter = 0;
+                pauseStun = 0;
             }
         }
         
