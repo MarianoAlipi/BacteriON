@@ -259,6 +259,7 @@ public class Game implements Runnable  {
             if(!elic.isExploded() && elic.getCircShape().intersects(player.getRectShape())){
                 player.estresar();
                 elic.explode();
+                Assets.grab.play();
             }
         }
         for(Receptor recep : receptores){
@@ -403,18 +404,21 @@ public class Game implements Runnable  {
                 if (easyRect.intersects(mouseRect)) {
                     g.drawRoundRect(26, height/3 - 13, 188, 230, 69, 69);
                     if (mouseManager.isIzquierdo()) {
+                        Assets.choose.play();
                         levelSelected = 1;
                         chooseMenu = false;
                     }
                 } else if (mediumRect.intersects(mouseRect)) {
                     g.drawRoundRect(226, height/3 - 13, 188, 230, 69, 69);
                     if (mouseManager.isIzquierdo()) {
+                        Assets.choose.play();
                         levelSelected = 2;
                         chooseMenu = false;
                     }
                 } else if (hardRect.intersects(mouseRect)) {
                     g.drawRoundRect(426, height/3 - 13, 188, 230, 69, 69);
                     if (mouseManager.isIzquierdo()) {
+                        Assets.choose.play();
                         levelSelected = 3;
                         chooseMenu = false;
                     }
@@ -429,8 +433,10 @@ public class Game implements Runnable  {
 
                 if (rectJugar.intersects(mouseManager.getPerimeter())) {
                     g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 5, 640, 49, null);
-                    if (mouseManager.isIzquierdo())
+                    if (mouseManager.isIzquierdo()) {
+                        Assets.start.play();
                         startScreen = false;
+                    }
                 } else if (eligeBact.intersects(mouseManager.getPerimeter())) {
                     g.drawImage(Assets.cursorStartScreen, 0, height*4/5, 640, 49, null);
                     if (mouseManager.isIzquierdo())
