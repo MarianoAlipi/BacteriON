@@ -94,6 +94,13 @@ public class Game implements Runnable  {
         Assets.init();
         Constants.init();
         
+        restartVariables();
+    }
+    
+    /**
+     * To restart all important variables before a new game.
+     */
+    void restartVariables() {
         player = new Player(this, width/2 -(Constants.PLAYER_WIDTH/2), height/2-(Constants.PLAYER_HEIGHT/2));
         elicRandom = Constants.RANDOM_INDEX;
         elicitadores = new LinkedList<>();
@@ -111,7 +118,7 @@ public class Game implements Runnable  {
         
         barra = new EstresBarra(this,20,height-32,5*player.getEstres(),Constants.BARRA_HEIGHT,0);
     }
-
+    
     /**
      * To get the width of the game window
      *
@@ -203,6 +210,9 @@ public class Game implements Runnable  {
         if(pause)
             return;
         
+        if (startScreen)
+            return;
+        
         shootStun--;
         if(mouseManager.isIzquierdo()){
             if(player.hasAntibiotico() && shootStun<=0){
@@ -257,7 +267,9 @@ public class Game implements Runnable  {
             for(Antibiotico anti : antibioticos){
                 if(!recep.isExploded() && anti.getCircShape().intersects(recep.getRectShape())){
                     anti.explode();
-                    recep.explode();
+                    if (anti.getTipoInt() == recep.getTipoInt()) {
+                        recep.explode();
+                    }
                 }
             }
         }
@@ -367,7 +379,8 @@ public class Game implements Runnable  {
             if (rectJugar.intersects(mouseManager.getPerimeter())) {
                 g.drawImage(Assets.cursorStartScreen, 0, height/3, 640, 49, null);
                 if (mouseManager.isIzquierdo()) {
-                    Assets.start.play(); 
+                    restartVariables();
+                    Assets.start.play();
                     startScreen = false;
                 }
             } 
@@ -412,8 +425,19 @@ public class Game implements Runnable  {
             }
             barra.render(g);
             
-            if (pause)
+            if (pause) {
                 g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
+                g.drawImage(Assets.volver, 5, 320, 660, 50, null);
+                Rectangle rectVolver = new Rectangle(0, 320, 640, 50);
+                if (rectVolver.intersects(mouseManager.getPerimeter())) {
+                    g.drawImage(Assets.cursorStartScreen, 0, 320, 640, 50, null);
+                    if (mouseManager.isIzquierdo()) {
+                        pause = false;
+                        pauseIntervalCounter = 0;
+                        startScreen = true;
+                    }
+                }
+            }
             
             g.setColor(Color.white);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
