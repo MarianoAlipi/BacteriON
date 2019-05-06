@@ -435,7 +435,7 @@ public class Game implements Runnable  {
                     g.drawImage(Assets.cursorStartScreen, 0, 320, 640, 50, null);
                     if (mouseManager.isIzquierdo()) {
                         pause = false;
-                        pauseIntervalCounter = 0;
+                        pauseStun = 0;
                         startScreen = true;
                     }
                 }
