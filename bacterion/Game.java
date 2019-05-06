@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,7 +20,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -49,10 +49,12 @@ public class Game implements Runnable  {
     private LinkedList<Antibiotico> antibioticos;   // antibioticos que caerán y nuestros receptores perciben
     private LinkedList<Receptor> receptores;        // receptores que detectarán los antibióticos
     private EstresBarra barra;          // barra donde guardaremos la información respecto al estrés
+    private int levelSelected;          // the level selected. 1: easy  2: medium   3: hard
     
     private boolean pause;
     private boolean finished;
     private boolean startScreen;
+    private boolean chooseMenu;
     
     // to set a delay for the pause button.
     // PAUSE_INTERVAL is the limit (number of frames), pauseIntervalCounter is the counter.
@@ -84,6 +86,8 @@ public class Game implements Runnable  {
      */
     private void init() {
         startScreen = true;
+        chooseMenu = false;
+        levelSelected = 1;
         display = new Display(title, getWidth(), getHeight());
         display.getJframe().addKeyListener(keyManager);
         display.getJframe().addMouseListener(mouseManager);
@@ -365,22 +369,56 @@ public class Game implements Runnable  {
             if (bg2X <= -1 * width)
                 bg2X = width;
             
-            g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
-            g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/5, 196, 49, null);
-            Rectangle rectJugar = new Rectangle (0, height*3/5, 640, 49);
-            g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
-            Rectangle eligeBact = new Rectangle (0, height*4/5, 640, 47);
+            Rectangle mouseRect = mouseManager.getPerimeter();
             
-            if (rectJugar.intersects(mouseManager.getPerimeter())) {
-                g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 5, 640, 49, null);
-                if (mouseManager.isIzquierdo())
-                    startScreen = false;
-            } else if (eligeBact.intersects(mouseManager.getPerimeter())) {
-                g.drawImage(Assets.cursorStartScreen, 0, height*4/5, 640, 49, null);
+            if (chooseMenu) {
+                g.drawImage(Assets.chooseMenu, 0, 0, 640, 640, null);
+                
+                RoundRectangle2D.Double easyRect = new RoundRectangle2D.Double(25, height/3 - 12, 188, 227, 70, 70);
+                RoundRectangle2D.Double mediumRect = new RoundRectangle2D.Double(225, height/3 - 12, 188, 227, 70, 70);
+                RoundRectangle2D.Double hardRect = new RoundRectangle2D.Double(425, height/3 - 12, 188, 227, 70, 70);
+                
+                g.setColor(Color.lightGray);
+                if (easyRect.intersects(mouseRect)) {
+                    g.drawRoundRect(26, height/3 - 13, 188, 230, 69, 69);
+                    if (mouseManager.isIzquierdo()) {
+                        levelSelected = 1;
+                        chooseMenu = false;
+                    }
+                } else if (mediumRect.intersects(mouseRect)) {
+                    g.drawRoundRect(226, height/3 - 13, 188, 230, 69, 69);
+                    if (mouseManager.isIzquierdo()) {
+                        levelSelected = 2;
+                        chooseMenu = false;
+                    }
+                } else if (hardRect.intersects(mouseRect)) {
+                    g.drawRoundRect(426, height/3 - 13, 188, 230, 69, 69);
+                    if (mouseManager.isIzquierdo()) {
+                        levelSelected = 3;
+                        chooseMenu = false;
+                    }
+                }
+                mouseManager.setIzquierdo(false);
+            } else {
+                g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
+                g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/5, 196, 49, null);
+                Rectangle rectJugar = new Rectangle (0, height*3/5, 640, 49);
+                g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
+                Rectangle eligeBact = new Rectangle (0, height*4/5, 640, 47);
+
+                if (rectJugar.intersects(mouseManager.getPerimeter())) {
+                    g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 5, 640, 49, null);
+                    if (mouseManager.isIzquierdo())
+                        startScreen = false;
+                } else if (eligeBact.intersects(mouseManager.getPerimeter())) {
+                    g.drawImage(Assets.cursorStartScreen, 0, height*4/5, 640, 49, null);
+                    if (mouseManager.isIzquierdo())
+                        chooseMenu = true;
+                }
             }
             
             // Fixes stutter on Linux.
-	        Toolkit.getDefaultToolkit().sync();
+            Toolkit.getDefaultToolkit().sync();
                 
             bs.show();
             g.dispose();

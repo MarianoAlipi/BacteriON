@@ -41,6 +41,10 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
         return new Point(x,y);
     }
 
+    public void setIzquierdo(boolean izq) {
+        this.izquierdo = izq;
+    }
+    
     public boolean isIzquierdo() {
         return izquierdo;
         
