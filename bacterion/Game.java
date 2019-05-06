@@ -50,6 +50,7 @@ public class Game implements Runnable  {
     private LinkedList<Receptor> receptores;        // receptores que detectarán los antibióticos
     private EstresBarra barra;          // barra donde guardaremos la información respecto al estrés
     private int levelSelected;          // the level selected. 1: easy  2: medium   3: hard
+    private Animation bact0, bact1, bact2; // to display the animated bacterias in chooseMenu
     
     private boolean pause;
     private boolean finished;
@@ -103,6 +104,9 @@ public class Game implements Runnable  {
         antibioticos = new LinkedList<>();
         receptores = Constants.initReceptores(this);
         finished = false;
+        bact0 = new Animation(Assets.bacteria0, 100);
+        bact1 = new Animation(Assets.bacteria1, 100);
+        bact2 = new Animation(Assets.bacteria2, 100);
         pauseStun = 0;
         
         bg1X = 0;
@@ -374,9 +378,17 @@ public class Game implements Runnable  {
             if (chooseMenu) {
                 g.drawImage(Assets.chooseMenu, 0, 0, 640, 640, null);
                 
-                RoundRectangle2D.Double easyRect = new RoundRectangle2D.Double(25, height/3 - 12, 188, 227, 70, 70);
-                RoundRectangle2D.Double mediumRect = new RoundRectangle2D.Double(225, height/3 - 12, 188, 227, 70, 70);
-                RoundRectangle2D.Double hardRect = new RoundRectangle2D.Double(425, height/3 - 12, 188, 227, 70, 70);
+                RoundRectangle2D.Double easyRect = new RoundRectangle2D.Double(26, height/3 - 13, 188, 230, 69, 69);
+                RoundRectangle2D.Double mediumRect = new RoundRectangle2D.Double(226, height/3 - 13, 188, 230, 69, 69);
+                RoundRectangle2D.Double hardRect = new RoundRectangle2D.Double(426, height/3 - 13, 188, 230, 69, 69);
+                
+                g.drawImage(bact0.getCurrentFrame(), 50, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
+                g.drawImage(bact1.getCurrentFrame(), 250, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
+                g.drawImage(bact2.getCurrentFrame(), 450, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
+                
+                bact0.tick();
+                bact1.tick();
+                bact2.tick();
                 
                 g.setColor(Color.lightGray);
                 if (easyRect.intersects(mouseRect)) {
