@@ -456,15 +456,33 @@ public class Game implements Runnable  {
                 recep.render(g);
             }
             barra.render(g);
-            
-            if (pause)
-                g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
-            
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 48));
+
             g.setColor(Color.white);
-            
-            if(finished && !player.isAlive()){
-                g.drawImage(Assets.gameOver, 0, 0, 640, 640, null);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            g.drawString("Antibioticos: ", 80, 30);
+            g.drawString(""+player.getAntibioticosSize(), 200, 30);
+            g.setColor(Color.white);
+
+            if (pause) {
+                g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
+                g.drawImage(Assets.volver, 5, 320, 660, 50, null);
+                Rectangle rectVolver = new Rectangle(0, 320, 640, 50);
+                if (rectVolver.intersects(mouseManager.getPerimeter())) {
+                    g.drawImage(Assets.cursorStartScreen, 0, 320, 640, 50, null);
+                    if (mouseManager.isIzquierdo()) {
+                        pause = false;
+                        pauseStun = 0;
+                        startScreen = true;
+                    }
+                }
+            }
+              
+            if(finished) {
+                if(player.isAlive()){
+                    g.drawImage(Assets.gameWin, 0, 0, 640, 640, null);
+                } else {
+                    g.drawImage(Assets.gameOver, 0, 0, 640, 640, null);
+                }
             }
             
             // Fixes stutter on Linux.
