@@ -20,9 +20,12 @@ public class KeyManager implements KeyListener {
     public boolean down;    // flag to move right the player
     public boolean space;   // flag to shoot
     public boolean p;       // flag to pause the game
+    public boolean pReleased; // flag to see if the p key has just been released
     public boolean r;       // flag to restart the game
     public boolean g;       // flag to save the game
     public boolean c;       // flag to load the game
+
+    private int releaseDelay = 0;
 
     private boolean keys[];  // to store all the flags for every key
     
@@ -49,6 +52,9 @@ public class KeyManager implements KeyListener {
         // set false to every key released
         try {
             keys[e.getKeyCode()] = false;
+            if (e.getKeyCode() == KeyEvent.VK_P) {
+                pReleased = true;
+            }
         } catch(ArrayIndexOutOfBoundsException ex) {
             System.out.println("Key not found: " + e.getKeyCode());
         }
@@ -67,5 +73,12 @@ public class KeyManager implements KeyListener {
         c = keys[KeyEvent.VK_C];
         r = keys[KeyEvent.VK_R];
         g = keys[KeyEvent.VK_G];
+
+        if (pReleased) {
+            if (releaseDelay++ > 5) {
+                pReleased = false;
+                releaseDelay = 0;
+            }
+        }
     }
 }

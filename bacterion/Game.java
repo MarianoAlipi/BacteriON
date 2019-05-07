@@ -190,7 +190,7 @@ public class Game implements Runnable  {
         
         // To pause and unpause.
         pauseStun++;
-        if (keyManager.p) {
+        if (keyManager.pReleased) {
             if (pauseStun > PAUSE_INTERVAL) {
                 pause = !pause;
                 pauseStun = 0;
