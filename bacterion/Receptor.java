@@ -57,7 +57,7 @@ public class Receptor extends Item{
             } else {
                 dir = -1;
             }
-        } else if (game.getLevel() == 1) {
+        } else if (game.getLevel() == 3) {
             this.dir = dir;
         }
         
@@ -100,7 +100,7 @@ public class Receptor extends Item{
         this.animationReceptor.tick();
         switch (game.getLevel()) {
             case 1:
-                tick3();
+                //no hacen nada
                 break;
             case 2:
                 tick2();
@@ -134,11 +134,9 @@ public class Receptor extends Item{
         //checa si tienen que cambiar de lado
         switch (dir) {
             case 1:
-                //System.out.println("pos es " + pos);
                 //si va para arriba
                 if ((pos == 1 && getY() <= 15) || (pos == 3 && getY() <= 15) || //si está en la top left o right y ya llegó arriba
                     (pos == 2 && getY() <= 30) || (pos == 4 && getY() <= 30)) { //si está en el bottom left o right y ya llegó arriba
-                    //System.out.println("esta entrando el if del 1");
                     dir = 3;
                 }   break;
             case 2:
