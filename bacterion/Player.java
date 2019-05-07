@@ -23,26 +23,8 @@ public class Player extends Item{
     private int[] cargLimits;
     private boolean[] bactTarget;
     
-    private Animation animationBacteria0;
-    private Animation animationBacteria0Cargada0;
-    private Animation animationBacteria0Cargada1;
-    private Animation animationBacteria0Cargada2;
-    private Animation animationBacteria0Cargada3;
-    private Animation animationBacteria0Cargada4;
-    
-    private Animation animationBacteria1;
-    private Animation animationBacteria1Cargada0;
-    private Animation animationBacteria1Cargada1;
-    private Animation animationBacteria1Cargada2;
-    private Animation animationBacteria1Cargada3;
-    private Animation animationBacteria1Cargada4;
-    
-    private Animation animationBacteria2;
-    private Animation animationBacteria2Cargada0;
-    private Animation animationBacteria2Cargada1;
-    private Animation animationBacteria2Cargada2;
-    private Animation animationBacteria2Cargada3;
-    private Animation animationBacteria2Cargada4;
+    private Animation animBact;
+    private Animation animBactCarg[];
     
     /**
      * Player constructor
@@ -67,27 +49,35 @@ public class Player extends Item{
         cargLimits[3] = 300;
         cargLimits[4] = 250;
         
-        this.animationBacteria0 = new Animation(Assets.bacteria0, height);
-        this.animationBacteria0Cargada0 = new Animation(Assets.bacteria0Cargada0, height);
-        this.animationBacteria0Cargada1 = new Animation(Assets.bacteria0Cargada1, height);
-        this.animationBacteria0Cargada2 = new Animation(Assets.bacteria0Cargada2, height);
-        this.animationBacteria0Cargada3 = new Animation(Assets.bacteria0Cargada3, height);
-        this.animationBacteria0Cargada4 = new Animation(Assets.bacteria0Cargada4, height);
-            
-        this.animationBacteria1 = new Animation(Assets.bacteria1, height);
-        this.animationBacteria1Cargada0 = new Animation(Assets.bacteria1Cargada0, height);
-        this.animationBacteria1Cargada1 = new Animation(Assets.bacteria1Cargada1, height);
-        this.animationBacteria1Cargada2 = new Animation(Assets.bacteria1Cargada2, height);
-        this.animationBacteria1Cargada3 = new Animation(Assets.bacteria1Cargada3, height);
-        this.animationBacteria1Cargada4 = new Animation(Assets.bacteria1Cargada4, height);
-
-        this.animationBacteria2 = new Animation(Assets.bacteria2, height);
-        this.animationBacteria2Cargada0 = new Animation(Assets.bacteria2Cargada0, height);
-        this.animationBacteria2Cargada1 = new Animation(Assets.bacteria2Cargada1, height);
-        this.animationBacteria2Cargada2 = new Animation(Assets.bacteria2Cargada2, height);
-        this.animationBacteria2Cargada3 = new Animation(Assets.bacteria2Cargada3, height);
-        this.animationBacteria2Cargada4 = new Animation(Assets.bacteria2Cargada4, height);
-                
+        // Con base en el nivel son los sprites de nuestra bacteria
+        animBactCarg = new Animation[5];
+        switch(game.getLevel()){
+            case 1:
+                animBact = new Animation(Assets.bacteria0, height);
+                animBactCarg[0] = new Animation(Assets.bacteria0Cargada0, height);
+                animBactCarg[1] = new Animation(Assets.bacteria0Cargada1, height);
+                animBactCarg[2] = new Animation(Assets.bacteria0Cargada2, height);
+                animBactCarg[3] = new Animation(Assets.bacteria0Cargada3, height);
+                animBactCarg[4] = new Animation(Assets.bacteria0Cargada4, height);
+                break;
+            case 2:
+                animBact = new Animation(Assets.bacteria1, height);
+                animBactCarg[0] = new Animation(Assets.bacteria1Cargada0, height);
+                animBactCarg[1] = new Animation(Assets.bacteria1Cargada1, height);
+                animBactCarg[2] = new Animation(Assets.bacteria1Cargada2, height);
+                animBactCarg[3] = new Animation(Assets.bacteria1Cargada3, height);
+                animBactCarg[4] = new Animation(Assets.bacteria1Cargada4, height);
+                break;
+            case 3:
+                animBact = new Animation(Assets.bacteria2, height);
+                animBactCarg[0] = new Animation(Assets.bacteria2Cargada0, height);
+                animBactCarg[1] = new Animation(Assets.bacteria2Cargada1, height);
+                animBactCarg[2] = new Animation(Assets.bacteria2Cargada2, height);
+                animBactCarg[3] = new Animation(Assets.bacteria2Cargada3, height);
+                animBactCarg[4] = new Animation(Assets.bacteria2Cargada4, height);
+                break;
+            default: break;
+        }       
          
         // Este array nos indica los sensores target de nuestra bacteria
         this.bactTarget = Constants.BACT0_TARGET;
@@ -127,31 +117,9 @@ public class Player extends Item{
      */
     @Override
     public void tick() {
-        switch(game.getLevel()) {
-            case 1:
-                this.animationBacteria0.tick();
-                this.animationBacteria0Cargada0.tick();
-                this.animationBacteria0Cargada1.tick();
-                this.animationBacteria0Cargada2.tick();
-                this.animationBacteria0Cargada3.tick();
-                this.animationBacteria0Cargada4.tick();
-                break;
-            case 2:
-                this.animationBacteria1.tick();
-                this.animationBacteria1Cargada0.tick();
-                this.animationBacteria1Cargada1.tick();
-                this.animationBacteria1Cargada2.tick();
-                this.animationBacteria1Cargada3.tick();
-                this.animationBacteria1Cargada4.tick();
-                break;
-            case 3:
-                this.animationBacteria2.tick();
-                this.animationBacteria2Cargada0.tick();
-                this.animationBacteria2Cargada1.tick();
-                this.animationBacteria2Cargada2.tick();
-                this.animationBacteria2Cargada3.tick();
-                this.animationBacteria2Cargada4.tick();
-                break;
+        this.animBact.tick();
+        for(Animation anim : animBactCarg){
+            anim.tick();
         }
         
         // moving player depending on flags
@@ -232,106 +200,11 @@ public class Player extends Item{
      * @param g 
      */
     @Override
-    public void render(Graphics g) {
-        switch(game.getLevel()) {
-            case 1: 
-                render1(g);
-                break;
-            case 2:
-                render2(g);
-                break;
-            case 3:
-                render3(g);
-                break;
-        }      
-        
-    }
-    
-    
-    /**
-     * render the image of the player if the level is 1
-     * @param g 
-     */
-    public void render1(Graphics g) {
-       if(antibioticos.size()>0){
-            switch(antibioticos.peek().getTipoInt()){
-                    case 0:
-                        g.drawImage(animationBacteria0Cargada0.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                    case 1:
-                        g.drawImage(animationBacteria0Cargada1.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                    case 2:
-                        g.drawImage(animationBacteria0Cargada2.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                    case 3:
-                        g.drawImage(animationBacteria0Cargada3.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;  
-                    case 4:
-                        g.drawImage(animationBacteria0Cargada4.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                        
-                }
+    public void render(Graphics g) { 
+        if(antibioticos.size()>0){
+            g.drawImage(animBactCarg[antibioticos.peek().getTipoInt()].getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
         } else {
-            g.drawImage(animationBacteria0.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
-        }  
-    }
-    
-    /**
-     * render the image of the player if the level is 1
-     * @param g 
-     */
-    public void render2(Graphics g) {
-       if(antibioticos.size()>0){
-            switch(antibioticos.peek().getTipoInt()){
-                    case 0:
-                        g.drawImage(animationBacteria1Cargada0.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                    case 1:
-                        g.drawImage(animationBacteria1Cargada1.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                    case 2:
-                        g.drawImage(animationBacteria1Cargada2.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                    case 3:
-                        g.drawImage(animationBacteria1Cargada3.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;  
-                    case 4:
-                        g.drawImage(animationBacteria1Cargada4.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                        
-                }
-        } else {
-            g.drawImage(animationBacteria1.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
-        }  
-    }
-    
-    /**
-     * render the image of the player if the level is 1
-     * @param g 
-     */
-    public void render3(Graphics g) {
-       if(antibioticos.size()>0){
-            switch(antibioticos.peek().getTipoInt()){
-                    case 0:
-                        g.drawImage(animationBacteria2Cargada0.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                    case 1:
-                        g.drawImage(animationBacteria2Cargada1.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                    case 2:
-                        g.drawImage(animationBacteria2Cargada2.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                    case 3:
-                        g.drawImage(animationBacteria2Cargada3.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;  
-                    case 4:
-                        g.drawImage(animationBacteria2Cargada4.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null); 
-                        break;
-                        
-                }
-        } else {
-            g.drawImage(animationBacteria2.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
-        }  
+            g.drawImage(animBact.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+        }
     }
 }
