@@ -256,6 +256,7 @@ public class Game implements Runnable  {
         if(mouseManager.isDerecho()){
             for(Receptor recep : receptores){
                 if(recep.getCircShape().contains(mouseManager.getPoint())){
+                    pause = true;
                     try {
                         java.awt.Desktop.getDesktop().browse(recep.getURI());
                     } catch (URISyntaxException | IOException ex) {

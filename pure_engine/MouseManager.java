@@ -51,10 +51,6 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
     }
 
     public boolean isDerecho() {
-        if(derecho){
-            derecho = false;
-            return true;
-        }
         return derecho;
     }
     
