@@ -433,6 +433,9 @@ public class Game implements Runnable  {
                     if (mouseManager.isIzquierdo()) {
                         Assets.choose.play();
                         levelSelected = 1;
+                        for(Receptor recep : receptores){
+                            recep.changeDirLev13();
+                        }
                         chooseMenu = false;
                     }
                 } else if (mediumRect.intersects(mouseRect)) {
@@ -440,6 +443,10 @@ public class Game implements Runnable  {
                     if (mouseManager.isIzquierdo()) {
                         Assets.choose.play();
                         levelSelected = 2;
+                        for(Receptor recep : receptores){
+                            recep.changeDirLev2();
+                            System.out.println("entra for recep");
+                        }
                         chooseMenu = false;
                     }
                 } else if (hardRect.intersects(mouseRect)) {
@@ -447,6 +454,9 @@ public class Game implements Runnable  {
                     if (mouseManager.isIzquierdo()) {
                         Assets.choose.play();
                         levelSelected = 3;
+                        for(Receptor recep : receptores){
+                            recep.changeDirLev13();
+                        }
                         chooseMenu = false;
                     }
                 }
