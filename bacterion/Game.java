@@ -57,6 +57,7 @@ public class Game implements Runnable  {
     private boolean finished;
     private boolean startScreen;
     private boolean chooseMenu;
+    private boolean instrucciones;
     
     // to set a delay for the pause button.
     // PAUSE_INTERVAL is the limit (number of frames), pauseStun is the counter.
@@ -111,6 +112,7 @@ public class Game implements Runnable  {
     private void init() {
         startScreen = true;
         chooseMenu = false;
+        instrucciones = false;
         levelSelected = 1;
         display = new Display(title, getWidth(), getHeight());
         display.getJframe().addKeyListener(keyManager);
@@ -449,24 +451,36 @@ public class Game implements Runnable  {
                     }
                 }
                 mouseManager.setIzquierdo(false);
+            } else if (instrucciones) {
+                g.drawImage(Assets.backgroundStartScreenTuto, 0, 0, 640, 640, null);
+                Rectangle volver = new Rectangle (0, height*1/10, 640, 49);
+                if (volver.intersects(mouseManager.getPerimeter())) {
+                    instrucciones = false;
+                }
             } else {
                 g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
-                g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/5, 196, 49, null);
-                Rectangle rectJugar = new Rectangle (0, height*3/5, 640, 49);
-                g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
-                Rectangle eligeBact = new Rectangle (0, height*4/5, 640, 47);
+                g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/6, 196, 49, null);
+                Rectangle rectJugar = new Rectangle (0, height*3/6, 640, 49);
+                g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/6, 505, 47, null);
+                Rectangle eligeBact = new Rectangle (0, height*4/6, 640, 47);
+                g.drawImage(Assets.instrucciones, width/2-216, height*5/6, 428, 50, null);
+                Rectangle instr = new Rectangle (0, height*5/6, 640, 50);
 
                 if (rectJugar.intersects(mouseManager.getPerimeter())) {
-                    g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 5, 640, 49, null);
+                    g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 6, 640, 49, null);
                     if (mouseManager.isIzquierdo()) {
                         Assets.start.play();
                         restartVariables();
                         startScreen = false;
                     }
                 } else if (eligeBact.intersects(mouseManager.getPerimeter())) {
-                    g.drawImage(Assets.cursorStartScreen, 0, height*4/5, 640, 49, null);
+                    g.drawImage(Assets.cursorStartScreen, 0, height*4/6, 640, 49, null);
                     if (mouseManager.isIzquierdo())
                         chooseMenu = true;
+                } else if (instr.intersects(mouseManager.getPerimeter())) {
+                    g.drawImage(Assets.cursorStartScreen, 0, height*5/6, 640, 49, null);
+                    if (mouseManager.isIzquierdo())
+                        instrucciones = true;
                 }
             }
             
