@@ -50,6 +50,7 @@ public class Receptor extends Item{
         } catch (URISyntaxException ex) {
             Logger.getLogger(Receptor.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.dir = dir;
         if (game.getLevel() == 2) {
             dir = (int) (Math.random() * 4 -1);
             if (dir > 0) {
@@ -57,9 +58,7 @@ public class Receptor extends Item{
             } else {
                 dir = -1;
             }
-        } else if (game.getLevel() == 3) {
-            this.dir = dir;
-        }
+        } 
         
     }
     
