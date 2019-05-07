@@ -49,6 +49,7 @@ public class Game implements Runnable  {
     private LinkedList<Antibiotico> antibioticos;   // antibioticos que caerán y nuestros receptores perciben
     private LinkedList<Receptor> receptores;        // receptores que detectarán los antibióticos
     private EstresBarra barra;          // barra donde guardaremos la información respecto al estrés
+    int shootStun;
     private int levelSelected;          // the level selected. 1: easy  2: medium   3: hard
     private Animation bact0, bact1, bact2; // to display the animated bacterias in chooseMenu
     
@@ -81,7 +82,29 @@ public class Game implements Runnable  {
         mouseManager = new MouseManager();
         this.nombreArchivo = "SaveFile.txt";
     }
-    
+
+    /**
+     * To restart all important variables before a new game.
+     */
+    void restartVariables() {
+        player = new Player(this, width/2 -(Constants.PLAYER_WIDTH/2), height/2-(Constants.PLAYER_HEIGHT/2));
+        elicRandom = Constants.RANDOM_INDEX;
+        elicitadores = new LinkedList<>();
+        antibioticos = new LinkedList<>();
+        receptores = Constants.initReceptores(this);
+        finished = false;
+        pauseStun = 0;
+
+        bg1X = 0;
+        bg2X = Constants.GAME_WIDTH;
+        bgMoveDelay = 1;
+        bgMoveDelayCounter = 0;
+
+        shootStun = Constants.SHOOT_STUN;
+
+        barra = new EstresBarra(this,20,height-32,5*player.getEstres(),Constants.BARRA_HEIGHT,0);
+     }
+
     /**
      * initializing the display window of the game
      */
@@ -97,24 +120,12 @@ public class Game implements Runnable  {
         display.getCanvas().addMouseMotionListener(mouseManager);
         Assets.init();
         Constants.init();
-        
-        player = new Player(this, width/2 -(Constants.PLAYER_WIDTH/2), height/2-(Constants.PLAYER_HEIGHT/2));
-        elicRandom = Constants.RANDOM_INDEX;
-        elicitadores = new LinkedList<>();
-        antibioticos = new LinkedList<>();
-        receptores = Constants.initReceptores(this);
-        finished = false;
+
         bact0 = new Animation(Assets.bacteria0, 100);
         bact1 = new Animation(Assets.bacteria1, 100);
         bact2 = new Animation(Assets.bacteria2, 100);
-        pauseStun = 0;
-        
-        bg1X = 0;
-        bg2X = Constants.GAME_WIDTH;
-        bgMoveDelay = 1;
-        bgMoveDelayCounter = 0;
-        
-        barra = new EstresBarra(this,20,height-32,5*player.getEstres(),Constants.BARRA_HEIGHT,0);
+
+        restartVariables();
     }
 
     /**
@@ -216,13 +227,19 @@ public class Game implements Runnable  {
         
         if(pause)
             return;
-        
-        if(mouseManager.isIzquierdo()){
-            if(player.hasAntibiotico()){
-                Antibiotico anti = player.getAntibiotico();
-                anti.disparar(player.getMidX(), player.getMidY(), 
-                        mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
-                antibioticos.add(anti);
+
+        if (startScreen)
+            return;
+
+        shootStun--;
+        if(mouseManager.isIzquierdo()) {
+            if(player.hasAntibiotico() && shootStun <= 0) {
+                shootStun = Constants.SHOOT_STUN;
+                if (player.hasAntibiotico()) {
+                    Antibiotico anti = player.getAntibiotico();
+                    anti.disparar(player.getMidX()+5, player.getMidY()+5, mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
+                    antibioticos.add(anti);
+                }
             }
         }
         
@@ -392,13 +409,13 @@ public class Game implements Runnable  {
                 RoundRectangle2D.Double mediumRect = new RoundRectangle2D.Double(226, height/3 - 13, 188, 230, 69, 69);
                 RoundRectangle2D.Double hardRect = new RoundRectangle2D.Double(426, height/3 - 13, 188, 230, 69, 69);
                 
-                g.drawImage(bact0.getCurrentFrame(), 50, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
-                g.drawImage(bact1.getCurrentFrame(), 250, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
-                g.drawImage(bact2.getCurrentFrame(), 450, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
-                
                 bact0.tick();
                 bact1.tick();
                 bact2.tick();
+                
+                g.drawImage(bact0.getCurrentFrame(), 50, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
+                g.drawImage(bact1.getCurrentFrame(), 250, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
+                g.drawImage(bact2.getCurrentFrame(), 450, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
                 
                 g.setColor(Color.lightGray);
                 if (easyRect.intersects(mouseRect)) {
@@ -435,6 +452,7 @@ public class Game implements Runnable  {
                     g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 5, 640, 49, null);
                     if (mouseManager.isIzquierdo()) {
                         Assets.start.play();
+                        restartVariables();
                         startScreen = false;
                     }
                 } else if (eligeBact.intersects(mouseManager.getPerimeter())) {
@@ -499,6 +517,7 @@ public class Game implements Runnable  {
                     if (mouseManager.isIzquierdo()) {
                         pause = false;
                         pauseStun = 0;
+                        mouseManager.setIzquierdo(false);
                         startScreen = true;
                     }
                 }
