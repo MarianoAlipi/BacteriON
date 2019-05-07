@@ -85,82 +85,103 @@ public class Constants {
     }
     
     public static LinkedList<Receptor> initReceptores(Game g){
+        //i0, j0 //top left
+        //i0, j1 //down left
+        //i1, j0 //top right
+        //i1, j0 //top left
+        //PARA DIR: 1 arriba, 2 abajo, 3 izq, 4 der
         LinkedList<Receptor> receptores = new LinkedList<>();
-        
+        int pos;
         int xOffset, yOffset;
         int separacion = 15;
         int dimens = 2;
         //arriba izq
         xOffset = 15;
         yOffset = 15;
+        pos = 1;
         for(int i=0; i<dimens; i++){
-            for(int j=0; j<dimens; j++){
-                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
+            for(int j=0; j< dimens; j++){
+                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI, pos, 2));
+                pos++;
             }
         }
         
         //arriba centro
         xOffset = 290;
         yOffset = 15;
+        pos = 1;
         for(int i=0; i<dimens; i++){
             for(int j=0; j<dimens; j++){
-                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_DYSENTERIAE));
+                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_DYSENTERIAE, pos, 3));
+                pos++;
             }
         }
         
         //arriba derecha
         xOffset = 560;
         yOffset = 15;
+        pos = 1;
         for(int i=0; i<dimens; i++){
             for(int j=0; j<dimens; j++){
-                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_DYSENTERIAE));
+                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_DYSENTERIAE, pos, 3));
+                pos++;
             }
         }
         
         //centro izq
         xOffset = 15;
         yOffset = 290;
+        pos = 1;
         for(int i=0; i<dimens; i++){
             for(int j=0; j<dimens; j++){
-                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.B_SUBTILIS));
+                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.B_SUBTILIS, pos, 2));
+                pos++;
             }
         }
         
         //centro derecha
         xOffset = 560;
         yOffset = 290;
+        pos = 1;
         for(int i=0; i<dimens; i++){
             for(int j=0; j<dimens; j++){
-                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_PNEUMONIAE));
+                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_PNEUMONIAE, pos, 1));
+                pos++;
             }
         }
         
         //abajo izq
         xOffset = 15;
         yOffset = 540;
+        pos = 1;
         for(int i=0; i<dimens; i++){
             for(int j=0; j<dimens; j++){
-                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI));
+                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.E_COLI, pos, 4));
+                pos++;
             }
         }
         
         //abajo centro
         xOffset = 290;
         yOffset = 540;
+        pos = 1;
         for(int i=0; i<dimens; i++){
             for(int j=0; j<dimens; j++){
-                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.P_AERUGINOSA));
+                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.P_AERUGINOSA, pos, 4));
+                pos++;
             }
         }
         
         //abajo derecha
         xOffset = 560;
         yOffset = 540;
+        pos = 1;
         for(int i=0; i<dimens; i++){
             for(int j=0; j<dimens; j++){
-                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_DYSENTERIAE));
+                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_DYSENTERIAE, pos, 1));
+                pos++;
             }
-        }
+        }   
         
         return receptores;
     }

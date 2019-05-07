@@ -181,11 +181,19 @@ public class Game implements Runnable  {
     public void endGame(){
         this.finished = true;
     }
-
+    
+    private void tick() {
+        if (!startScreen) {
+            tickStarted();
+        }
+            
+    }
+    
+    
     /**
      * Control movement of all instances of the game
      */
-    private void tick() {
+    private void tickStarted() {
         keyManager.tick();
         
         // To pause and unpause.

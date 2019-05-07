@@ -20,14 +20,16 @@ public class Receptor extends Item{
     
     private boolean exploded;
     private AntiType tipo;
+    private int pos; //1 top left, 2 bottom left, 3 top right, 4 bottom right 
     private Animation animationReceptor;
     private URI URI;
     private int count = 0;
-    private int dir;
+    private int dir; //1 arriba, 2 abajo, 3 izq, 4 der
     
-    public Receptor(Game game, int x, int y, int width, int height, int speed, AntiType tipo){
+    public Receptor(Game game, int x, int y, int width, int height, int speed, AntiType tipo, int pos, int dir){
         super(game, x, y, width, height, speed);
         this.tipo = tipo;
+        this.pos = pos;
         switch(tipo){
             case E_COLI: this.animationReceptor = new Animation(Assets.receptorAzul, height); break;
             case B_SUBTILIS: this.animationReceptor = new Animation(Assets.receptorRojo, height); break;
@@ -48,17 +50,22 @@ public class Receptor extends Item{
         } catch (URISyntaxException ex) {
             Logger.getLogger(Receptor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dir = (int) (Math.random() * 4 -1);
-        if (dir > 0) {
-            dir = 1;
-        } else {
-            dir = -1;
-        }
+        this.dir = dir;
+        if (game.getLevel() == 2) {
+            dir = (int) (Math.random() * 4 -1);
+            if (dir > 0) {
+                dir = 1;
+            } else {
+                dir = -1;
+            }
+        } 
+        
     }
     
     public AntiType getTipo(){
         return tipo;
     }
+    
     
     public int getTipoInt(){
         switch(tipo){
@@ -92,7 +99,7 @@ public class Receptor extends Item{
         this.animationReceptor.tick();
         switch (game.getLevel()) {
             case 1:
-                //no se mueve
+                //no hacen nada
                 break;
             case 2:
                 tick2();
@@ -121,7 +128,58 @@ public class Receptor extends Item{
      * Control receptor movement when the level Selected is 1 (hard)
      */
     public void tick3() {
+        //1 arriba, 2 abajo, 3 izq, 4 der   //DIR
+        //1 top left, 2 bottom left, 3 top right, 4 bottom right //POS
+        //checa si tienen que cambiar de lado
+        switch (dir) {
+            case 1:
+                //si va para arriba
+                if ((pos == 1 && getY() <= 15) || (pos == 3 && getY() <= 15) || //si está en la top left o right y ya llegó arriba
+                    (pos == 2 && getY() <= 30) || (pos == 4 && getY() <= 30)) { //si está en el bottom left o right y ya llegó arriba
+                    dir = 3;
+                }   break;
+            case 2:
+                //si va para abajo
+                if ((pos == 1 && getY() >= 540) || (pos == 3 && getY() >= 540) || //si está en la top left o right y ya llegó abajo
+                    (pos == 2 && getY() >= 555) || (pos == 4 && getY() >= 555)) { //si está en el bottom left o right y ya llegó abajo
+                    dir = 4;
+                }   break;
+            case 3:
+                //si va para la izq
+                if ((pos == 1 && getX() <= 15) || (pos == 2 && getX() <= 15) || //si está en la top o bottom left y ya llegó a la izq
+                    (pos == 3 && getX() <= 30) || (pos == 4 && getX() <= 30)) { //si está en el top o bottom right y ya llegó a la izq
+                    dir = 2;
+                }   break;
+            case 4:
+                //si va para la derecha
+                if ((pos == 1 && getX() >= 560) || (pos == 2 && getX() >= 560) || //si está en la top o bottom left y ya llegó a la izq
+                    (pos == 3 && getX() >= 575) || (pos == 4 && getX() >= 575)) { //si está en el top o bottom right y ya llegó a la izq
+                    dir = 1;
+                }   break;
+            default:
+                break;
+        }
         
+        switch (dir) {
+            case 1:
+                //si va para arriba
+                setY(getY()-1);
+                break;
+            case 2:
+                //si va para abajo
+                setY(getY()+1);
+                break;
+            case 3:
+                //si va para la izq
+                setX(getX()-1);
+                break;
+            case 4:
+                //si va para la der
+                setX(getX()+1);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
