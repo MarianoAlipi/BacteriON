@@ -47,6 +47,7 @@ public class Assets {
     public static BufferedImage titleStartScreen;
     public static BufferedImage jugarStartScreen;
     public static BufferedImage eligeBactStartScreen;
+    public static BufferedImage instruccionesStartScreen;
     public static BufferedImage cursorStartScreen;
     public static BufferedImage chooseMenu;
     
@@ -97,6 +98,7 @@ public class Assets {
         titleStartScreen = ImageLoader.loadImage("/startscreen/bacterionTitle.png");
         jugarStartScreen = ImageLoader.loadImage("/startscreen/jugar.png");
         eligeBactStartScreen = ImageLoader.loadImage("/startscreen/elegirBacteria.png");
+        instruccionesStartScreen = ImageLoader.loadImage("/startscreen/instrucciones.png");
         cursorStartScreen = ImageLoader.loadImage("/startscreen/cursor.png");
         chooseMenu = ImageLoader.loadImage("/startscreen/chooseMenu.png");
         

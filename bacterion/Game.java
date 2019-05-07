@@ -195,9 +195,10 @@ public class Game implements Runnable  {
      */
     private void tickStarted() {
         keyManager.tick();
-        
+
         // To pause and unpause.
-        pauseStun++;
+        if (pauseStun++ > PAUSE_INTERVAL)
+            pauseStun = PAUSE_INTERVAL + 1;
         if (keyManager.pReleased) {
             if (pauseStun > PAUSE_INTERVAL) {
                 pause = !pause;
@@ -450,23 +451,33 @@ public class Game implements Runnable  {
                 }
                 mouseManager.setIzquierdo(false);
             } else {
-                g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
-                g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/5, 196, 49, null);
-                Rectangle rectJugar = new Rectangle (0, height*3/5, 640, 49);
-                g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/5, 505, 47, null);
-                Rectangle eligeBact = new Rectangle (0, height*4/5, 640, 47);
+                g.drawImage(Assets.titleStartScreen, width/2-200, height/10, 401, 57, null);
+                g.drawImage(Assets.jugarStartScreen, width/2-100, height * 2/5, 196, 49, null);
+                Rectangle rectJugar = new Rectangle (0, height*2/5, 640, 49);
+                g.drawImage(Assets.eligeBactStartScreen, width/2-250, height * 2/5 + 80, 505, 47, null);
+                Rectangle eligeBact = new Rectangle (0, height*2/5 + 80, 640, 47);
+                g.drawImage(Assets.instruccionesStartScreen, width/2 - 214, height * 2 / 5 + 160, 428, 50, null);
+                Rectangle instruccRect = new Rectangle(0, height * 2 / 5 + 160, 640, 50);
 
                 if (rectJugar.intersects(mouseManager.getPerimeter())) {
-                    g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 5, 640, 49, null);
+                    g.drawImage(Assets.cursorStartScreen, 0, height * 2 / 5, 640, 49, null);
                     if (mouseManager.isIzquierdo()) {
                         Assets.start.play();
+                        mouseManager.setIzquierdo(false);
                         restartVariables();
                         startScreen = false;
                     }
                 } else if (eligeBact.intersects(mouseManager.getPerimeter())) {
-                    g.drawImage(Assets.cursorStartScreen, 0, height*4/5, 640, 49, null);
-                    if (mouseManager.isIzquierdo())
+                    g.drawImage(Assets.cursorStartScreen, 0, height*2/5 + 80, 640, 49, null);
+                    if (mouseManager.isIzquierdo()) {
+                        mouseManager.setIzquierdo(false);
                         chooseMenu = true;
+                    }
+                } else if (instruccRect.intersects(mouseManager.getPerimeter())) {
+                    g.drawImage(Assets.cursorStartScreen, 0, height*2/5 + 160, 640, 49, null);
+                    if (mouseManager.isIzquierdo()) {
+                        
+                    }
                 }
             }
             
