@@ -25,6 +25,7 @@ public class Receptor extends Item{
     private URI URI;
     private int count = 0;
     private int dir; //1 arriba, 2 abajo, 3 izq, 4 der
+    private int dirOG;
     
     public Receptor(Game game, int x, int y, int width, int height, int speed, AntiType tipo, int pos, int dir){
         super(game, x, y, width, height, speed);
@@ -50,22 +51,31 @@ public class Receptor extends Item{
         } catch (URISyntaxException ex) {
             Logger.getLogger(Receptor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.dir = dir;
-        if (game.getLevel() == 2) {
-            dir = (int) (Math.random() * 4 -1);
-            if (dir > 0) {
-                dir = 1;
-            } else {
-                dir = -1;
-            }
-        } 
         
+        this.dir = dir;
+        dir = dirOG;
+        if (game.getLevel() == 2) {
+            changeDirLev2();
+        } 
     }
     
     public AntiType getTipo(){
         return tipo;
     }
     
+    public void changeDirLev2(){
+        dir = (int) (Math.random() * 4 -1);
+        if (dir > 0) {
+            dir = 1;
+        } else {
+            dir = -1;
+        }
+        System.out.println("entre changedir2, dir es " + dir);
+    }
+    
+    public void changeDirLev13(){
+        dir = dirOG;
+    }
     
     public int getTipoInt(){
         switch(tipo){
@@ -119,6 +129,7 @@ public class Receptor extends Item{
             count = 0;
             dir *= -1;
         }
+        System.out.println("dir es " + dir);
         setX(getX()+(1*dir));
         setY(getY()+(1*dir));
         count ++;
