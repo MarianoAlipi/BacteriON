@@ -230,13 +230,16 @@ public class Game implements Runnable  {
 
         if (startScreen)
             return;
-        
-        if(mouseManager.isIzquierdo()){
-            if(player.hasAntibiotico()){
-                Antibiotico anti = player.getAntibiotico();
-                anti.disparar(player.getMidX(), player.getMidY(), 
-                        mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
-                antibioticos.add(anti);
+
+        shootStun--;
+        if(mouseManager.isIzquierdo()) {
+            if(player.hasAntibiotico() && shootStun <= 0) {
+                shootStun = Constants.SHOOT_STUN;
+                if (player.hasAntibiotico()) {
+                    Antibiotico anti = player.getAntibiotico();
+                    anti.disparar(player.getMidX()+5, player.getMidY()+5, mouseManager.getY()-player.getMidY(),mouseManager.getX()-player.getMidX());
+                    antibioticos.add(anti);
+                }
             }
         }
         
@@ -406,13 +409,13 @@ public class Game implements Runnable  {
                 RoundRectangle2D.Double mediumRect = new RoundRectangle2D.Double(226, height/3 - 13, 188, 230, 69, 69);
                 RoundRectangle2D.Double hardRect = new RoundRectangle2D.Double(426, height/3 - 13, 188, 230, 69, 69);
                 
-                g.drawImage(bact0.getCurrentFrame(), 50, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
-                g.drawImage(bact1.getCurrentFrame(), 250, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
-                g.drawImage(bact2.getCurrentFrame(), 450, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
-                
                 bact0.tick();
                 bact1.tick();
                 bact2.tick();
+                
+                g.drawImage(bact0.getCurrentFrame(), 50, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
+                g.drawImage(bact1.getCurrentFrame(), 250, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
+                g.drawImage(bact2.getCurrentFrame(), 450, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
                 
                 g.setColor(Color.lightGray);
                 if (easyRect.intersects(mouseRect)) {
@@ -514,6 +517,7 @@ public class Game implements Runnable  {
                     if (mouseManager.isIzquierdo()) {
                         pause = false;
                         pauseStun = 0;
+                        mouseManager.setIzquierdo(false);
                         startScreen = true;
                     }
                 }
