@@ -487,8 +487,6 @@ public class Game implements Runnable  {
                 if (easyRect.intersects(mouseRect)) {
                     g.drawRoundRect(26, height/3 - 13, 188, 230, 69, 69);
                     if (mouseManager.isIzquierdo()) {
-                        LogInSignUp field = new LogInSignUp();
-                        field.setVisible(true);
                         Assets.choose.play();
                         levelSelected = 1;
                         for(Receptor recep : receptores){
@@ -499,8 +497,6 @@ public class Game implements Runnable  {
                 } else if (mediumRect.intersects(mouseRect)) {
                     g.drawRoundRect(226, height/3 - 13, 188, 230, 69, 69);
                     if (mouseManager.isIzquierdo()) {
-                        LogInSignUp field = new LogInSignUp();
-                        field.setVisible(true);
                         Assets.choose.play();
                         levelSelected = 2;
                         for(Receptor recep : receptores){
@@ -511,8 +507,6 @@ public class Game implements Runnable  {
                 } else if (hardRect.intersects(mouseRect)) {
                     g.drawRoundRect(426, height/3 - 13, 188, 230, 69, 69);
                     if (mouseManager.isIzquierdo()) {
-                        LogInSignUp field = new LogInSignUp();
-                        field.setVisible(true);
                         Assets.choose.play();
                         levelSelected = 3;
                         for(Receptor recep : receptores){
