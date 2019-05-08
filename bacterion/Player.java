@@ -20,6 +20,7 @@ public class Player extends Item{
     private boolean alive;
     private LinkedList<Antibiotico> antibioticos;
     private int cargStun;
+    private int lastAntib;
     private boolean[] bactTarget;
     
     private Animation animBact;
@@ -39,6 +40,7 @@ public class Player extends Item{
         alive = true;
         estres = Constants.ESTES_INICIAL;
         estresStun = Constants.ESTRES_STUN;
+        lastAntib = 0;
         antibioticos = new LinkedList<>();
         
         // Con base en el nivel son los sprites de nuestra bacteria
@@ -183,11 +185,12 @@ public class Player extends Item{
             if(antibioticos.size()>0){
                 bact = antibioticos.peek().getTipoInt()+1;
             } else {
-                bact = (int)Math.random()*5;
+                bact = lastAntib+1;
             }
             while(!bactTarget[bact%bactTarget.length]){
                 bact++;
             }
+            lastAntib = bact%bactTarget.length;
             switch(bact%bactTarget.length){
                 case 0:
                     antibioticos.push(
