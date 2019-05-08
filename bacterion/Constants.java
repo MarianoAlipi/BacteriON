@@ -189,7 +189,7 @@ public class Constants {
         pos = 1;
         for(int i=0; i<dimens; i++){
             for(int j=0; j<dimens; j++){
-                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.S_DYSENTERIAE, pos, 1));
+                receptores.add(new Receptor(g,xOffset+separacion*i,yOffset+separacion*j,Constants.RECEP_WIDTH,Constants.RECEP_HEIGHT,Constants.RECEP_SPEED,AntiType.B_SUBTILIS, pos, 1));
                 pos++;
             }
         }   

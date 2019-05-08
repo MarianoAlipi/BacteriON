@@ -104,20 +104,19 @@ public class Game implements Runnable  {
 
         shootStun = Constants.SHOOT_STUN;
         
+        Assets.back_sound_01.stop();
+        Assets.back_sound_02.stop();
+        Assets.back_sound_03.stop();
+        Assets.back_sound_start_screen.stop();
+        
         switch(levelSelected){
             case 1:
                 Assets.back_sound_01.play();
-                Assets.back_sound_02.stop();
-                Assets.back_sound_03.stop();
                 break;
             case 2:
-                Assets.back_sound_01.stop();
                 Assets.back_sound_02.play();
-                Assets.back_sound_03.stop();
                 break;
             case 3:
-                Assets.back_sound_01.stop();
-                Assets.back_sound_02.stop();
                 Assets.back_sound_03.play();
                 break;
         }
@@ -141,6 +140,11 @@ public class Game implements Runnable  {
         display.getCanvas().addMouseMotionListener(mouseManager);
         Assets.init();
         Constants.init();
+        
+        Assets.back_sound_01.stop();
+        Assets.back_sound_02.stop();
+        Assets.back_sound_03.stop();
+        Assets.back_sound_start_screen.stop();
 
         bact0 = new Animation(Assets.bacteria0, 100);
         bact1 = new Animation(Assets.bacteria1, 100);
@@ -250,8 +254,12 @@ public class Game implements Runnable  {
         }
         
         if (keyManager.r) {
-            this.init();
-            pause = true;
+            restartVariables();
+            Assets.back_sound_01.stop();
+            Assets.back_sound_02.stop();
+            Assets.back_sound_03.stop();
+            startScreen = true;
+            pause = false;
         }
         
         if(finished)
@@ -436,6 +444,13 @@ public class Game implements Runnable  {
             g.drawImage(Assets.backgroundStartScreen, bg1X, 0, width, height, null);
             g.drawImage(Assets.backgroundStartScreen, bg2X, 0, width, height, null);
             
+            
+            Assets.back_sound_01.stop();
+            Assets.back_sound_02.stop();
+            Assets.back_sound_03.stop();
+            
+            Assets.back_sound_start_screen.play();
+            
             if (bgMoveDelayCounter++ >= bgMoveDelay) {
                 bg1X--;
                 bg2X--;
@@ -533,8 +548,24 @@ public class Game implements Runnable  {
                     instrucciones = false;
                 }
             } else {
-                g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
+                g.drawImage(Assets.titleStartScreen, width/2-300, 50, 600, 100, null);
                 g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/6, 196, 49, null);
+                
+                bact0.tick();
+                bact1.tick();
+                bact2.tick();
+                
+                switch(levelSelected){
+                    case 1:
+                        g.drawImage(bact0.getCurrentFrame(), width/2-75, height*1/4, 150, 150, null);
+                        break;
+                    case 2:
+                        g.drawImage(bact1.getCurrentFrame(), width/2-75, height*1/4, 150, 150, null);
+                        break;
+                    case 3:
+                        g.drawImage(bact2.getCurrentFrame(), width/2-75, height*1/4, 150, 150, null);
+                        break;
+                }
                 Rectangle rectJugar = new Rectangle (0, height*3/6, 640, 49);
                 g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/6, 505, 47, null);
                 Rectangle eligeBact = new Rectangle (0, height*4/6, 640, 47);

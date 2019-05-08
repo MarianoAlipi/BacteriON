@@ -95,6 +95,7 @@ public class Assets {
     public static MediaPlayer back_sound_01;
     public static MediaPlayer back_sound_02;
     public static MediaPlayer back_sound_03;
+    public static MediaPlayer back_sound_start_screen;
 
     /**
      * initializing the images of the game
@@ -151,6 +152,7 @@ public class Assets {
                 back_sound_01 = new MediaPlayer(new Media(Assets.class.getResource("/sounds/back_sound_01.mp3").toString()));
                 back_sound_02 = new MediaPlayer(new Media(Assets.class.getResource("/sounds/back_sound_02.mp3").toString()));
                 back_sound_03 = new MediaPlayer(new Media(Assets.class.getResource("/sounds/back_sound_03.mp3").toString()));
+                back_sound_start_screen = new MediaPlayer(new Media(Assets.class.getResource("/sounds/back_sound_start_screen.mp3").toString()));
                 latch.countDown();
             }
         });
