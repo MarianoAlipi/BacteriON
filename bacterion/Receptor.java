@@ -5,7 +5,6 @@
  */
 package bacterion;
 
-import static bacterion.Assets.receptorAzul;
 import java.awt.Graphics;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -99,6 +98,26 @@ public class Receptor extends Item{
     public void explode(){
         Assets.die.play();
         exploded = true;
+        switch(game.getLevel()){
+            case 1:
+                if(!Constants.BACT0_CARGAS[this.getTipoInt()]){
+                    setX(-20);
+                    setY(-20);
+                }
+                break;
+            case 2:
+                if(!Constants.BACT1_CARGAS[this.getTipoInt()]){
+                    setX(-20);
+                    setY(-20);
+                }
+                break;
+            case 3:
+                if(!Constants.BACT2_CARGAS[this.getTipoInt()]){
+                    setX(-20);
+                    setY(-20);
+                }
+                break;
+        }
     }
     
     /**
@@ -201,7 +220,7 @@ public class Receptor extends Item{
     public void render(Graphics g) {
         if(!exploded){
             g.drawImage(animationReceptor.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
-        } else if(Constants.BACT0_TARGET[this.getTipoInt()]){
+        } else {
             g.drawImage(Assets.receptorMuerto, getX(), getY(), getWidth(), getHeight(), null);
         }
     }

@@ -258,40 +258,36 @@ public class Assets {
     }
     
     private static void initReceptores() {
-        spritesReceptor = ImageLoader.loadImage("/images/biosensor_azul.png");
-        SpriteSheet spritesheetReceptores = new SpriteSheet(spritesReceptor);
+        SpriteSheet spritesheetReceptores;
+        spritesheetReceptores = new SpriteSheet(ImageLoader.loadImage("/images/biosensor_azul.png"));
         receptorAzul = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
             receptorAzul[i] = spritesheetReceptores.crop(i*32, 0, 32, 31);
             receptorAzul[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
         
-        spritesReceptor = ImageLoader.loadImage("/images/biosensor_rojo.png");
-        spritesheetReceptores = new SpriteSheet(spritesReceptor);
+        spritesheetReceptores = new SpriteSheet(ImageLoader.loadImage("/images/biosensor_rojo.png"));
         receptorRojo = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
             receptorRojo[i] = spritesheetReceptores.crop(i*32, 0, 32, 31); 
             receptorRojo[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
         
-        spritesReceptor = ImageLoader.loadImage("/images/biosensor_naranja.png");
-        spritesheetReceptores = new SpriteSheet(spritesReceptor);
+        spritesheetReceptores = new SpriteSheet(ImageLoader.loadImage("/images/biosensor_naranja.png"));
         receptorNaranja = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
             receptorNaranja[i] = spritesheetReceptores.crop(i*32, 0, 32, 31); 
             receptorNaranja[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
         
-        spritesReceptor = ImageLoader.loadImage("/images/biosensor_amarillo.png");
-        spritesheetReceptores = new SpriteSheet(spritesReceptor);
+        spritesheetReceptores = new SpriteSheet(ImageLoader.loadImage("/images/biosensor_amarillo.png"));
         receptorAmarillo = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
             receptorAmarillo[i] = spritesheetReceptores.crop(i*32, 0, 32, 31); 
             receptorAmarillo[i+6] = spritesheetReceptores.crop(i*32, 31, 32, 31);
         }
         
-        spritesReceptor = ImageLoader.loadImage("/images/biosensor_rosa.png");
-        spritesheetReceptores = new SpriteSheet(spritesReceptor);
+        spritesheetReceptores = new SpriteSheet(ImageLoader.loadImage("/images/biosensor_rosa.png"));
         receptorRosa = new BufferedImage[12];
         for (int i = 0; i < 6; i++) {
             receptorRosa[i] = spritesheetReceptores.crop(i*32, 0, 32, 31); 

@@ -19,8 +19,7 @@ public class Player extends Item{
     private int estresStun;
     private boolean alive;
     private LinkedList<Antibiotico> antibioticos;
-    private int[] cargas;
-    private int[] cargLimits;
+    private int cargStun;
     private boolean[] bactTarget;
     
     private Animation animBact;
@@ -41,18 +40,12 @@ public class Player extends Item{
         estres = Constants.ESTES_INICIAL;
         estresStun = Constants.ESTRES_STUN;
         antibioticos = new LinkedList<>();
-        cargas = new int[5];
-        cargLimits = new int[5];
-        cargLimits[0] = 200;
-        cargLimits[1] = 100;
-        cargLimits[2] = 150;
-        cargLimits[3] = 300;
-        cargLimits[4] = 250;
         
         // Con base en el nivel son los sprites de nuestra bacteria
         animBactCarg = new Animation[5];
         switch(game.getLevel()){
             case 1:
+                bactTarget = Constants.BACT0_CARGAS;
                 animBact = new Animation(Assets.bacteria0, height);
                 animBactCarg[0] = new Animation(Assets.bacteria0Cargada0, height);
                 animBactCarg[1] = new Animation(Assets.bacteria0Cargada1, height);
@@ -61,6 +54,7 @@ public class Player extends Item{
                 animBactCarg[4] = new Animation(Assets.bacteria0Cargada4, height);
                 break;
             case 2:
+                bactTarget = Constants.BACT1_CARGAS;
                 animBact = new Animation(Assets.bacteria1, height);
                 animBactCarg[0] = new Animation(Assets.bacteria1Cargada0, height);
                 animBactCarg[1] = new Animation(Assets.bacteria1Cargada1, height);
@@ -69,6 +63,7 @@ public class Player extends Item{
                 animBactCarg[4] = new Animation(Assets.bacteria1Cargada4, height);
                 break;
             case 3:
+                bactTarget = Constants.BACT2_CARGAS;
                 animBact = new Animation(Assets.bacteria2, height);
                 animBactCarg[0] = new Animation(Assets.bacteria2Cargada0, height);
                 animBactCarg[1] = new Animation(Assets.bacteria2Cargada1, height);
@@ -77,10 +72,7 @@ public class Player extends Item{
                 animBactCarg[4] = new Animation(Assets.bacteria2Cargada4, height);
                 break;
             default: break;
-        }       
-         
-        // Este array nos indica los sensores target de nuestra bacteria
-        this.bactTarget = Constants.BACT0_TARGET;
+        }
     }
     
     public boolean isAlive(){
@@ -141,12 +133,8 @@ public class Player extends Item{
             estresStun = Constants.ESTRES_STUN;
         }
         
-        if(estres>=Constants.ESTRES_BAJO && estres<=Constants.ESTRES_ALTO){
-            for(int i=0; i<bactTarget.length; i++){
-                if(bactTarget[i]){
-                    cargas[i]++;
-                }
-            }
+        if(estres>=Constants.ESTRES_BAJO){
+            cargStun += (estres-Constants.ESTRES_BAJO)/10;
         }
         
         if(estres>=Constants.ESTRES_MORTAL){
@@ -154,33 +142,41 @@ public class Player extends Item{
             game.endGame();
         }
         
-        for(int i=0; i<cargas.length; i++){
-            if(cargas[i]>=cargLimits[i]){
-                switch(i){
-                    case 0:
-                        antibioticos.push(
-                                new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.E_COLI));
-                        break;
-                    case 1:
-                        antibioticos.push(
-                                new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.B_SUBTILIS));
-                        break;
-                    case 2:
-                        antibioticos.push(
-                                new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.P_AERUGINOSA));
-                        break;
-                    case 3:
-                        antibioticos.push(
-                                new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.S_PNEUMONIAE));
-                    case 4:
-                        antibioticos.push(
-                                new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.S_DYSENTERIAE));
-                        break;
-                        
-                }
-                cargas[i] = 0;
-                Assets.added.play();
+        cargStun++;
+        if(cargStun>=Constants.CARGA_STUN){
+            cargStun = 0;
+            int bact;
+            if(antibioticos.size()>0){
+                bact = antibioticos.peek().getTipoInt()+1;
+            } else {
+                bact = 0;
             }
+            while(!bactTarget[bact%bactTarget.length]){
+                bact++;
+            }
+            switch(bact%bactTarget.length){
+                case 0:
+                    antibioticos.push(
+                            new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.E_COLI));
+                    break;
+                case 1:
+                    antibioticos.push(
+                            new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.B_SUBTILIS));
+                    break;
+                case 2:
+                    antibioticos.push(
+                            new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.P_AERUGINOSA));
+                    break;
+                case 3:
+                    antibioticos.push(
+                            new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.S_PNEUMONIAE));
+                case 4:
+                    antibioticos.push(
+                            new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.S_DYSENTERIAE));
+                    break;
+
+            }
+            Assets.added.play();
         }
     }
     

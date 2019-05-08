@@ -20,7 +20,10 @@ public class Constants {
     public static int PLAYER_SPEED;
     public static int SHOOT_STUN;
     public static int MOV_OFFSET;
-    public static boolean[] BACT0_TARGET;
+    public static boolean[] BACT0_CARGAS;
+    public static boolean[] BACT1_CARGAS;
+    public static boolean[] BACT2_CARGAS;
+    public static int CARGA_STUN;
     public static int BARRA_WIDTH;
     public static int BARRA_HEIGHT;
     public static int ESTES_INICIAL;
@@ -45,6 +48,7 @@ public class Constants {
     public static String S_DYSENTERIAE_URL;
     public static double RANDOM_INDEX;
     public static double RANDOM_INCREASE;
+    
     /**
      * initializing the images of the game
      */
@@ -58,13 +62,18 @@ public class Constants {
         BARRA_WIDTH = 576;
         BARRA_HEIGHT = 16;
         MOV_OFFSET = 50;
-        boolean[] cargas0 = {true,false,false,false,true};
-        BACT0_TARGET = cargas0;
+        boolean[] cargas0 = {true,false,true,false,false};
+        BACT0_CARGAS = cargas0;
+        boolean[] cargas1 = {false,false,false,true,true};
+        BACT1_CARGAS = cargas1;
+        boolean[] cargas2 = {false,true,true,false,true};
+        BACT2_CARGAS = cargas2;
+        CARGA_STUN = 800;
         ESTES_INICIAL = 20;
-        ESTRES_INCREASE = 5;
+        ESTRES_INCREASE = 4;
         ESTRES_STUN = 20;
         ESTRES_BAJO = 35;
-        ESTRES_ALTO = 65;
+        ESTRES_ALTO = 80;
         ESTRES_MORTAL = 100;
         ELICIT_WIDTH = 10;
         ELICIT_HEIGHT = 10;
