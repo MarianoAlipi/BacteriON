@@ -219,6 +219,10 @@ public class Game implements Runnable  {
         
         // To load.
         if (keyManager.c) {
+            this.restartVariables();
+            startScreen = false;
+            chooseMenu = false;
+            instrucciones = false;
             try {
                 leeArchivo();
             } catch (IOException ex) {
@@ -347,11 +351,12 @@ public class Game implements Runnable  {
     
     // Guarda la información del objeto en un string
     public String toString(){
-        return "";
+        return levelSelected+"";
     }
     
     // Carga la información del objeto desde un string
     public void loadFromString(String[] datos){
+        this.levelSelected = Integer.parseInt(datos[0]);
     }
     
     // Se encarga de guardar en un archivo toda la informacion de nuestra partida
@@ -359,6 +364,9 @@ public class Game implements Runnable  {
         PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
         fileOut.println(this.toString());
         fileOut.println(player.toString());
+        for(Receptor r : receptores){
+            fileOut.println(r.toString());
+        }
         fileOut.close();
     }
     
@@ -377,6 +385,9 @@ public class Game implements Runnable  {
         }
         loadFromString(fileIn.readLine().split("\\s+"));
         player.loadFromString(fileIn.readLine().split("\\s+"));
+        for(Receptor r : receptores){
+            r.loadFromString(fileIn.readLine().split("\\s+"));
+        }
         fileIn.close();
     }
 

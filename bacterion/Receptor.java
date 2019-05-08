@@ -139,6 +139,16 @@ public class Receptor extends Item{
         }  
     }
     
+    public String toString(){
+        return (x+" "+y+" "+exploded);
+    }
+    
+    public void loadFromString(String[] datos){
+        this.x = Integer.parseInt(datos[0]);
+        this.y = Integer.parseInt(datos[1]);
+        this.exploded = Boolean.parseBoolean(datos[2]);
+    }
+    
     
     /**
      * Control receptor movement when the level Selected is 2 (medium)

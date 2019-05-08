@@ -149,7 +149,7 @@ public class Player extends Item{
             if(antibioticos.size()>0){
                 bact = antibioticos.peek().getTipoInt()+1;
             } else {
-                bact = 0;
+                bact = (int)Math.random()*5;
             }
             while(!bactTarget[bact%bactTarget.length]){
                 bact++;
@@ -182,13 +182,43 @@ public class Player extends Item{
     
     // Guarda la información del objeto en un string
     public String toString() {
-        return (x+" "+y);
+        String output = "";
+        output = (x+" "+y+" "+estres);
+        for(Antibiotico anti : antibioticos){
+            output += (" "+anti.getTipo());
+        }
+        return output;
     }
     
     // Se encarga de guardar en un archivo toda la informacion de nuestra partida
     public void loadFromString(String[] datos) {
         this.x = Integer.parseInt(datos[0]);
         this.y = Integer.parseInt(datos[1]);
+        this.estres = Integer.parseInt(datos[2]);
+        for(int a = datos.length-1; a>=3; a--){
+            switch(datos[a]){
+                case "E_COLI":
+                    antibioticos.push(
+                            new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.E_COLI));
+                    break;
+                case "B_SUBTILIS":
+                    antibioticos.push(
+                            new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.B_SUBTILIS));
+                    break;
+                case "P_AERUGINOSA":
+                    antibioticos.push(
+                            new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.P_AERUGINOSA));
+                    break;
+                case "S_PNEUMONIAE":
+                    antibioticos.push(
+                            new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.S_PNEUMONIAE));
+                case "S_DYSENTERIAE":
+                    antibioticos.push(
+                            new Antibiotico(game,x,y,Constants.ANTIB_WIDTH,Constants.ANTIB_HEIGHT,AntiType.S_DYSENTERIAE));
+                    break;
+
+            }
+        }
     }
 
     /**
