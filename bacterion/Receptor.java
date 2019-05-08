@@ -69,7 +69,6 @@ public class Receptor extends Item{
         } else {
             dir = -1;
         }
-        System.out.println("entre changedir2, dir es " + dir);
     }
     
     public void changeDirLev13(){
@@ -158,7 +157,6 @@ public class Receptor extends Item{
             count = 0;
             dir *= -1;
         }
-        System.out.println("dir es " + dir);
         setX(getX()+(1*dir));
         setY(getY()+(1*dir));
         count ++;
