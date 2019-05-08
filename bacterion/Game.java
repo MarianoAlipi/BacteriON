@@ -59,7 +59,6 @@ public class Game implements Runnable  {
     private boolean startScreen;
     private boolean chooseMenu;
     private boolean instrucciones;
-    private boolean loginsignup;
     
     // to set a delay for the pause button.
     // PAUSE_INTERVAL is the limit (number of frames), pauseStun is the counter.
@@ -133,7 +132,6 @@ public class Game implements Runnable  {
         startScreen = true;
         chooseMenu = false;
         instrucciones = false;
-        loginsignup = false;
         levelSelected = 1;
         display = new Display(title, getWidth(), getHeight());
         display.getJframe().addKeyListener(keyManager);
