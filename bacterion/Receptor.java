@@ -230,8 +230,6 @@ public class Receptor extends Item{
     public void render(Graphics g) {
         if(!exploded){
             g.drawImage(animationReceptor.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
-        } else {
-            g.drawImage(Assets.receptorMuerto, getX(), getY(), getWidth(), getHeight(), null);
         }
     }
 }

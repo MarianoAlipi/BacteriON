@@ -102,6 +102,24 @@ public class Game implements Runnable  {
         bgMoveDelayCounter = 0;
 
         shootStun = Constants.SHOOT_STUN;
+        
+        switch(levelSelected){
+            case 1:
+                Assets.back_sound_01.play();
+                Assets.back_sound_02.stop();
+                Assets.back_sound_03.stop();
+                break;
+            case 2:
+                Assets.back_sound_01.stop();
+                Assets.back_sound_02.play();
+                Assets.back_sound_03.stop();
+                break;
+            case 3:
+                Assets.back_sound_01.stop();
+                Assets.back_sound_02.stop();
+                Assets.back_sound_03.play();
+                break;
+        }
 
         barra = new EstresBarra(this,20,height-32,5*player.getEstres(),Constants.BARRA_HEIGHT,0);
      }
@@ -422,6 +440,21 @@ public class Game implements Runnable  {
                 bgMoveDelayCounter = 0;
             }
             
+            keyManager.tick();
+            if (keyManager.c) {
+                this.restartVariables();
+                startScreen = false;
+                chooseMenu = false;
+                instrucciones = false;
+                try {
+                    leeArchivo();
+                    Assets.start.play();
+                } catch (IOException ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                pause = true;
+            }
+            
             // Make the background images wrap around.
             if (bg1X <= -1 * width)
                 bg1X = width;
@@ -463,7 +496,6 @@ public class Game implements Runnable  {
                         levelSelected = 2;
                         for(Receptor recep : receptores){
                             recep.changeDirLev2();
-                            System.out.println("entra for recep");
                         }
                         chooseMenu = false;
                     }

@@ -6,6 +6,7 @@
 package bacterion;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -15,6 +16,7 @@ public class Antibiotico extends Item{
     
     private boolean exploded;
     private AntiType tipo;
+    private BufferedImage antibSprite;
     private double xPend;
     private double yPend;
     
@@ -33,6 +35,24 @@ public class Antibiotico extends Item{
         this.speed = 0;
         this.xPend = 0;
         this.yPend = 0;
+        
+        switch(tipo){
+            case E_COLI:
+                this.antibSprite = Assets.antibAzul;
+                break;
+            case B_SUBTILIS:
+                this.antibSprite = Assets.antibRojo;
+                break;
+            case P_AERUGINOSA:
+                this.antibSprite = Assets.antibAmarillo;
+                break;
+            case S_PNEUMONIAE:
+                this.antibSprite = Assets.antibNaranja;
+                break;
+            case S_DYSENTERIAE:
+                this.antibSprite = Assets.antibRosa;
+                break;
+        }
     }
     
     /**
@@ -111,6 +131,6 @@ public class Antibiotico extends Item{
      */
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.antibiotico, getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(antibSprite, getX(), getY(), getWidth(), getHeight(), null);
     }
 }

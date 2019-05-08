@@ -9,6 +9,13 @@ import pure_engine.ImageLoader;
 import pure_engine.SoundClip;
 import pure_engine.SpriteSheet;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -60,12 +67,17 @@ public class Assets {
     public static BufferedImage receptorAmarillo[];
     public static BufferedImage receptorNaranja[];
     public static BufferedImage receptorRosa[];
-    public static BufferedImage receptorMuerto;
     
     public static BufferedImage barraBackground;
     public static BufferedImage barraRelajado;
     public static BufferedImage barraEstresado;
     public static BufferedImage barraMortal;
+    
+    public static BufferedImage antibRojo;
+    public static BufferedImage antibRosa;
+    public static BufferedImage antibAmarillo;
+    public static BufferedImage antibAzul;
+    public static BufferedImage antibNaranja;
     
     public static BufferedImage pauseScreen;
     public static BufferedImage gameOver;
@@ -78,6 +90,10 @@ public class Assets {
     public static SoundClip start;
     public static SoundClip added;
     public static SoundClip choose;
+    
+    public static MediaPlayer back_sound_01;
+    public static MediaPlayer back_sound_02;
+    public static MediaPlayer back_sound_03;
 
     /**
      * initializing the images of the game
@@ -104,7 +120,12 @@ public class Assets {
         
         elicitador = ImageLoader.loadImage("/images/elicitador_placeholder.png");
         antibiotico = ImageLoader.loadImage("/images/antibiotico_placeholder.png");
-        receptorMuerto = ImageLoader.loadImage("/images/receptor_muerto_placeholder.png");
+        
+        antibRojo = ImageLoader.loadImage("/images/antib_rojo.png");
+        antibNaranja = ImageLoader.loadImage("/images/antib_naranja.png");
+        antibAzul = ImageLoader.loadImage("/images/antib_azul.png");
+        antibAmarillo = ImageLoader.loadImage("/images/antib_amarillo.png");
+        antibRosa = ImageLoader.loadImage("/images/antib_rosa.png");
         
         barraBackground = ImageLoader.loadImage("/images/estres_barra_background.png");
         barraRelajado = ImageLoader.loadImage("/images/barra_no_estresado_placeholder.png");
@@ -120,6 +141,22 @@ public class Assets {
         start = new SoundClip("/sounds/start.wav");
         added = new SoundClip("/sounds/antibioticoNuevo.wav");
         choose = new SoundClip("/sounds/chooseBacteria.wav");
+        
+        final CountDownLatch latch = new CountDownLatch(1);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new JFXPanel(); // initializes JavaFX environment
+                back_sound_01 = new MediaPlayer(new Media(Assets.class.getResource("/sounds/back_sound_01.mp3").toString()));
+                back_sound_02 = new MediaPlayer(new Media(Assets.class.getResource("/sounds/back_sound_02.mp3").toString()));
+                back_sound_03 = new MediaPlayer(new Media(Assets.class.getResource("/sounds/back_sound_03.mp3").toString()));
+                latch.countDown();
+            }
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
