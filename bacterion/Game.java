@@ -390,7 +390,7 @@ public class Game implements Runnable  {
         try{
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/test","root","");
             Statement st = con.createStatement();
-            st.executeQuery("LOAD DATA INFILE 'C:/Users/se_ni/OneDrive/Escritorio/vj/bacteriON/SaveFile.txt' INTO TABLE users;");
+            st.executeQuery("LOAD DATA INFILE 'SaveFile.txt' INTO TABLE users;");
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -402,6 +402,14 @@ public class Game implements Runnable  {
         BufferedReader fileIn;
         try {
             fileIn = new BufferedReader(new FileReader(nombreArchivo));
+            try{
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/test","root","");
+            Statement st = con.createStatement();
+            st.executeQuery("LOAD DATA INFILE 'C:/Users/se_ni/OneDrive/Escritorio/vj/bacteriON/SaveFile.txt' INTO TABLE users;");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+            
         } catch (FileNotFoundException e){
             File archivo = new File(nombreArchivo);
             PrintWriter fileOut = new PrintWriter(archivo);
@@ -477,7 +485,7 @@ public class Game implements Runnable  {
                 RoundRectangle2D.Double easyRect = new RoundRectangle2D.Double(26, height/3 - 13, 188, 230, 69, 69);
                 RoundRectangle2D.Double mediumRect = new RoundRectangle2D.Double(226, height/3 - 13, 188, 230, 69, 69);
                 RoundRectangle2D.Double hardRect = new RoundRectangle2D.Double(426, height/3 - 13, 188, 230, 69, 69);
-                RoundRectangle2D.Double ls = new RoundRectangle2D.Double(50, height/3 + 235, 188, 230, 69, 69);
+                RoundRectangle2D.Double ls = new RoundRectangle2D.Double(5, height/3 + 235, 188, 230, 69, 69);
                 
                 bact0.tick();
                 bact1.tick();
@@ -486,7 +494,7 @@ public class Game implements Runnable  {
                 g.drawImage(bact0.getCurrentFrame(), 50, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
                 g.drawImage(bact1.getCurrentFrame(), 250, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
                 g.drawImage(bact2.getCurrentFrame(), 450, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
-                g.drawImage(Assets.ls, 50, height/3 + 235, 100, 75, null);
+                g.drawImage(Assets.ls, 5, height/3 + 235, 100, 75, null);
                 
                 g.setColor(Color.lightGray);
                 if (easyRect.intersects(mouseRect)) {
