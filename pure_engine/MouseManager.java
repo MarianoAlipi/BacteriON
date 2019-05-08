@@ -75,6 +75,15 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
     public boolean isIzquierdo() {
         return izquierdo;
     }
+    
+    /**
+     * sets the left click value
+     * @param der a <code>boolean</code> that says if clicked or not
+     */
+    public void setDerecho(boolean der) {
+        this.derecho = der;
+    }
+    
     /**
      * checks if the right click is pressed
      * @return a <code>boolean</code> that says if it's pressed

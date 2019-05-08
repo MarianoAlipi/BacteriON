@@ -286,6 +286,7 @@ public class Game implements Runnable  {
                     }
                 }
             }
+            mouseManager.setDerecho(false);
         }
 
         elicRandom += Constants.RANDOM_INCREASE;
@@ -513,7 +514,7 @@ public class Game implements Runnable  {
                 mouseManager.setIzquierdo(false);
             } else if (instrucciones) {
                 g.drawImage(Assets.backgroundStartScreenTuto, 0, 0, 640, 640, null);
-                Rectangle volver = new Rectangle (0, height*9/10, 640, 49);
+                Rectangle volver = new Rectangle (0, height*9/10, 640, 100);
                 if ((volver.intersects(mouseManager.getPerimeter())) && (mouseManager.isIzquierdo())) {
                     instrucciones = false;
                 }
