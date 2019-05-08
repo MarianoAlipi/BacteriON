@@ -59,7 +59,6 @@ public class Game implements Runnable  {
     private boolean startScreen;
     private boolean chooseMenu;
     private boolean instrucciones;
-    private boolean loginsignup;
     
     // to set a delay for the pause button.
     // PAUSE_INTERVAL is the limit (number of frames), pauseStun is the counter.
@@ -133,7 +132,6 @@ public class Game implements Runnable  {
         startScreen = true;
         chooseMenu = false;
         instrucciones = false;
-        loginsignup = false;
         levelSelected = 1;
         display = new Display(title, getWidth(), getHeight());
         display.getJframe().addKeyListener(keyManager);
@@ -389,6 +387,13 @@ public class Game implements Runnable  {
         }
         fileOut.close();
         //TODO if user is connected, log his info to the database
+        try{
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/test","root","");
+            Statement st = con.createStatement();
+            st.executeQuery("LOAD DATA INFILE 'C:/Users/se_ni/OneDrive/Escritorio/vj/bacteriON/SaveFile.txt' INTO TABLE users;");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     
     // Lee toda la información que guardamos sobre la partida y la carga
@@ -481,7 +486,7 @@ public class Game implements Runnable  {
                 g.drawImage(bact0.getCurrentFrame(), 50, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
                 g.drawImage(bact1.getCurrentFrame(), 250, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
                 g.drawImage(bact2.getCurrentFrame(), 450, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
-                g.drawImage(Assets.ls, 50, height/3 + 235, player.getWidth() + 40, player.getHeight(), null);
+                g.drawImage(Assets.ls, 50, height/3 + 235, 100, 75, null);
                 
                 g.setColor(Color.lightGray);
                 if (easyRect.intersects(mouseRect)) {
