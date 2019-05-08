@@ -216,8 +216,11 @@ public class Player extends Item{
             Assets.added.play();
         }
     }
-    
-    // Guarda la información del objeto en un string
+
+    /**
+     * Stores the information like current position and current antibiotics
+     * @return a string containing the information of the player
+     */
     public String toString() {
         String output = "";
         output = (x+" "+y+" "+estres);
@@ -227,7 +230,10 @@ public class Player extends Item{
         return output;
     }
     
-    // Se encarga de guardar en un archivo toda la informacion de nuestra partida
+    /**
+     * Changes the object to emulate the one comming from the save file
+     * @param datos contains our line string to read
+     */
     public void loadFromString(String[] datos) {
         this.x = Integer.parseInt(datos[0]);
         this.y = Integer.parseInt(datos[1]);
@@ -259,7 +265,7 @@ public class Player extends Item{
     }
 
     /**
-     * render the image of the player 
+     * render the image of the player depending on the next antibiotic to throw
      * @param g 
      */
     @Override

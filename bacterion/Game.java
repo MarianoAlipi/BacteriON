@@ -202,11 +202,12 @@ public class Game implements Runnable  {
     }
     
     // Finaliza el juego
-    // (Tun tun tu tuuuuuuuuuuun TUUUn TUUUUn TUN)
     public void endGame(){
         this.finished = true;
     }
     
+    // We want the game to tick only if our actual
+    // game has started. Else, just render the start screen
     private void tick() {
         if (!startScreen) {
             tickStarted();
@@ -230,7 +231,7 @@ public class Game implements Runnable  {
         }
         
         // To save.
-        if (keyManager.g) {
+        if (keyManager.g && !finished) {
             try {
                 grabarArchivo();
             } catch (IOException ex) {
@@ -253,6 +254,7 @@ public class Game implements Runnable  {
             pause = true;
         }
         
+        // To restart the game
         if (keyManager.r) {
             restartVariables();
             Assets.back_sound_01.stop();
@@ -262,15 +264,11 @@ public class Game implements Runnable  {
             pause = false;
         }
         
-        if(finished)
+        // Only "advance" the game is we do not
+        // have any of this conditions
+        if(finished||pause||startScreen)
             return;
         
-        if(pause)
-            return;
-
-        if (startScreen)
-            return;
-
         shootStun--;
         if(mouseManager.isIzquierdo()) {
             if(player.hasAntibiotico() && shootStun <= 0) {
@@ -283,6 +281,7 @@ public class Game implements Runnable  {
             }
         }
         
+        // Load wikipedia pages for the receptors
         if(mouseManager.isDerecho()){
             for(Receptor recep : receptores){
                 if(recep.getCircShape().contains(mouseManager.getPoint())){
@@ -297,6 +296,7 @@ public class Game implements Runnable  {
             mouseManager.setDerecho(false);
         }
 
+        // Creation of the elicitors, spawned random
         elicRandom += Constants.RANDOM_INCREASE;
         double rand = Math.random();
         int randDir; //1 arriba, 2 abajo, 3izq, 4 der
@@ -314,6 +314,7 @@ public class Game implements Runnable  {
             }
         }
         
+        // Check for intersections with the player, elicitadores or receptores
         for(Elicitador elic : elicitadores){
             if(!elic.isExploded() && elic.getCircShape().intersects(player.getRectShape())){
                 player.estresar();
@@ -330,6 +331,7 @@ public class Game implements Runnable  {
             }
         }
         
+        // Tick all of the objects on our game
         player.tick();
         for(Elicitador met : elicitadores){
             if(!met.isExploded()){
@@ -341,6 +343,8 @@ public class Game implements Runnable  {
                 anti.tick();
             }
         }
+        
+        // See how many receptors we have left
         int[] cargas = new int[4];
         for(Receptor recep : receptores){
             recep.tick();
@@ -362,6 +366,7 @@ public class Game implements Runnable  {
             }
         }
         
+        // Do we need to end the game now?
         boolean theEnd = true;
         for(int i=0; i<cargas.length; i++){
             if(player.cargaEsto(i)&&cargas[i]>0){
@@ -372,21 +377,32 @@ public class Game implements Runnable  {
             finished = true;
         }
         
+        // Update stress bar
         barra.setWidth((int)(width*0.009*player.getEstres()));
         barra.tick();
     }
-    
-    // Guarda la información del objeto en un string
+
+    /**
+     * Stores the information of the game
+     * @return 
+     */
     public String toString(){
         return levelSelected+"";
     }
-    
-    // Carga la información del objeto desde un string
+
+    /**
+     * Reads the file and changes this instance of the game to emulate it
+     * @param datos the string it recieves
+     */
     public void loadFromString(String[] datos){
         this.levelSelected = Integer.parseInt(datos[0]);
     }
-    
-    // Se encarga de guardar en un archivo toda la informacion de nuestra partida
+
+    /**
+     * It calls for the creation of a file full of strings
+     * containing the information of all our save state
+     * @throws IOException if the file can not be written
+     */
     public void grabarArchivo() throws IOException {
         PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
         fileOut.println(this.toString());
@@ -397,8 +413,13 @@ public class Game implements Runnable  {
         fileOut.close();
         //TODO if user is connected, log his info to the database
     }
-    
-    // Lee toda la información que guardamos sobre la partida y la carga
+
+    /**
+     * Calls for the read and fragmentation of our save file
+     * and calls for every object to read form its part and
+     * emulate the game
+     * @throws IOException if the file cannot be read
+     */
     public void leeArchivo() throws IOException {
                                                           
         BufferedReader fileIn;
@@ -420,7 +441,8 @@ public class Game implements Runnable  {
     }
 
     /**
-     * controls the renders 
+     * chooses between the normal render of the game
+     * or the one specialized to the start screen
      */
     private void render() {
         if (startScreen) {
@@ -601,7 +623,7 @@ public class Game implements Runnable  {
     }
     
     /**
-     * renders the game, display images
+     * renders the core game
      */
     private void renderStarted() {
         // get the buffer strategy from the display
