@@ -380,6 +380,9 @@ public class Game implements Runnable  {
         fileIn.close();
     }
 
+    /**
+     * controls the renders 
+     */
     private void render() {
         if (startScreen) {
             renderStartscreen();
@@ -389,6 +392,9 @@ public class Game implements Runnable  {
             
     }
     
+    /**
+     * renders the startscreen
+     */
     private void renderStartscreen() {
         bs = display.getCanvas().getBufferStrategy();
         if (bs == null) {
@@ -506,7 +512,7 @@ public class Game implements Runnable  {
     }
     
     /**
-     * render de game, display images
+     * renders the game, display images
      */
     private void renderStarted() {
         // get the buffer strategy from the display
