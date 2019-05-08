@@ -35,6 +35,10 @@ public class Display {
         createDisplay();
     }
     
+    /**
+     * sets the title for the window
+     * @param title a <code> String </code> with the title
+     */
     public void setTitle(String title) {
         this.title = title;
     }

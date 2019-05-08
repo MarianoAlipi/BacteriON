@@ -16,7 +16,7 @@ public class Elicitador extends Item{
     private boolean exploded;
     int dir;
     /**
-     * Proyectil constructor
+     * Elicitador constructor
      * @param x
      * @param y
      * @param width
@@ -32,12 +32,16 @@ public class Elicitador extends Item{
         } 
     }
     
+    /**
+     * checks if an elicitador is still alive
+     * @return exploded a <code> boolean </code> that says if it's alive or not
+     */
     public boolean isExploded(){
         return exploded;
     }
     
     /**
-     * Control bad movement
+     * Control elicitador movement
      */
     @Override
     public void tick() {
@@ -69,6 +73,9 @@ public class Elicitador extends Item{
         
     }
     
+    /**
+     * explodes the elicitador when it's out of the screen
+     */
     public void explode(){
         x = -width;
         y = -height;
@@ -76,7 +83,7 @@ public class Elicitador extends Item{
     }
     
     /**
-     * Render the image of bad (A Pokeball)
+     * Render the image of elicitador
      * @param g 
      */
     @Override
