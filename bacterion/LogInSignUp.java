@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package bacterion;
-
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 /**
  *
  * @author marcelrg
@@ -252,7 +253,8 @@ public class LogInSignUp extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        JFrame frame = new JFrame("JOptionPane showMessageDialog example");        
+        JOptionPane.showMessageDialog(frame, "Couldnt connect to database.");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -264,7 +266,9 @@ public class LogInSignUp extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+                                             
+        JFrame frame = new JFrame("JOptionPane showMessageDialog example");        
+        JOptionPane.showMessageDialog(frame, "Couldnt connect to database.");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
