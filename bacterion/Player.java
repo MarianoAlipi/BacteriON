@@ -75,31 +75,65 @@ public class Player extends Item{
         }
     }
     
+    /**
+     * Checks if the player is alive
+     * @return a <code> boolean </code> 
+     */
     public boolean isAlive(){
         return this.alive;
     }
     
+    /**
+     * Gets the stress level of the player 
+     * @return a <code> int </code> 
+     */
     public int getEstres(){
         return estres;
     }
+    
+    /**
+     * Sets the stress level of the player 
+     * @param estres an <code> int </code> with the amount to set
+     */
     public void setEstres(int estres){
         this.estres = estres;
     }
+    
+    /**
+     * stresses the player 
+     */
     public void estresar(){
         estres+= Constants.ESTRES_INCREASE;
     }
     
+    /**
+     * Gets the size of the antibiotics it has
+     * @return an <code> int </code> with the size
+     */
     public int getAntibioticosSize(){
         return antibioticos.size();
     }
     
+    /**
+     *Gets the next antibiotic
+     * @return an <code> antibioticos </code> 
+     */
     public Antibiotico getAntibiotico(){
         return antibioticos.poll();
     }
+    
+    /**
+     * Sees if the bacteria has an antibiotic
+     * @return a <code> bool </code> 
+     */
     public boolean hasAntibiotico(){
         return antibioticos.peek()!=null;
     }
     
+    /**
+     * charges the bacteria target
+     * @param an <code> int </code> with the index of what it will charge
+     */
     public boolean cargaEsto(int index){
         return bactTarget[index];
     }

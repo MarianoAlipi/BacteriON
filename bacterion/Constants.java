@@ -93,11 +93,13 @@ public class Constants {
         S_DYSENTERIAE_URL = "https://es.wikipedia.org/wiki/Shigella_dysenteriae";
     }
     
+    /**
+     * initializes and places the receptors
+     * @param g a <code> Game </code> where it's appearing
+     * @return receptores a <code> LinkedList </code> with the receptors
+     */
     public static LinkedList<Receptor> initReceptores(Game g){
-        //i0, j0 //top left
-        //i0, j1 //down left
-        //i1, j0 //top right
-        //i1, j0 //top left
+
         //PARA DIR: 1 arriba, 2 abajo, 3 izq, 4 der
         LinkedList<Receptor> receptores = new LinkedList<>();
         int pos;

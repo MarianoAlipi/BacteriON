@@ -8,6 +8,7 @@ package bacterion;
 /**
  *
  * @author Diego
+ * creates enum for the types of the antibiotics
  */
 public enum AntiType {
     E_COLI,B_SUBTILIS,P_AERUGINOSA,S_PNEUMONIAE,S_DYSENTERIAE

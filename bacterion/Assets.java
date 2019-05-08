@@ -122,6 +122,9 @@ public class Assets {
         choose = new SoundClip("/sounds/chooseBacteria.wav");
     }
     
+    /**
+     * loads and cuts the sprites/spritesheets for the bacteria used in level 1
+     */
     private static void initBacteria0() {
         bacteria0Cargada0 = new BufferedImage[3];
         spritesBacteria0 = ImageLoader.loadImage("/bacterias/bacteria0_cargada_0.png");
@@ -167,6 +170,9 @@ public class Assets {
         }        
     }
     
+    /**
+     * loads and cuts the sprites/spritesheets for the bacteria used in level 2
+     */
     private static void initBacteria1() {
         bacteria1Cargada0 = new BufferedImage[3];
         spritesBacteria1 = ImageLoader.loadImage("/bacterias/bacteria1_cargada_0.png");
@@ -212,6 +218,9 @@ public class Assets {
         }
     }
     
+    /**
+     * loads and cuts the sprites/spritesheets for the bacteria used in level 3
+     */
     private static void initBacteria2() {
         bacteria2Cargada0 = new BufferedImage[3];
         spritesBacteria2 = ImageLoader.loadImage("/bacterias/bacteria2_cargada_0.png");
@@ -257,6 +266,9 @@ public class Assets {
         }        
     }
     
+    /**
+     * loads and cuts the sprites/spritesheets for the receptors
+     */
     private static void initReceptores() {
         SpriteSheet spritesheetReceptores;
         spritesheetReceptores = new SpriteSheet(ImageLoader.loadImage("/images/biosensor_azul.png"));

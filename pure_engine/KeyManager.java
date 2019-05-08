@@ -29,6 +29,9 @@ public class KeyManager implements KeyListener {
 
     private boolean keys[];  // to store all the flags for every key
     
+    /**
+     * creates a new array to hold the flags for every key
+     */
     public KeyManager() {
         keys = new boolean[256];
     }
@@ -37,6 +40,10 @@ public class KeyManager implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+     * checks if a key is pressed
+     * @param e a <code>KeyEvent</code> with the action
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         // set true to every key pressed
@@ -46,7 +53,11 @@ public class KeyManager implements KeyListener {
             System.out.println("Key not found: " + e.getKeyCode());
         }
     }
-
+    
+    /**
+     * checks if a key is released
+     * @param e a <code>KeyEvent</code> with the action
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         // set false to every key released

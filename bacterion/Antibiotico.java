@@ -35,12 +35,16 @@ public class Antibiotico extends Item{
         this.yPend = 0;
     }
     
+    /**
+     * checks if the antibiotic has exploded
+     * @return a <code>boolean</code> that says if it's exploded or alive
+     */
     public boolean isExploded(){
         return exploded;
     }
     
     /**
-     * Control bad movement
+     * Controls movement
      */
     @Override
     public void tick() {
@@ -48,16 +52,27 @@ public class Antibiotico extends Item{
         setY((int)(y+xPend*speed));
     }
     
+    /**
+     * eliminates antibiotics when out of the screen
+     */
     public void explode(){
         x = -width;
         y = -height;
         exploded = true;
     }
     
+    /**
+     * gets the antibiotics's type
+     * @return a <code>AntiType</code> with the type
+     */
     public AntiType getTipo(){
         return tipo;
     }
     
+    /**
+     * gets the antibiotics's type
+     * @return a <code>int</code> with the type equivalent in a number
+     */
     public int getTipoInt(){
         switch(tipo){
             case E_COLI: return 0;
@@ -69,6 +84,13 @@ public class Antibiotico extends Item{
         }
     }
     
+    /**
+     * controls shots 
+     * @param x an <code>int</code> with the x position
+     * @param y an <code>int</code> with the y position
+     * @param xOri an <code>double</code> with the x orientation 
+     * @param yOri an <code>double</code> with the y orientation
+     */
     public void disparar(int x, int y, double xOri, double yOri){
         Assets.shoot.play();
         if(Math.abs(xOri)>Math.abs(yOri)){
@@ -84,8 +106,8 @@ public class Antibiotico extends Item{
     }
     
     /**
-     * Render the image of bad (A Pokeball)
-     * @param g 
+     * Render the image of the antibiotics
+     * @param g the <code>Graphics</code> where it's drawn
      */
     @Override
     public void render(Graphics g) {

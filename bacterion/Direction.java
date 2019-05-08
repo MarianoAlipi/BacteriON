@@ -8,6 +8,7 @@ package bacterion;
 /**
  *
  * @author Diego
+ * enum that indicates the direction
  */
 public enum Direction {
     RIGHT, UPRIGHT, UP, UPLEFT, LEFT, DOWNLEFT, DOWN, DOWNRIGHT
