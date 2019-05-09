@@ -104,20 +104,19 @@ public class Game implements Runnable  {
 
         shootStun = Constants.SHOOT_STUN;
         
+        Assets.back_sound_01.stop();
+        Assets.back_sound_02.stop();
+        Assets.back_sound_03.stop();
+        Assets.back_sound_start_screen.stop();
+        
         switch(levelSelected){
             case 1:
                 Assets.back_sound_01.play();
-                Assets.back_sound_02.stop();
-                Assets.back_sound_03.stop();
                 break;
             case 2:
-                Assets.back_sound_01.stop();
                 Assets.back_sound_02.play();
-                Assets.back_sound_03.stop();
                 break;
             case 3:
-                Assets.back_sound_01.stop();
-                Assets.back_sound_02.stop();
                 Assets.back_sound_03.play();
                 break;
         }
@@ -141,6 +140,11 @@ public class Game implements Runnable  {
         display.getCanvas().addMouseMotionListener(mouseManager);
         Assets.init();
         Constants.init();
+        
+        Assets.back_sound_01.stop();
+        Assets.back_sound_02.stop();
+        Assets.back_sound_03.stop();
+        Assets.back_sound_start_screen.stop();
 
         bact0 = new Animation(Assets.bacteria0, 100);
         bact1 = new Animation(Assets.bacteria1, 100);
@@ -250,8 +254,12 @@ public class Game implements Runnable  {
         }
         
         if (keyManager.r) {
-            this.init();
-            pause = true;
+            restartVariables();
+            Assets.back_sound_01.stop();
+            Assets.back_sound_02.stop();
+            Assets.back_sound_03.stop();
+            startScreen = true;
+            pause = false;
         }
         
         if(finished)
@@ -435,6 +443,13 @@ public class Game implements Runnable  {
             
             g.drawImage(Assets.backgroundStartScreen, bg1X, 0, width, height, null);
             g.drawImage(Assets.backgroundStartScreen, bg2X, 0, width, height, null);
+            
+            
+            Assets.back_sound_01.stop();
+            Assets.back_sound_02.stop();
+            Assets.back_sound_03.stop();
+            
+            Assets.back_sound_start_screen.play();
             
             if (bgMoveDelayCounter++ >= bgMoveDelay) {
                 bg1X--;
