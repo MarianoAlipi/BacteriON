@@ -111,7 +111,7 @@ public class Assets {
         gameOver = ImageLoader.loadImage("/images/game_over.png");
         gameWin = ImageLoader.loadImage("/images/game_win.png");
         backgroundStartScreen = ImageLoader.loadImage("/startscreen/background.png");
-        backgroundStartScreenTuto = ImageLoader.loadImage("/startscreen/background_tuto.png");
+        backgroundStartScreenTuto = ImageLoader.loadImage("/startscreen/background_tuto_02.png");
         titleStartScreen = ImageLoader.loadImage("/startscreen/bacterionTitle.png");
         jugarStartScreen = ImageLoader.loadImage("/startscreen/jugar.png");
         eligeBactStartScreen = ImageLoader.loadImage("/startscreen/elegirBacteria.png");
