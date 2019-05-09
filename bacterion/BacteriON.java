@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package bacterion;
-
+import java.sql.*;
 /**
  *
  * @author Diego
@@ -15,7 +15,6 @@ public class BacteriON {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         Game g = new Game("BacteriON", 640, 640);
         g.start();
     }

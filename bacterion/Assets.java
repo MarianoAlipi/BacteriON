@@ -57,6 +57,7 @@ public class Assets {
     public static BufferedImage cursorStartScreen;
     public static BufferedImage chooseMenu;
     public static BufferedImage instrucciones;
+    public static BufferedImage ls;
     
     public static BufferedImage elicitador;
     public static BufferedImage antibiotico;
@@ -117,6 +118,7 @@ public class Assets {
         cursorStartScreen = ImageLoader.loadImage("/startscreen/cursor.png");
         chooseMenu = ImageLoader.loadImage("/startscreen/chooseMenu.png");
         instrucciones = ImageLoader.loadImage("/startscreen/instrucciones.png");
+        ls = ImageLoader.loadImage("/startscreen/ls.png");
         
         elicitador = ImageLoader.loadImage("/images/elicitador_placeholder.png");
         antibiotico = ImageLoader.loadImage("/images/antibiotico_placeholder.png");

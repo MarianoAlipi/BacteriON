@@ -24,6 +24,7 @@ import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.*;
 
 /**
  *
@@ -58,6 +59,7 @@ public class Game implements Runnable  {
     private boolean startScreen;
     private boolean chooseMenu;
     private boolean instrucciones;
+    private boolean loginsignup;
     
     // to set a delay for the pause button.
     // PAUSE_INTERVAL is the limit (number of frames), pauseStun is the counter.
@@ -131,6 +133,7 @@ public class Game implements Runnable  {
         startScreen = true;
         chooseMenu = false;
         instrucciones = false;
+        loginsignup = false;
         levelSelected = 1;
         display = new Display(title, getWidth(), getHeight());
         display.getJframe().addKeyListener(keyManager);
@@ -205,8 +208,7 @@ public class Game implements Runnable  {
     private void tick() {
         if (!startScreen) {
             tickStarted();
-        }
-            
+        }       
     }
     
     
@@ -387,6 +389,7 @@ public class Game implements Runnable  {
             fileOut.println(r.toString());
         }
         fileOut.close();
+        //TODO if user is connected, log his info to the database
     }
     
     // Lee toda la información que guardamos sobre la partida y la carga
@@ -470,6 +473,7 @@ public class Game implements Runnable  {
                 RoundRectangle2D.Double easyRect = new RoundRectangle2D.Double(26, height/3 - 13, 188, 230, 69, 69);
                 RoundRectangle2D.Double mediumRect = new RoundRectangle2D.Double(226, height/3 - 13, 188, 230, 69, 69);
                 RoundRectangle2D.Double hardRect = new RoundRectangle2D.Double(426, height/3 - 13, 188, 230, 69, 69);
+                RoundRectangle2D.Double ls = new RoundRectangle2D.Double(50, height/3 + 235, 188, 230, 69, 69);
                 
                 bact0.tick();
                 bact1.tick();
@@ -478,6 +482,7 @@ public class Game implements Runnable  {
                 g.drawImage(bact0.getCurrentFrame(), 50, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
                 g.drawImage(bact1.getCurrentFrame(), 250, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
                 g.drawImage(bact2.getCurrentFrame(), 450, height/3 + 35, player.getWidth() + 40, player.getHeight(), null);
+                g.drawImage(Assets.ls, 50, height/3 + 235, player.getWidth() + 40, player.getHeight(), null);
                 
                 g.setColor(Color.lightGray);
                 if (easyRect.intersects(mouseRect)) {
@@ -510,7 +515,18 @@ public class Game implements Runnable  {
                         }
                         chooseMenu = false;
                     }
-                }
+                } else if (ls.intersects(mouseRect)) {
+                    if (mouseManager.isIzquierdo()) {
+                        LogInSignUp field = new LogInSignUp();
+                        field.setVisible(true);
+                        Assets.choose.play();
+                        levelSelected = 3;
+                        for(Receptor recep : receptores){
+                            recep.changeDirLev13();
+                        }
+                        chooseMenu = false;
+                    }
+                } 
                 mouseManager.setIzquierdo(false);
             } else if (instrucciones) {
                 g.drawImage(Assets.backgroundStartScreenTuto, 0, 0, 640, 640, null);
