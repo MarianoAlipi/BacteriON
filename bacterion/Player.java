@@ -170,7 +170,7 @@ public class Player extends Item{
         }
         
         if(estres>=Constants.ESTRES_BAJO){
-            cargStun += (estres-Constants.ESTRES_BAJO)/10;
+            cargStun += (estres-Constants.ESTRES_BAJO)/9;
         }
         
         if(estres>=Constants.ESTRES_MORTAL){

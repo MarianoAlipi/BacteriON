@@ -533,8 +533,24 @@ public class Game implements Runnable  {
                     instrucciones = false;
                 }
             } else {
-                g.drawImage(Assets.titleStartScreen, width/2-200, height/4, 401, 57, null);
+                g.drawImage(Assets.titleStartScreen, width/2-300, 50, 600, 100, null);
                 g.drawImage(Assets.jugarStartScreen, width/2-100, height*3/6, 196, 49, null);
+                
+                bact0.tick();
+                bact1.tick();
+                bact2.tick();
+                
+                switch(levelSelected){
+                    case 1:
+                        g.drawImage(bact0.getCurrentFrame(), width/2-75, height*1/4, 150, 150, null);
+                        break;
+                    case 2:
+                        g.drawImage(bact1.getCurrentFrame(), width/2-75, height*1/4, 150, 150, null);
+                        break;
+                    case 3:
+                        g.drawImage(bact2.getCurrentFrame(), width/2-75, height*1/4, 150, 150, null);
+                        break;
+                }
                 Rectangle rectJugar = new Rectangle (0, height*3/6, 640, 49);
                 g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/6, 505, 47, null);
                 Rectangle eligeBact = new Rectangle (0, height*4/6, 640, 47);
