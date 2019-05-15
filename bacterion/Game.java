@@ -466,6 +466,10 @@ public class Game implements Runnable  {
             g.drawImage(Assets.backgroundStartScreen, bg1X, 0, width, height, null);
             g.drawImage(Assets.backgroundStartScreen, bg2X, 0, width, height, null);
             
+            g.setColor(Color.white);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 3));
+            g.drawString(":", 0, 0);
+            
             
             Assets.back_sound_01.stop();
             Assets.back_sound_02.stop();
@@ -504,12 +508,13 @@ public class Game implements Runnable  {
             
             if (chooseMenu) {
                 g.drawImage(Assets.chooseMenu, 0, 0, 640, 640, null);
-                g.drawImage(Assets.ls, 50, height/3 + 235, player.getWidth() + 40, player.getHeight(), null);
+                g.drawImage(Assets.ls, width/2-60, height/3 + 280, player.getWidth() + 40, player.getHeight(), null);
                 
                 RoundRectangle2D.Double easyRect = new RoundRectangle2D.Double(26, height/3 - 13, 188, 230, 69, 69);
                 RoundRectangle2D.Double mediumRect = new RoundRectangle2D.Double(226, height/3 - 13, 188, 230, 69, 69);
                 RoundRectangle2D.Double hardRect = new RoundRectangle2D.Double(426, height/3 - 13, 188, 230, 69, 69);
-                RoundRectangle2D.Double ls = new RoundRectangle2D.Double(50, height/3 + 235, 188, 230, 69, 69);
+                RoundRectangle2D.Double ls =
+                        new RoundRectangle2D.Double(width/2-60, height/3 + 280, player.getWidth() + 40, player.getHeight(), 69, 69);
                 
                 bact0.tick();
                 bact1.tick();
@@ -590,7 +595,7 @@ public class Game implements Runnable  {
                 }
                 Rectangle rectJugar = new Rectangle (0, height*3/6, 640, 49);
                 g.drawImage(Assets.eligeBactStartScreen, width/2-250, height*4/6, 505, 47, null);
-                Rectangle eligeBact = new Rectangle (0, height*4/6, 640, 47);
+                Rectangle eligeBact = new Rectangle (0, height*4/6+20, 640, 47);
                 g.drawImage(Assets.instrucciones, width/2-216, height*5/6, 428, 50, null);
                 Rectangle instr = new Rectangle (0, height*5/6, 640, 50);
 
@@ -634,6 +639,7 @@ public class Game implements Runnable  {
         buffer strategy element. 
         show the graphic and dispose it to the trash system
          */
+        
         if (bs == null) {
             display.getCanvas().createBufferStrategy(3);
         } else {
@@ -651,12 +657,11 @@ public class Game implements Runnable  {
                 recep.render(g);
             }
             barra.render(g);
-
+            
             g.setColor(Color.white);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
             g.drawString("Antibioticos: ", 80, 30);
             g.drawString(""+player.getAntibioticosSize(), 200, 30);
-            g.setColor(Color.white);
 
             if (pause) {
                 g.drawImage(Assets.pauseScreen, 0, 0, 640, 640, null);
