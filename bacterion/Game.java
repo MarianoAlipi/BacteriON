@@ -222,7 +222,8 @@ public class Game implements Runnable  {
         keyManager.tick();
         
         // To pause and unpause.
-        pauseStun++;
+        if (pauseStun++ > PAUSE_INTERVAL)
+        	pauseStun = PAUSE_INTERVAL + 1;
         if (keyManager.pReleased) {
             if (pauseStun > PAUSE_INTERVAL) {
                 pause = !pause;
@@ -572,6 +573,7 @@ public class Game implements Runnable  {
                 g.drawImage(Assets.backgroundStartScreenTuto, 0, 0, 640, 640, null);
                 Rectangle volver = new Rectangle (0, height*9/10, 640, 100);
                 if ((volver.intersects(mouseManager.getPerimeter())) && (mouseManager.isIzquierdo())) {
+                	mouseManager.setIzquierdo(false);
                     instrucciones = false;
                 }
             } else {
@@ -603,17 +605,22 @@ public class Game implements Runnable  {
                     g.drawImage(Assets.cursorStartScreen, 0, height * 3 / 6, 640, 49, null);
                     if (mouseManager.isIzquierdo()) {
                         Assets.start.play();
+                        mouseManager.setIzquierdo(false);
                         restartVariables();
                         startScreen = false;
                     }
                 } else if (eligeBact.intersects(mouseManager.getPerimeter())) {
                     g.drawImage(Assets.cursorStartScreen, 0, height*4/6, 640, 49, null);
-                    if (mouseManager.isIzquierdo())
+                    if (mouseManager.isIzquierdo()) {
+                    	mouseManager.setIzquierdo(false);
                         chooseMenu = true;
+                    }
                 } else if (instr.intersects(mouseManager.getPerimeter())) {
                     g.drawImage(Assets.cursorStartScreen, 0, height*5/6, 640, 49, null);
-                    if (mouseManager.isIzquierdo())
-                        instrucciones = true;
+                    if (mouseManager.isIzquierdo()) {
+                    	mouseManager.setIzquierdo(false);
+                    	instrucciones = true;
+                    }
                 }
             }
             
